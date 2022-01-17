@@ -1,0 +1,3867 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <script>
+    function music_on() {
+        var audio1 = document.getElementById('bg_music');
+        if (audio1.paused) {
+            audio1.play();
+        }else{
+            audio1.pause();
+            audio1.currentTime = 0;//音乐从头播放
+        }
+    }
+    function BackTOP() {
+        $("#btn").hide();
+        $(function () {
+            $(window).scroll(function () {
+                if ($(window).scrollTop() > 50) {
+                    $("#btn").fadeIn(200);
+                } else {
+                    $("#btn").fadeOut(200);
+                }
+            });
+            $("#btn").click(function () {
+                $('body,html').animate({
+                        scrollTop: 0
+                    },
+                    500);
+                return false;
+            });
+        });
+        $(function () {
+            $("#say").click(function () {
+                $('body,html').animate({
+                        scrollTop: $('html, body').get(0).scrollHeight
+                    },
+                    500);
+                return false;
+            });
+        })
+    }
+ 
+    $('#readmode').click(function () {
+            $('body').toggleClass('read-mode')
+        })
+        
+    function SiderMenu() {
+        $('#main-container').toggleClass('open');
+        $('.iconflat').css('width', '50px').css('height', '50px');
+        $('.openNav').css('height', '50px');
+        $('#main-container,#mo-nav,.openNav').toggleClass('open')
+    }
+ 
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($("body")), setTimeout(
+            function () {
+                var DarkMode = document.cookie.replace(/(?:(?:^|.*;\s*)DarkMode\s*\=\s*([^;]*).*$)|^.*$/, "$1") ||
+                    '0';
+                (volantis.dark.mode == "dark") 
+                ? 
+                ($("html").addClass("DarkMode"), 
+                document.cookie = "DarkMode=1;path=/", 
+                $('#modeicon').attr("xlink:href", "#icon-sun")) 
+                : 
+                ($("html").removeClass("DarkMode"), 
+                document.cookie = "DarkMode=0;path=/", 
+                $('#modeicon').attr("xlink:href", "#icon-_moon")), 
+                setTimeout(function () {
+                    $(".Cuteen_DarkSky").fadeOut(1e3, function () {
+                        $(this).remove()
+                    })
+                }, 2e3)
+            }), 50
+    }
+ 
+    function checkNightMode() {
+        if ($("html").hasClass("n-f")) {
+            $("html").removeClass("day");
+            $("html").addClass("DarkMode");
+            $('#modeicon').attr("xlink:href", "#icon-sun")
+            return;
+        }
+        if ($("html").hasClass("d-f")) {
+            $("html").removeClass("DarkMode");
+            $("html").addClass("day");
+            $('#modeicon').attr("xlink:href", "#icon-_moon")
+ 
+            return;
+        }
+        if (document.cookie.replace(/(?:(?:^|.*;\s*)DarkMode\s*\=\s*([^;]*).*$)|^.*$/, "$1") === '') {
+            if (volantis.dark.mode == "dark") {
+                $("html").addClass("DarkMode");
+                document.cookie = "DarkMode=1;path=/";
+                console.log('夜间模式开启');
+                $('#modeicon').attr("xlink:href", "#icon-sun")
+            } else {
+                $("html").removeClass("DarkMode");
+                document.cookie = "DarkMode=0;path=/";
+                console.log('夜间模式关闭');
+                $('#modeicon').attr("xlink:href", "#icon-_moon")
+            }
+        } else {
+            var DarkMode = document.cookie.replace(/(?:(?:^|.*;\s*)DarkMode\s*\=\s*([^;]*).*$)|^.*$/, "$1") || '0';
+            if (DarkMode == '0') {
+                $("html").removeClass("DarkMode");
+                $('#modeicon').attr("xlink:href", "#icon-_moon")
+            } else if (DarkMode == '1') {
+                $("html").addClass("DarkMode");
+                $('#modeicon').attr("xlink:href", "#icon-sun")
+            }
+        }
+    }
+    BackTOP();
+</script>
+ 
+<style>
+    #RightDownBtn {
+        position: fixed;
+        left: 1.875rem;
+        bottom: 1.875rem;
+        padding: 0.3125rem 0.625rem;
+        background: #fff;
+        border-radius: 0.1875rem;
+        transition: 0.3s ease all;
+        z-index: 1;
+        align-items: flex-end;
+        flex-direction: column;
+        display: -moz-flex;
+        display: flex;
+        float: right;
+    }
+ 
+    #RightDownBtn>a,
+    #RightDownBtn>label {
+        width: 1.5em;
+        height: 1.5em;
+        margin: 0.3125rem 0;
+        transition: .2s cubic-bezier(.25, .46, .45, .94);
+    }
+ 
+    /* font color */
+    .DarkMode #page,
+    .DarkMode #colophon,
+    .DarkMode #vcomments .vbtn,
+    .DarkMode .art-content #archives .al_mon_list .al_mon,
+    .DarkMode .art-content #archives .al_mon_list span,
+    .DarkMode body,
+    .DarkMode .art-content #archives .al_mon_list .al_mon,
+    .DarkMode .art-content #archives .al_mon_list span,
+    .DarkMode button,
+    .DarkMode .art .art-content #archives a,
+    .DarkMode textarea,
+    .DarkMode strong,
+    .DarkMode a,
+    .DarkMode p,
+    .DarkMode li,
+    .DarkMode .label {
+        color: rgba(255, 255, 255, .6);
+    }
+ 
+    
+    .DarkMode #page,
+    .DarkMode body,
+    .DarkMode #colophon,
+    .DarkMode #main-container,
+    .DarkMode #page .yya,
+    .DarkMode #content,
+    .DarkMode #contentss,
+    .DarkMode #footer {
+        background-color: #292a2d;
+    }
+    .DarkMode strong,
+    .DarkMode img {
+        filter: brightness(.7);
+    }
+ 
+    /* sun and noon */
+    .Cuteen_DarkSky,
+    .Cuteen_DarkSky:before {
+        content: "";
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 88888888
+    }
+ 
+    .Cuteen_DarkSky {
+        background: linear-gradient(#feb8b0, #fef9db)
+    }
+ 
+    .Cuteen_DarkSky:before {
+        transition: 2s ease all;
+        opacity: 0;
+        background: linear-gradient(#4c3f6d, #6c62bb, #93b1ed)
+    }
+ 
+    .DarkMode .Cuteen_DarkSky:before {
+        opacity: 1
+    }
+ 
+    .Cuteen_DarkPlanet {
+        z-index: 99999999;
+        position: fixed;
+        left: -50%;
+        top: -50%;
+        width: 200%;
+        height: 200%;
+        -webkit-animation: CuteenPlanetMove 2s cubic-bezier(.7, 0, 0, 1);
+        animation: CuteenPlanetMove 2s cubic-bezier(.7, 0, 0, 1);
+        transform-origin: center bottom
+    }
+ 
+    @-webkit-keyframes CuteenPlanetMove {
+        0% {
+            transform: rotate(0)
+        }
+ 
+        to {
+            transform: rotate(360deg)
+        }
+    }
+ 
+    @keyframes CuteenPlanetMove {
+        0% {
+            transform: rotate(0)
+        }
+ 
+        to {
+            transform: rotate(360deg)
+        }
+    }
+ 
+    .Cuteen_DarkPlanet:after {
+        position: absolute;
+        left: 35%;
+        top: 40%;
+        width: 9.375rem;
+        height: 9.375rem;
+        border-radius: 50%;
+        content: "";
+        background: linear-gradient(#fefefe, #fffbe8)
+    }
+</style>
+    <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/5.0.0-alpha.5'>
+  <meta name="generator" content="Hexo 6.0.0">
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+  <link rel="canonical" href="http://example.com/2021/09/10/网络安全/"/>
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  <meta content="Weike" name="application-name">
+  <meta content="Weike" name="apple-mobile-web-app-title">
+  <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+  <meta content="telephone=no" name="format-detection">
+  <link rel="preload" href="/css/style.css?time=1642412719852" as="style">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/volantis-x/cdn-fonts/VarelaRound/VarelaRound-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/gh/volantis-x/cdn-fonts/UbuntuMono/UbuntuMono-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <!-- 页面元数据 -->
+  <title>如何反黑客后门程序 - Weike</title>
+  <meta name="keywords" content="linux,网络安全,null">
+  <meta name="description" content="前言此文章本该在10月4日发布，博客挂了，所以搬运了。 &amp;emsp;&amp;emsp;那什么，额不是最近国庆吗？因为疫情的缘故，我们都在家中，但发生了这么一件事，看到标题你应该知道是什么了，我被黑了！！！咳咳咳，不能说是被黑了，只能说是我下载了一个后门软件，对后门软件，比如说灰鸽子，流光这种，那边的黑客远程控制了我，我知道，这是最基础的软件了。但是我还是中了，最后，我的账号，密码都被盗取。很难受对吧，所">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何反黑客后门程序">
+<meta property="og:url" content="http://example.com/2021/09/10/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/index.html">
+<meta property="og:site_name" content="Weike">
+<meta property="og:description" content="前言此文章本该在10月4日发布，博客挂了，所以搬运了。 &amp;emsp;&amp;emsp;那什么，额不是最近国庆吗？因为疫情的缘故，我们都在家中，但发生了这么一件事，看到标题你应该知道是什么了，我被黑了！！！咳咳咳，不能说是被黑了，只能说是我下载了一个后门软件，对后门软件，比如说灰鸽子，流光这种，那边的黑客远程控制了我，我知道，这是最基础的软件了。但是我还是中了，最后，我的账号，密码都被盗取。很难受对吧，所">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/android-chrome-192x192.png">
+<meta property="article:published_time" content="2021-09-10T15:54:42.000Z">
+<meta property="article:modified_time" content="2021-09-10T15:54:43.974Z">
+<meta property="article:author" content="ChenShang">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="网络安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/android-chrome-192x192.png">
+  <!-- feed -->
+    <link rel="alternate" href="/atom.xml" title="Weike" type="application/atom+xml">
+  <!-- import meta -->
+  <!-- link -->
+  <!-- import link -->
+      <link rel="stylesheet" href="/css/stylel.css">
+      <link rel="stylesheet" href="//at.alicdn.com/t/font_1951635_oio5nhndef.css">
+  <style>
+    /* 首屏样式 */
+    #safearea {
+  display: none;
+}
+/* 
+  * Workaround for Chrome bug, part 1
+  * Chunk rendering for all but the first article.
+  * /layout/_partial/scripts/content-visibility-scroll-fix.ejs
+*/
+.post-story + .post-story,
+article + article,
+.post-wrapper + .post-wrapper {
+  content-visibility: auto;
+  contain-intrinsic-size: 10px 500px;
+}
+:root {
+  --color-site-body: #f4f4f4;
+  --color-site-bg: #f4f4f4;
+  --color-site-inner: #fff;
+  --color-site-footer: #666;
+  --color-card: #fff;
+  --color-text: #444;
+  --color-block: #f6f6f6;
+  --color-inlinecode: #c74f00;
+  --color-codeblock: #fff7ea;
+  --color-h1: #3a3a3a;
+  --color-h2: #3a3a3a;
+  --color-h3: #333;
+  --color-h4: #444;
+  --color-h5: #555;
+  --color-h6: #666;
+  --color-p: #444;
+  --color-list: #666;
+  --color-list-hl: #388fcb;
+  --color-meta: #888;
+  --color-read-bkg: #e0d8c8;
+  --color-read-post: #f8f1e2;
+}
+* {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  margin: 0;
+  padding: 0;
+}
+html {
+  color: var(--color-text);
+  width: 100%;
+  height: 100%;
+  font-family: UbuntuMono, "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Menlo, Monaco, monospace, sans-serif;
+  font-size: 16px;
+}
+html >::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
+html >::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
+html >::-webkit-scrollbar-thumb {
+  background: #47b3fe;
+  cursor: pointer;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+}
+html >::-webkit-scrollbar-thumb:hover {
+  background: #ff5722;
+}
+body {
+  background-color: var(--color-site-body);
+  text-rendering: optimizelegibility;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+body.modal-active {
+  overflow: hidden;
+}
+@media screen and (max-width: 680px) {
+  body.modal-active {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+a {
+  color: #1b79c4;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+a:hover {
+  color: #ff5722;
+}
+a:active,
+a:hover {
+  outline: 0;
+}
+ul,
+ol {
+  padding-left: 0;
+}
+ul li,
+ol li {
+  list-style: none;
+}
+header {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+}
+img {
+  border: 0;
+  background: none;
+  max-width: 100%;
+}
+svg:not(:root) {
+  overflow: hidden;
+}
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  height: 0;
+  border: 0;
+  border-radius: 1px;
+  -webkit-border-radius: 1px;
+  border-bottom: 1px solid rgba(68,68,68,0.1);
+}
+button,
+input {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+button {
+  overflow: visible;
+  text-transform: none;
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+@supports (backdrop-filter: blur(20px)) {
+  .blur {
+    background: rgba(255,255,255,0.9) !important;
+    backdrop-filter: saturate(200%) blur(20px);
+  }
+}
+.shadow {
+  box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+}
+.shadow.floatable {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.shadow.floatable:hover {
+  box-shadow: 0 2px 4px 0px rgba(0,0,0,0.1), 0 4px 8px 0px rgba(0,0,0,0.1), 0 8px 16px 0px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0 2px 4px 0px rgba(0,0,0,0.1), 0 4px 8px 0px rgba(0,0,0,0.1), 0 8px 16px 0px rgba(0,0,0,0.1);
+}
+#l_cover {
+  min-height: 64px;
+}
+.cover-wrapper {
+  top: 0;
+  left: 0;
+  max-width: 100%;
+  height: 100vh;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+  -khtml-flex-wrap: nowrap;
+  -moz-flex-wrap: nowrap;
+  -o-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  align-content: center;
+  color: var(--color-site-inner);
+  padding: 0 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: -100px;
+}
+.cover-wrapper .cover-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+}
+.cover-wrapper .cover-bg.lazyload:not(.loaded) {
+  opacity: 0;
+  -webkit-opacity: 0;
+  -moz-opacity: 0;
+}
+.cover-wrapper .cover-bg.lazyload.loaded {
+  animation-delay: 0s;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+  animation-name: fadeIn;
+}
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -khtml-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -khtml-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-o-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -khtml-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -khtml-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+.cover-wrapper .cover-body {
+  z-index: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.cover-wrapper#full {
+  height: calc(100vh + 100px);
+  padding-bottom: 100px;
+}
+.cover-wrapper#half {
+  max-height: 640px;
+  min-height: 400px;
+  height: calc(36vh - 64px + 200px);
+}
+.cover-wrapper #scroll-down {
+  width: 100%;
+  height: 64px;
+  position: absolute;
+  bottom: 100px;
+  text-align: center;
+  cursor: pointer;
+}
+.cover-wrapper #scroll-down .scroll-down-effects {
+  color: #fff;
+  font-size: 24px;
+  line-height: 64px;
+  position: absolute;
+  width: 24px;
+  left: calc(50% - 12px);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  animation: scroll-down-effect 1.5s infinite;
+  -webkit-animation: scroll-down-effect 1.5s infinite;
+  -khtml-animation: scroll-down-effect 1.5s infinite;
+  -moz-animation: scroll-down-effect 1.5s infinite;
+  -o-animation: scroll-down-effect 1.5s infinite;
+  -ms-animation: scroll-down-effect 1.5s infinite;
+}
+@-moz-keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-webkit-keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-o-keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+.cover-wrapper .cover-body {
+  margin-top: 64px;
+  margin-bottom: 100px;
+}
+.cover-wrapper .cover-body,
+.cover-wrapper .cover-body .top,
+.cover-wrapper .cover-body .bottom {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -khtml-justify-content: center;
+  -moz-justify-content: center;
+  -o-justify-content: center;
+  -ms-justify-content: center;
+  max-width: 100%;
+}
+.cover-wrapper .cover-body .bottom {
+  margin-top: 32px;
+}
+.cover-wrapper .cover-body .title {
+  font-family: "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Helvetica, monospace;
+  font-size: 3.125rem;
+  line-height: 1.2;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+.cover-wrapper .cover-body .subtitle {
+  font-size: 20px;
+}
+.cover-wrapper .cover-body .logo {
+  max-height: 120px;
+  max-width: calc(100% - 4 * 16px);
+}
+@media screen and (min-height: 1024px) {
+  .cover-wrapper .cover-body .title {
+    font-size: 3rem;
+  }
+  .cover-wrapper .cover-body .subtitle {
+    font-size: 1.05rem;
+  }
+  .cover-wrapper .cover-body .logo {
+    max-height: 150px;
+  }
+}
+.cover-wrapper .cover-body .m_search {
+  position: relative;
+  max-width: calc(100% - 16px);
+  width: 320px;
+  vertical-align: middle;
+}
+.cover-wrapper .cover-body .m_search .form {
+  position: relative;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  width: 100%;
+}
+.cover-wrapper .cover-body .m_search .icon,
+.cover-wrapper .cover-body .m_search .input {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.cover-wrapper .cover-body .m_search .icon {
+  position: absolute;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  line-height: 2.5rem;
+  width: 32px;
+  top: 0;
+  left: 5px;
+  color: rgba(68,68,68,0.75);
+}
+.cover-wrapper .cover-body .m_search .input {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  height: 2.5rem;
+  width: 100%;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  font-size: 0.875rem;
+  -webkit-appearance: none;
+  padding-left: 36px;
+  border-radius: 1.4rem;
+  -webkit-border-radius: 1.4rem;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(10px);
+  border: none;
+  color: var(--color-text);
+}
+@media screen and (max-width: 500px) {
+  .cover-wrapper .cover-body .m_search .input {
+    padding-left: 36px;
+  }
+}
+.cover-wrapper .cover-body .m_search .input:hover {
+  background: rgba(255,255,255,0.8);
+}
+.cover-wrapper .cover-body .m_search .input:focus {
+  background: #fff;
+}
+.cover-wrapper .list-h {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -khtml-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -o-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  align-items: stretch;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.cover-wrapper .list-h a {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-flex: 1 0;
+  -ms-flex: 1 0;
+  flex: 1 0;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  font-weight: 600;
+}
+.cover-wrapper .list-h a img {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  margin: 4px;
+  min-width: 40px;
+  max-width: 44px;
+}
+@media screen and (max-width: 768px) {
+  .cover-wrapper .list-h a img {
+    min-width: 36px;
+    max-width: 40px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .cover-wrapper .list-h a img {
+    margin: 2px 4px;
+    min-width: 32px;
+    max-width: 36px;
+  }
+}
+@media screen and (max-width: 375px) {
+  .cover-wrapper .list-h a img {
+    min-width: 28px;
+    max-width: 32px;
+  }
+}
+.cover-wrapper {
+  max-width: 100%;
+}
+.cover-wrapper.search .bottom .menu {
+  margin-top: 16px;
+}
+.cover-wrapper.search .bottom .menu .list-h a {
+  white-space: nowrap;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  align-items: baseline;
+  padding: 2px;
+  margin: 4px;
+  color: var(--color-site-inner);
+  opacity: 0.75;
+  -webkit-opacity: 0.75;
+  -moz-opacity: 0.75;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  border-bottom: 2px solid transparent;
+}
+.cover-wrapper.search .bottom .menu .list-h a i {
+  margin-right: 4px;
+}
+.cover-wrapper.search .bottom .menu .list-h a p {
+  font-size: 0.9375rem;
+}
+.cover-wrapper.search .bottom .menu .list-h a:hover,
+.cover-wrapper.search .bottom .menu .list-h a.active,
+.cover-wrapper.search .bottom .menu .list-h a:active {
+  opacity: 1;
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+  border-bottom: 2px solid var(--color-site-inner);
+}
+@font-face {
+  font-family: 'UbuntuMono';
+  src: url("https://cdn.jsdelivr.net/gh/volantis-x/cdn-fonts/UbuntuMono/UbuntuMono-Regular.ttf");
+  font-weight: 'normal';
+  font-style: 'normal';
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Varela Round';
+  src: url("https://cdn.jsdelivr.net/gh/volantis-x/cdn-fonts/VarelaRound/VarelaRound-Regular.ttf");
+  font-weight: 'normal';
+  font-style: 'normal';
+  font-display: swap;
+}
+.l_header {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  width: 100%;
+  height: 64px;
+  background: var(--color-card);
+  box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+}
+.l_header.auto {
+  transition: opacity 0.4s ease;
+  -webkit-transition: opacity 0.4s ease;
+  -khtml-transition: opacity 0.4s ease;
+  -moz-transition: opacity 0.4s ease;
+  -o-transition: opacity 0.4s ease;
+  -ms-transition: opacity 0.4s ease;
+  visibility: hidden;
+}
+.l_header.auto.show {
+  opacity: 1 !important;
+  -webkit-opacity: 1 !important;
+  -moz-opacity: 1 !important;
+  visibility: visible;
+}
+.l_header .container {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+.l_header #wrapper {
+  height: 100%;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.l_header #wrapper .nav-main,
+.l_header #wrapper .nav-sub {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+  -khtml-flex-wrap: nowrap;
+  -moz-flex-wrap: nowrap;
+  -o-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+  -khtml-justify-content: space-between;
+  -moz-justify-content: space-between;
+  -o-justify-content: space-between;
+  -ms-justify-content: space-between;
+  align-items: center;
+}
+.l_header #wrapper .nav-main {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.l_header #wrapper.sub .nav-main {
+  transform: translateY(-64px);
+  -webkit-transform: translateY(-64px);
+  -khtml-transform: translateY(-64px);
+  -moz-transform: translateY(-64px);
+  -o-transform: translateY(-64px);
+  -ms-transform: translateY(-64px);
+}
+.l_header #wrapper .nav-sub {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  opacity: 0;
+  -webkit-opacity: 0;
+  -moz-opacity: 0;
+  height: 64px;
+  width: calc(100% - 2 * 16px);
+  position: absolute;
+}
+.l_header #wrapper .nav-sub ::-webkit-scrollbar {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+}
+@media screen and (min-width: 2048px) {
+  .l_header #wrapper .nav-sub {
+    max-width: 55vw;
+    margin: auto;
+  }
+}
+.l_header #wrapper.sub .nav-sub {
+  opacity: 1;
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+}
+.l_header #wrapper .title {
+  position: relative;
+  color: var(--color-text);
+  padding-left: 24px;
+  max-height: 64px;
+}
+.l_header #wrapper .nav-main .title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+  line-height: 64px;
+  padding: 0 24px;
+  font-size: 1.25rem;
+  font-family: "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Helvetica, monospace;
+}
+.l_header #wrapper .nav-main .title img {
+  height: 64px;
+}
+.l_header .nav-sub {
+  max-width: 1080px;
+  margin: auto;
+}
+.l_header .nav-sub .title {
+  font-weight: bold;
+  font-family: UbuntuMono, "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Menlo, Monaco, monospace, sans-serif;
+  line-height: 1.2;
+  max-height: 64px;
+  white-space: normal;
+  flex-shrink: 1;
+}
+.l_header .switcher {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  line-height: 64px;
+  align-items: center;
+}
+.l_header .switcher .s-toc {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .l_header .switcher .s-toc {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: -ms-flexbox /* TWEENER - IE 10 */;
+    display: -webkit-flex /* NEW - Chrome */;
+    display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+    display: flex;
+  }
+}
+.l_header .switcher >li {
+  height: 48px;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  margin: 2px;
+}
+@media screen and (max-width: 500px) {
+  .l_header .switcher >li {
+    margin: 0 1px;
+    height: 48px;
+  }
+}
+.l_header .switcher >li >a {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -khtml-justify-content: center;
+  -moz-justify-content: center;
+  -o-justify-content: center;
+  -ms-justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0.85em 1.1em;
+  border-radius: 100px;
+  -webkit-border-radius: 100px;
+  border: none;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  color: #47b3fe;
+}
+.l_header .switcher >li >a:hover {
+  border: none;
+}
+.l_header .switcher >li >a.active,
+.l_header .switcher >li >a:active {
+  border: none;
+  background: var(--color-site-bg);
+}
+@media screen and (max-width: 500px) {
+  .l_header .switcher >li >a {
+    width: 36px;
+    height: 48px;
+  }
+}
+.l_header .nav-sub .switcher {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+}
+.l_header .m_search {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  height: 64px;
+  width: 240px;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+@media screen and (max-width: 1024px) {
+  .l_header .m_search {
+    width: 44px;
+    min-width: 44px;
+  }
+  .l_header .m_search input::placeholder {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+  }
+  .l_header .m_search:hover {
+    width: 240px;
+  }
+  .l_header .m_search:hover input::placeholder {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@media screen and (min-width: 500px) {
+  .l_header .m_search:hover .input {
+    width: 100%;
+  }
+  .l_header .m_search:hover .input::placeholder {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@media screen and (max-width: 500px) {
+  .l_header .m_search {
+    min-width: 0;
+  }
+  .l_header .m_search input::placeholder {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+.l_header .m_search .form {
+  position: relative;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+.l_header .m_search .icon {
+  position: absolute;
+  width: 36px;
+  left: 5px;
+  color: var(--color-meta);
+}
+@media screen and (max-width: 500px) {
+  .l_header .m_search .icon {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: none;
+  }
+}
+.l_header .m_search .input {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  line-height: 1.3;
+  width: 100%;
+  color: var(--color-text);
+  background: #fafafa;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  padding-left: 40px;
+  font-size: 0.875rem;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border: none;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+@media screen and (min-width: 500px) {
+  .l_header .m_search .input:focus {
+    box-shadow: 0 4px 8px 0px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 0 4px 8px 0px rgba(0,0,0,0.1);
+  }
+}
+@media screen and (max-width: 500px) {
+  .l_header .m_search .input {
+    background: var(--color-block);
+    padding-left: 8px;
+    border: none;
+  }
+  .l_header .m_search .input:hover,
+  .l_header .m_search .input:focus {
+    border: none;
+  }
+}
+@media (max-width: 500px) {
+  .l_header .m_search {
+    left: 0;
+    width: 0;
+    overflow: hidden;
+    position: absolute;
+    background: #fff;
+    transition: all 0.28s ease;
+    -webkit-transition: all 0.28s ease;
+    -khtml-transition: all 0.28s ease;
+    -moz-transition: all 0.28s ease;
+    -o-transition: all 0.28s ease;
+    -ms-transition: all 0.28s ease;
+  }
+  .l_header .m_search .input {
+    border-radius: 32px;
+    -webkit-border-radius: 32px;
+    margin-left: 16px;
+    padding-left: 16px;
+  }
+  .l_header.z_search-open .m_search {
+    width: 100%;
+  }
+  .l_header.z_search-open .m_search .input {
+    width: calc(100% - 120px);
+  }
+}
+ul.m-pc >li>a {
+  color: inherit;
+  border-bottom: 2px solid transparent;
+}
+ul.m-pc >li>a:active,
+ul.m-pc >li>a.active {
+  border-bottom: 2px solid #47b3fe;
+}
+ul.m-pc li:hover >ul.list-v,
+ul.list-v li:hover >ul.list-v {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+}
+ul.nav-list-h {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  align-items: stretch;
+}
+ul.nav-list-h>li {
+  position: relative;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -khtml-justify-content: center;
+  -moz-justify-content: center;
+  -o-justify-content: center;
+  -ms-justify-content: center;
+  height: 100%;
+  line-height: 2.4;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+ul.nav-list-h>li >a {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 600;
+}
+ul.list-v {
+  z-index: 1;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  position: absolute;
+  background: var(--color-card);
+  box-shadow: 0 2px 4px 0px rgba(0,0,0,0.08), 0 4px 8px 0px rgba(0,0,0,0.08), 0 8px 16px 0px rgba(0,0,0,0.08);
+  -webkit-box-shadow: 0 2px 4px 0px rgba(0,0,0,0.08), 0 4px 8px 0px rgba(0,0,0,0.08), 0 8px 16px 0px rgba(0,0,0,0.08);
+  margin-top: -6px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  padding: 8px 0;
+}
+ul.list-v.show {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+}
+ul.list-v hr {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+ul.list-v >li {
+  white-space: nowrap;
+  word-break: keep-all;
+}
+ul.list-v >li.header {
+  font-size: 0.78125rem;
+  font-weight: bold;
+  line-height: 2em;
+  color: var(--color-meta);
+  margin: 8px 16px 4px;
+}
+ul.list-v >li.header i {
+  margin-right: 8px;
+}
+ul.list-v >li ul {
+  margin-left: 0;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  margin-top: -40px;
+}
+ul.list-v .aplayer-container {
+  min-height: 64px;
+  padding: 6px 16px;
+}
+ul.list-v >li>a {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  color: var(--color-list);
+  font-size: 0.875rem;
+  font-weight: bold;
+  line-height: 36px;
+  padding: 0 20px 0 16px;
+  text-overflow: ellipsis;
+  margin: 0 4px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+@media screen and (max-width: 1024px) {
+  ul.list-v >li>a {
+    line-height: 40px;
+  }
+}
+ul.list-v >li>a >i {
+  margin-right: 8px;
+}
+ul.list-v >li>a:active,
+ul.list-v >li>a.active {
+  color: var(--color-list-hl);
+}
+ul.list-v >li>a:hover {
+  color: var(--color-list-hl);
+  background: var(--color-site-bg);
+}
+.l_header .menu >ul>li>a {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  padding: 0 8px;
+}
+.l_header .menu >ul>li>a >i {
+  margin-right: 4px;
+}
+.l_header ul.nav-list-h>li {
+  color: var(--color-list);
+  line-height: 64px;
+}
+.l_header ul.nav-list-h>li >a {
+  max-height: 64px;
+  overflow: hidden;
+  color: inherit;
+}
+.l_header ul.nav-list-h>li >a:active,
+.l_header ul.nav-list-h>li >a.active {
+  color: #47b3fe;
+}
+.l_header ul.nav-list-h>li:hover>a {
+  color: var(--color-list-hl);
+}
+.l_header ul.nav-list-h>li i.music {
+  animation: rotate-effect 1.5s linear infinite;
+  -webkit-animation: rotate-effect 1.5s linear infinite;
+  -khtml-animation: rotate-effect 1.5s linear infinite;
+  -moz-animation: rotate-effect 1.5s linear infinite;
+  -o-animation: rotate-effect 1.5s linear infinite;
+  -ms-animation: rotate-effect 1.5s linear infinite;
+}
+@-moz-keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+@-o-keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+@keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+.menu-phone li ul.list-v {
+  right: calc(100% - 0.5 * 16px);
+}
+.menu-phone li ul.list-v ul {
+  right: calc(100% - 0.5 * 16px);
+}
+#wrapper {
+  max-width: 1080px;
+  margin: auto;
+}
+@media screen and (min-width: 2048px) {
+  #wrapper {
+    max-width: 55vw;
+  }
+}
+#wrapper .menu {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-flex: 1 1;
+  -ms-flex: 1 1;
+  flex: 1 1;
+  margin: 0 16px 0 0;
+}
+#wrapper .menu .list-v ul {
+  left: calc(100% - 0.5 * 16px);
+}
+.menu-phone {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  margin-top: 16px;
+  right: 8px;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.menu-phone ul {
+  right: calc(100% - 0.5 * 16px);
+}
+@media screen and (max-width: 500px) {
+  .menu-phone {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: block;
+  }
+}
+.l_header {
+  max-width: 65vw;
+  left: calc((100% - 65vw) * 0.5);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+@media screen and (max-width: 2048px) {
+  .l_header {
+    max-width: 1112px;
+    left: calc((100% - 1112px) * 0.5);
+  }
+}
+@media screen and (max-width: 1112px) {
+  .l_header {
+    left: 0;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    max-width: 100%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .l_header .container {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .l_header #wrapper .nav-main .title {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .l_header #wrapper .nav-sub {
+    width: 100%;
+  }
+  .l_header #wrapper .nav-sub .title {
+    overflow-y: scroll;
+    margin-top: 2px;
+    padding: 8px 16px;
+  }
+  .l_header #wrapper .switcher {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: -ms-flexbox /* TWEENER - IE 10 */;
+    display: -webkit-flex /* NEW - Chrome */;
+    display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+    display: flex;
+    margin-right: 8px;
+  }
+  .l_header .menu {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: none;
+  }
+}
+@media screen and (max-width: 500px) {
+  .list-v li {
+    max-width: 270px;
+  }
+}
+#u-search {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 60px 20px;
+  z-index: 1001;
+}
+@media screen and (max-width: 680px) {
+  #u-search {
+    padding: 0px;
+  }
+}
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css?time=1642412719852" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css?time=1642412719852"></noscript>
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+    '.kill-t{'+
+      'font-size: 2rem;'+
+    '}'+
+    '.kill-c{'+
+      'font-size: 1.2rem;'+
+    '}'+
+		'#l_header,#l_body{'+
+			'display: none;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        `<span class="kill-t"><b>抱歉，您的浏览器无法访问本站</b></span><br/>`+
+        `<span class="kill-c">微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</span><br/>`+
+        `<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support"><strong>了解详情 ></strong></a>`+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+    .kill-t{
+      font-size: 2rem;
+    }
+    .kill-c{
+      font-size: 1.2rem;
+    }
+		#l_header,#l_body{
+			display: none;
+		}
+	</style>
+    <div class="kill-noscript">
+        <span class="kill-t"><b>抱歉，您的浏览器无法访问本站</b></span><br/>
+        <span class="kill-c">本页面需要浏览器支持（启用）JavaScript</span><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
+
+  <script>
+  /************这个文件存放不需要重载的全局变量和全局函数*********/
+  window.volantis = {}; // volantis 全局变量
+  volantis.dom = {}; // 页面Dom see: /source/js/app.js etc.
+  /******************** volantis.EventListener ********************************/
+  // 事件监听器 see: /source/js/app.js
+  volantis.EventListener = {}
+  // 这里存放pjax切换页面时将被移除的事件监听器
+  volantis.EventListener.list = []
+  //构造方法
+  function volantisEventListener(type, f, ele) {
+    this.type = type
+    this.f = f
+    this.ele = ele
+  }
+  // 移除事件监听器
+  volantis.EventListener.remove = () => {
+    volantis.EventListener.list.forEach(function (i) {
+      i.ele.removeEventListener(i.type, i.f, false)
+    })
+    volantis.EventListener.list = []
+  }
+  /******************** volantis.dom.$ ********************************/
+  // 注：这里没有选择器，也没有forEach一次只处理一个dom，这里重新封装主题常用的dom方法，返回的是dom对象，对象包含了以下方法，同时保留dom的原生API
+  function volantisDom(ele) {
+    if (!ele) ele = document.createElement("div")
+    this.ele = ele;
+    // ==============================================================
+    this.ele.find = (c) => {
+      let q = this.ele.querySelector(c)
+      if (q)
+        return new volantisDom(q)
+    }
+    // ==============================================================
+    this.ele.hasClass = (c) => {
+      return this.ele.className.match(new RegExp('(\\s|^)' + c + '(\\s|$)'));
+    }
+    this.ele.addClass = (c) => {
+      this.ele.classList.add(c);
+      return this.ele
+    }
+    this.ele.removeClass = (c) => {
+      this.ele.classList.remove(c);
+      return this.ele
+    }
+    this.ele.toggleClass = (c) => {
+      if (this.ele.hasClass(c)) {
+        this.ele.removeClass(c)
+      } else {
+        this.ele.addClass(c)
+      }
+      return this.ele
+    }
+    // ==============================================================
+    // 参数 r 为 true 表示pjax切换页面时事件监听器将被移除，false不移除
+    this.ele.on = (c, f, r = 1) => {
+      this.ele.addEventListener(c, f, false)
+      if (r) {
+        volantis.EventListener.list.push(new volantisEventListener(c, f, this.ele))
+      }
+      return this.ele
+    }
+    this.ele.click = (f, r) => {
+      this.ele.on("click", f, r)
+      return this.ele
+    }
+    this.ele.scroll = (f, r) => {
+      this.ele.on("scroll", f, r)
+      return this.ele
+    }
+    // ==============================================================
+    this.ele.html = (c) => {
+      // if(c=== undefined){
+      //   return this.ele.innerHTML
+      // }else{
+      this.ele.innerHTML = c
+      return this.ele
+      // }
+    }
+    // ==============================================================
+    this.ele.hide = (c) => {
+      this.ele.style.display = "none"
+      return this.ele
+    }
+    this.ele.show = (c) => {
+      this.ele.style.display = "block"
+      return this.ele
+    }
+    // ==============================================================
+    return this.ele
+  }
+  volantis.dom.$ = (ele) => {
+    return !!ele ? new volantisDom(ele) : null;
+  }
+  /******************** RunItem ********************************/
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = ()=>{
+          volantis.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) =>{
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index,1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+  /******************** Pjax ********************************/
+  // /layout/_plugins/pjax/index.ejs
+  // volantis.pjax.send(callBack[,"callBackName"]) 传入pjax:send回调函数
+  // volantis.pjax.push(callBack[,"callBackName"]) 传入pjax:complete回调函数
+  // volantis.pjax.error(callBack[,"callBackName"]) 传入pjax:error回调函数
+  volantis.pjax = {};
+  volantis.pjax.method = {
+    complete: new RunItem(),
+    error: new RunItem(),
+    send: new RunItem(),
+  };
+  volantis.pjax = {
+    ...volantis.pjax,
+    push: volantis.pjax.method.complete.push,
+    error: volantis.pjax.method.error.push,
+    send: volantis.pjax.method.send.push,
+  };
+  /********************  Dark Mode  ********************************/
+  // /layout/_partial/scripts/darkmode.ejs
+  // volantis.dark.mode 当前模式 dark or light
+  // volantis.dark.toggle() 暗黑模式触发器
+  // volantis.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  volantis.dark = {};
+  volantis.dark.method = {
+    toggle: new RunItem(),
+  };
+  volantis.dark = {
+    ...volantis.dark,
+    push: volantis.dark.method.toggle.push,
+  };
+  /********************  Message  ********************************/
+  // /layout/_plugins/message/script.ejs
+  // volantis.message
+  /********************  isMobile  ********************************/
+  // /source/js/app.js
+  // volantis.isMobile
+  // volantis.isMobileOld
+  /********************脚本动态加载函数********************************/
+  // volantis.js(src, cb)  cb 可以传入onload回调函数 或者 JSON对象 例如: volantis.js("src", ()=>{}) 或 volantis.js("src", {defer:true,onload:()=>{}})
+  // volantis.css(src)
+
+  // 返回Promise对象，如下方法同步加载资源，这利于处理文件资源之间的依赖关系，例如：APlayer 需要在 MetingJS 之前加载
+  // (async () => {
+  //     await volantis.js("...theme.plugins.aplayer.js.aplayer...")
+  //     await volantis.js("...theme.plugins.aplayer.js.meting...")
+  // })();
+
+  // 已经加入了setTimeout
+  volantis.js = (src, cb) => {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var HEAD = document.getElementsByTagName("head")[0] || document.documentElement;
+        var script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        if (cb) {
+          if (JSON.stringify(cb)) {
+            for (let p in cb) {
+              if (p == "onload") {
+                script[p] = () => {
+                  cb[p]()
+                  resolve()
+                }
+              } else {
+                script[p] = cb[p]
+                script.onload = resolve
+              }
+            }
+          } else {
+            script.onload = () => {
+              cb()
+              resolve()
+            };
+          }
+        } else {
+          script.onload = resolve
+        }
+        script.setAttribute("src", src);
+        HEAD.appendChild(script);
+      });
+    });
+  }
+  volantis.css = (src) => {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.href = src;
+        link.onload = resolve;
+        document.getElementsByTagName("head")[0].appendChild(link);
+      });
+    });
+  }
+  /********************按需加载的插件********************************/
+  // volantis.import.jQuery().then(()=>{})
+  volantis.import = {
+    jQuery: () => {
+      if (typeof jQuery == "undefined") {
+        return volantis.js("https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js")
+      } else {
+        return new Promise(resolve => {
+          resolve()
+        });
+      }
+    }
+  }
+  /********************** requestAnimationFrame ********************************/
+  // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+  // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+  volantis.requestAnimationFrame = (fn)=>{
+    if (!window.requestAnimationFrame) {
+      window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+    }
+    window.requestAnimationFrame(fn)
+  }
+  /************************ layoutHelper *****************************************/
+  volantis.layoutHelper = (helper, html, opt)=>{
+    opt = Object.assign({clean:false, pjax:true}, opt)
+    function myhelper(helper, html, clean) {
+      volantis.tempDiv = document.createElement("div");
+      volantis.tempDiv.innerHTML = html;
+      let layoutHelper = document.querySelector("#layoutHelper-"+helper)
+      if (layoutHelper) {
+        if (clean) {
+          layoutHelper.innerHTML = ""
+        }
+        layoutHelper.append(volantis.tempDiv);
+      }
+    }
+    myhelper(helper, html, opt.clean)
+    if (opt.pjax) {
+      volantis.pjax.push(()=>{
+        myhelper(helper, html, opt.clean)
+      },"layoutHelper-"+helper)
+    }
+  }
+  /****************************** 滚动事件处理 ****************************************/
+  volantis.scroll = {
+    engine: new RunItem(),
+    unengine: new RunItem(),
+  };
+  volantis.scroll = {
+    ...volantis.scroll,
+    push: volantis.scroll.engine.push,
+  };
+  // 滚动条距离顶部的距离
+  volantis.scroll.getScrollTop = () =>{
+    let scrollPos;
+    if (window.pageYOffset) {
+      scrollPos = window.pageYOffset;
+    } else if (document.compatMode && document.compatMode != 'BackCompat') {
+      scrollPos = document.documentElement.scrollTop;
+    } else if (document.body) {
+      scrollPos = document.body.scrollTop;
+    }
+    return scrollPos;
+  }
+  // 使用 requestAnimationFrame 处理滚动事件
+  // `volantis.scroll.del` 中存储了一个数值, 该数值检测一定时间间隔内滚动条滚动的位移, 数值的检测频率是浏览器的刷新频率. 数值为正数时, 表示向下滚动. 数值为负数时, 表示向上滚动.
+  volantis.scroll.handleScrollEvents = () => {
+    volantis.scroll.lastScrollTop = volantis.scroll.getScrollTop()
+    function loop() {
+      const scrollTop = volantis.scroll.getScrollTop();
+      if (volantis.scroll.lastScrollTop !== scrollTop) {
+        volantis.scroll.del = scrollTop - volantis.scroll.lastScrollTop;
+        volantis.scroll.lastScrollTop = scrollTop;
+        // if (volantis.scroll.del > 0) {
+        //   console.log("向下滚动");
+        // } else {
+        //   console.log("向上滚动");
+        // }
+        volantis.scroll.engine.start();
+      }else{
+        volantis.scroll.unengine.start();
+      }
+      volantis.requestAnimationFrame(loop)
+    }
+    volantis.requestAnimationFrame(loop)
+  }
+  volantis.scroll.handleScrollEvents()
+  // 触发页面滚动至目标元素位置
+  volantis.scroll.to = (ele, option = {}) =>{
+    // 默认配置
+    opt = {
+      top: ele.getBoundingClientRect().top + document.documentElement.scrollTop,
+      behavior: "smooth"
+    }
+    // 定义配置
+    if ("top" in option) {
+      opt.top = option.top
+    }
+    if ("behavior" in option) {
+      opt.behavior = option.behavior
+    }
+    if ("addTop" in option) {
+      opt.top += option.addTop
+    }
+    if (!("observerDic" in option)) {
+      option.observerDic = 25
+    }
+    // 滚动
+    window.scrollTo(opt);
+    // 监视器
+    // 监视并矫正元素滚动到指定位置 
+    // 目前用于处理 toc 部分 lazyload 引起的 cls 导致的定位失败问题
+    if (option.observer) {
+      volantis.scroll.unengine.push(()=>{
+        let me = ele.getBoundingClientRect().top
+        if(!(me >= -option.observerDic && me <= option.observerDic)){
+          volantis.scroll.to(ele, option)
+        }else{
+          volantis.scroll.unengine.remove("unengineObserver")
+        }
+      },"unengineObserver")
+    }
+  }
+  /******************************************************************************/
+  /******************************************************************************/
+</script>
+  <!-- Custom Files head begin-->
+  
+  <!-- Custom Files head end-->
+</head>
+  <body itemscope itemtype="http://schema.org/WebPage">
+    <header itemscope itemtype="http://schema.org/WPHeader" id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self"  href="/" onclick="return false;" title="comment"></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self"  href="/" onclick="return false;" title="toc"></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+            <img no-lazy class='logo' src='https://s4.ax1x.com/2022/01/01/T5LJi9.png' alt="This is a picture without description" />
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                href="/" title="博客"
+                  
+                  
+                  
+                    active-action="action-home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                href="/categories/" title="分类"
+                  
+                  
+                  
+                    active-action="action-categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                href="/tags/" title="标签"
+                  
+                  
+                  
+                    active-action="action-tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                href="/archives/" title="归档"
+                  
+                  
+                  
+                    active-action="action-archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                href="/links/" title="友链"
+                  
+                  
+                  
+                    active-action="action-links"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                href="/about/" title="关于"
+                  
+                  
+                  
+                    active-action="action-about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+      
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+      
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href="/" onclick="return false;" title="search"></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href="/" onclick="return false;" title="menu"></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                href="/" title="博客"
+                  
+                  
+                  
+                    active-action="action-home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                href="/categories/" title="分类"
+                  
+                  
+                  
+                    active-action="action-categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                href="/tags/" title="标签"
+                  
+                  
+                  
+                    active-action="action-tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                href="/archives/" title="归档"
+                  
+                  
+                  
+                    active-action="action-archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                href="/links/" title="友链"
+                  
+                  
+                  
+                    active-action="action-links"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                href="/about/" title="关于"
+                  
+                  
+                  
+                    active-action="action-about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+
+      <!-- Custom Files header begin -->
+      
+      <!-- Custom Files header end -->
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+    
+      <!-- see: /layout/_partial/scripts/_ctrl/coverCtrl.ejs -->
+      <div id="none" class='cover-wrapper post search' style="display: none;">
+        
+  <div class='cover-bg lazyload placeholder' data-bg="https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture"></div>
+
+<div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">ChenShang的小站</p>
+    
+    
+  </div>
+  <div class='bottom'>
+    
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <input type="text" class="input u-search-input" placeholder="You can search balabala..." />
+          <i class="icon fas fa-search fa-fw"></i>
+        </form>
+      </div>
+    
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+          
+            <a target="_blank" rel="noopener" href="https://weikecc.top/"
+              
+              
+              active-action="action-https:weikecctop">
+              <p>主页</p>
+            </a>
+          
+            <a href="/links/"
+              
+              
+              active-action="action-links">
+              <p>朋友圈</p>
+            </a>
+          
+            <a href="/categories/"
+              
+              
+              active-action="action-categories">
+              <p>分类</p>
+            </a>
+          
+            <a href="/tags/"
+              
+              
+              active-action="action-tags">
+              <p>标签</p>
+            </a>
+          
+            <a href="/balabala/"
+              
+              
+              active-action="action-balabala">
+              <p>留言板</p>
+            </a>
+          
+            <a target="_blank" rel="noopener" href="https://github.com/volantis-x/hexo-theme-volantis/"
+              
+              
+              active-action="action-https:githubcomvolantis-xhexo-theme-volantis">
+              <p>主题</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+        <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+      </div>
+    
+  
+</div>
+
+      <div id="safearea">
+        <div class="body-wrapper">
+          
+<div id="l_main" class=''>
+  <article itemscope itemtype="http://schema.org/Article" class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/10/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Weike">
+  </span>
+  
+
+
+  
+    <span hidden>
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/android-chrome-192x192.png">
+    </span>
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title" itemprop="name headline">
+        如何反黑客后门程序
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author' itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <a itemprop="url" class='author' href="/" rel="nofollow">
+    <img itemprop="image" src="https://thirdqq.qlogo.cn/g?b=sdk&nk=3225454747&s=140" class="lazyload" data-srcset="https://thirdqq.qlogo.cn/g?b=sdk&nk=3225454747&s=140" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="This is a picture without description" >
+    <p itemprop="name">ChenShang</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2021-09-10T23:54:42+08:00">
+  <a class='notlink' href="/" onclick="return false;" title="Click me!" >
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于: 2021年9月10日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+        <!-- Custom Files topMeta begin-->
+        
+        <!-- Custom Files topMeta end-->
+      </div>
+    
+  </div>
+
+
+  <div id="layoutHelper-page-plugins"></div>
+  <div id="post-body" itemprop="articleBody">
+    <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>此文章本该在10月4日发布，博客挂了，所以搬运了。</p>
+<p>&emsp;&emsp;那什么，额不是最近国庆吗？因为疫情的缘故，我们都在家中，但发生了这么一件事，看到标题你应该知道是什么了，我被黑了！！！咳咳咳，不能说是被黑了，只能说是我下载了一个后门软件，对后门软件，比如说灰鸽子，流光这种，那边的黑客远程控制了我，我知道，这是最基础的软件了。但是我还是中了，最后，我的账号，密码都被盗取。很难受对吧，所以我写个这个文章。</p>
+<h3 id="如何防护这种后门，木马？"><a href="#如何防护这种后门，木马？" class="headerlink" title="如何防护这种后门，木马？"></a>如何防护这种后门，木马？</h3><p>&emsp;&emsp;很容易，不去下载就好了。哎，你这不是废话吗？咳咳，最好的方法，360。360？你在说什么？360不是毒瘤吗？360云大脑知道吗？虽然这个东西经常抽风，说这个是木马，那个是病毒。但是不去理就好了。不然你可试试不装360会怎么样，首先，我们要知道360的重要性，不然你可以换成卡巴斯基。咳咳，进入正题</p>
+<ol>
+<li>360只是第一种方法</li>
+<li>第二种linux，比如说ubuntu，本文用CentOS系统演示</li>
+<li>防火墙软件，比如说天网</li>
+<li>还有最后一个方法，按我说的做</li>
+</ol>
+<h4 id="第一种方法-360，腾讯电脑管家，火绒，卡巴斯基等杀毒"><a href="#第一种方法-360，腾讯电脑管家，火绒，卡巴斯基等杀毒" class="headerlink" title="第一种方法:360，腾讯电脑管家，火绒，卡巴斯基等杀毒"></a>第一种方法:360，腾讯电脑管家，火绒，卡巴斯基等杀毒</h4><p>&emsp;&emsp;360你不会装吗？笨蛋，自己找教程。</p>
+<h4 id="第二种方法：Linux下chkrootkit-RKHunter直接性防护"><a href="#第二种方法：Linux下chkrootkit-RKHunter直接性防护" class="headerlink" title="第二种方法：Linux下chkrootkit+RKHunter直接性防护"></a>第二种方法：Linux下chkrootkit+RKHunter直接性防护</h4><p>&emsp;&emsp;第二种方法开始。rootkit听说过吗？没有就<a target="_blank" rel="noopener" href="https://www.baidu.com/">百度</a>去</p>
+<h6 id="1-文件级别rootkit"><a href="#1-文件级别rootkit" class="headerlink" title="1. 文件级别rootkit"></a>1. 文件级别rootkit</h6><p>&emsp;&emsp;文件级别的rootkit一般是通过程序漏洞或者系统漏洞进入系统后，通过修改系统的重要文件来达到隐藏自己的目的。在系统遭受rootkit攻击后，合法的文件被木马程序替代，变成了外壳程序，而其内部是隐藏着的后门程序。通常容易被rootkit替换的系统程序有login、ls、ps、ifconfig、du、find、netstat等，其中login程序是最经常被替换的，因为当访问Linux时，无论是通过本地登录还是远程登录，/bin/login程序都会运行，系统将通过/bin/login来收集并核对用户的账号和密码，而rootkit就是利用这个程序的特点，使用一个带有根权限后门密码的/bin/login来替换系统的/bin/login，这样攻击者通过输入设定好的密码就能轻松进入系统。此时，即使系统管理员修改root密码或者清除root密码，攻击者还是一样能通过root用户登录系统。攻击者通常在进入Linux系统后，会进行一系列的攻击动作，最常见的是安装嗅探器收集本机或者网络中其他服务器的重要数据。在默认情况下，Linux中也有一些系统文件会监控这些工具动作，例如ifconfig命令，所以，攻击者为了避免被发现，会想方设法替换其他系统文件，常见的就是ls、ps、ifconfig、du、find、netstat等。如果这些文件都被替换，那么在系统层面就很难发现rootkit已经在系统中运行了。<br><br>这就是文件级别的rootkit，对系统维护很大，目前最有效的防御方法是定期对系统重要文件的完整性进行检查，如果发现文件被修改或者被替换，那么很可能系统已经遭受了rootkit入侵。检查件完整性的工具很多，常见的有Tripwire、 aide等，可以通过这些工具定期检查文件系统的完整性，以检测系统是否被rootkit入侵。</p>
+<h6 id="2-内核级别的rootkit"><a href="#2-内核级别的rootkit" class="headerlink" title="2. 内核级别的rootkit"></a>2. 内核级别的rootkit</h6><p>&emsp;&emsp;内核级rootkit是比文件级rootkit更高级的一种入侵方式，它可以使攻击者获得对系统底层的完全控制权，此时攻击者可以修改系统内核，进而截获运行程序向内核提交的命令，并将其重定向到入侵者所选择的程序并运行此程序，也就是说，当用户要运行程序A时，被入侵者修改过的内核会假装执行A程序，而实际上却执行了程序B。</p>
+<p>内核级rootkit主要依附在内核上，它并不对系统文件做任何修改，因此一般的检测工具很难检测到它的存在，这样一旦系统内核被植入rootkit，攻击者就可以对系统为所欲为而不被发现。目前对于内核级的rootkit还没有很好的防御工具，因此，做好系统安全防范就非常重要，将系统维持在最小权限内工作，只要攻击者不能获取root权限，就无法在内核中植入rootkit。</p>
+<h6 id="3-主题"><a href="#3-主题" class="headerlink" title="3. 主题"></a>3. 主题</h6><h6 id="了解，安装，准备，使用chkrootkit"><a href="#了解，安装，准备，使用chkrootkit" class="headerlink" title="了解，安装，准备，使用chkrootkit"></a>了解，安装，准备，使用chkrootkit</h6><p>chkrootkit是一个Linux系统下查找并检测rootkit后门的工具，它的官方址: <a target="_blank" rel="noopener" href="http://www.chkrootkit.org/%E3%80%82">http://www.chkrootkit.org/。</a> chkrootkit没有包含在官方的CentOS源中，因此要采取手动编译的方法来安装，不过这种安装方法也更加安全。下面简单介绍下chkrootkit的安装过程。</p>
+<ol>
+<li>准备gcc编译环境</li>
+</ol>
+<p>对于CentOS系统，需要安装gcc编译环境，执行下述三条命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum -y install gcc</span><br><span class="line">yum -y install gcc-c++</span><br><span class="line">yum -y install make</span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装gcc,g++,CMake</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>安装chkrootkit</li>
+</ol>
+<p>为了安全起见，建议直接从官方网站下载chkrootkit源码，然后进行安装，操作如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf chkrootkit.tar.gz</span><br><span class="line"><span class="built_in">cd</span> chkrootkit-*</span><br><span class="line">make sense</span><br><span class="line"><span class="comment"># 注意，上面的编译命令为make sense</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>使用chkrootkit</li>
+</ol>
+<p>安装完的chkrootkit程序位于/usr/local/chkrootkit目录下，执行如下命令即可显示chkrootkit的详细用法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/<span class="built_in">local</span>/chkrootkit/chkrootkit  -h <span class="comment">#显示帮助信息</span></span><br></pre></td></tr></table></figure>
+<p>chkrootkit各个参数的含义如下所示。</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-h</td>
+<td>显示帮助信息</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>显示版本信息</td>
+</tr>
+<tr>
+<td>-ddebug</td>
+<td>ddebug模式，显示检测过程的相关指令程序</td>
+</tr>
+<tr>
+<td>-q</td>
+<td>安静模式，只显示有问题的内容</td>
+</tr>
+<tr>
+<td>-x</td>
+<td>高级模式，显示所有检测结果</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>dir设置指定的目录为根目录</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>dir1:dir2:dirN指定chkrootkit检测时使用系统命令的目录</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>跳过NFS连接的目录</td>
+</tr>
+</tbody></table>
+<p>chkrootkit的使用比较简单，直接执行chkrootkit命令即可自动开始检测系统。下面是某个系统的检测结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@server chkrootkit] <span class="comment"># /usr/local/chkrootkit/chkrootkit</span></span><br><span class="line">Checking ` ifconfig <span class="string">&#x27;... INFECTED</span></span><br><span class="line"><span class="string">Checking ` ls &#x27;</span>... INFECTED</span><br><span class="line">Checking `login<span class="string">&#x27;... INFECTED</span></span><br><span class="line"><span class="string">Checking ` netstat &#x27;</span>... INFECTED</span><br><span class="line">Checking ` ps <span class="string">&#x27;... INFECTED</span></span><br><span class="line"><span class="string">Checking ` top &#x27;</span>... INFECTED</span><br><span class="line">Checking `sshd<span class="string">&#x27;... not infected</span></span><br><span class="line"><span class="string">Checking `syslogd&#x27;</span>... not tested</span><br><span class="line">Checking ` tar <span class="string">&#x27;... not infected</span></span><br><span class="line"><span class="string">Checking `tcpd&#x27;</span>... not infected</span><br><span class="line">Checking `tcpdump<span class="string">&#x27;... not infected</span></span><br><span class="line"><span class="string">Checking `telnetd&#x27;</span>... not found</span><br></pre></td></tr></table></figure>
+<p>从输出可以看出，此系统的ifconfig、ls、login、netstat、ps和top命令已经被感染。针对被感染rootkit的系统，最安全而有效的方法就是备份数据重新安装系统<br>4. chkrootkit的缺点</p>
+<p>chkrootkit在检查rootkit的过程中使用了部分系统命令，因此，如果服务器被黑客入侵，那么依赖的系统命令可能也已经被入侵者替换，此时chkrootkit的检测结果将变得完全不可信。为了避免chkrootkit的这个问题，可以在服务器对外开放前，事先将chkrootkit使用的系统命令进行备份，在需要的时候使用备份的原始系统命令让chkrootkit对rootkit进行检测。这个过程可以通过下面的操作实现：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@server ~] <span class="comment"># mkdir /usr/share/.commands</span></span><br><span class="line">[root@server ~] <span class="comment"># cp `which --skip-alias awk cut echo find egrep id head ls netstat ps strings sed uname` /usr/share/.commands</span></span><br><span class="line">[root@server ~] <span class="comment"># /usr/local/chkrootkit/chkrootkit -p /usr/share/.commands/</span></span><br><span class="line">[root@server share] <span class="comment"># cd /usr/share/</span></span><br><span class="line">[root@server share] <span class="comment"># tar zcvf commands.tar.gz .commands</span></span><br><span class="line">[root@server share] <span class="comment">#  rm -rf commands.tar.gz</span></span><br></pre></td></tr></table></figure>
+<p>上面这段操作是在/usr/share/下建立了一个.commands隐藏文件，然后将chkrootkit使用的系统命令进行备份到这个目录下。为了安全起见，可以将.commands目录压缩打包，然后下载到一个安全的地方进行备份，以后如果服务器遭受入侵，就可以将这个备份上传到服务器任意路径下，然后通过chkrootkit命令的”-p”参数指定这个路径进行检测即可。</p>
+<h6 id="rootkit后门检测工具RKHunter"><a href="#rootkit后门检测工具RKHunter" class="headerlink" title="rootkit后门检测工具RKHunter"></a>rootkit后门检测工具RKHunter</h6><p>RKHunter是一款专业的检测系统是否感染rootkit的工具，它通过执行一系列的脚本来确认服务器是否已经感染rootkit。在官方的资料中，RKHunter可以作的事情有：</p>
+<ol>
+<li>MD5校验测试，检测文件是否有改动</li>
+<li>检测rootkit使用的二进制和系统工具文件</li>
+<li>检测特洛伊木马程序的特征码</li>
+<li>检测常用程序的文件属性是否异常</li>
+<li>检测系统相关的测试</li>
+<li>检测隐藏文件</li>
+<li>检测可疑的核心模块LKM</li>
+<li>检测系统已启动的监听端口</li>
+<li>下面详细讲述下RKHunter的安装与使用。</li>
+</ol>
+<h6 id="下面详细讲述下RKHunter的安装与使用。"><a href="#下面详细讲述下RKHunter的安装与使用。" class="headerlink" title="下面详细讲述下RKHunter的安装与使用。"></a>下面详细讲述下RKHunter的安装与使用。</h6><ol>
+<li>安装RKHunter</li>
+</ol>
+<p>RKHunter的官方网页地址为：<a target="_blank" rel="noopener" href="http://www.rootkit.nl/projects/rootkit_hunter.html">http://www.rootkit.nl/projects/rootkit_hunter.html</a> 建议从这个网站下载RKHunter，这里下载的版本是rkhunter-1.4.0.tar.gz。RKHunter的安装非常简单，过程如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@server ~] <span class="comment"># ls</span></span><br><span class="line">rkhunter-1.4.0. tar .gz</span><br><span class="line">[root@server ~] <span class="comment"># pwd</span></span><br><span class="line">/root</span><br><span class="line">[root@server ~] <span class="comment"># tar -zxvf rkhunter-1.4.0.tar.gz </span></span><br><span class="line">[root@server ~] <span class="comment"># cd rkhunter-1.4.0</span></span><br><span class="line">[root@server rkhunter-1.4.0] <span class="comment"># ./installer.sh  --layout default --install</span></span><br></pre></td></tr></table></figure>
+<p>这里采用RKHunter的默认安装方式，rkhunter命令被安装到了/usr/local/bin目录下。<br>使用rkhunter指令</p>
+<p>rkhunter命令的参数较多，但是使用非常简单，直接运行rkhunter即可显示此命令的用法。下面简单介绍下rkhunter常用的几个参数选项。</p>
+<p>[root@server ~]#/usr/local/bin/rkhunter–help</p>
+<p>Rkhunter常用参数以及含义如下所示：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>–c, –check</td>
+<td>必选参数，表示检测当前系统</td>
+</tr>
+<tr>
+<td>–configfile<file></td>
+<td>使用特定的配置文件</td>
+</tr>
+<tr>
+<td>–cronjob</td>
+<td>作为cron任务定期运行</td>
+</tr>
+<tr>
+<td>–sk, –skip-keypress</td>
+<td>自动完成所有检测，跳过键盘输入</td>
+</tr>
+<tr>
+<td>–summary</td>
+<td>显示检测结果的统计信息</td>
+</tr>
+<tr>
+<td>–update</td>
+<td>检测更新内容</td>
+</tr>
+<tr>
+<td>-v, –version</td>
+<td>显示版本信息</td>
+</tr>
+<tr>
+<td>–versioncheck</td>
+<td>检测最新版本</td>
+</tr>
+</tbody></table>
+<p>下面是通过rkhunter对某个系统的检测示例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">[root@server rkhunter-1.4.0] <span class="comment"># /usr/local/bin/rkhunter   -c </span></span><br><span class="line">[ Rootkit Hunter version 1.4.0 ]</span><br><span class="line"><span class="comment"># 下面是第一部分，先进行系统命令的检查，主要是检测系统的二进制文件，因为这些文件最容易被rootkit攻击。显示OK字样表示正常，显示Warning表示有异常，需要引起注意，而显示“Not found”字样，一般无需理会</span></span><br><span class="line">Checking system commands...</span><br><span class="line">   Performing  <span class="string">&#x27;strings&#x27;</span>  <span class="built_in">command</span>  checks</span><br><span class="line">     Checking  <span class="string">&#x27;strings&#x27;</span>  <span class="built_in">command</span>                            [ OK ]</span><br><span class="line">   Performing  <span class="string">&#x27;shared libraries&#x27;</span>  checks</span><br><span class="line">     Checking  <span class="keyword">for</span>  preloading variables                        [ None found ]</span><br><span class="line">     Checking  <span class="keyword">for</span>  preloaded libraries                         [ None found ]</span><br><span class="line">     Checking LD_LIBRARY_PATH variable                 [ Not found ]</span><br><span class="line">   Performing  file  properties checks</span><br><span class="line">     Checking  <span class="keyword">for</span>  prerequisites                              [ Warning ]</span><br><span class="line">     /usr/<span class="built_in">local</span>/bin/rkhunter   [ OK ]</span><br><span class="line">     /sbin/chkconfig                                        [ OK ]</span><br><span class="line">....(略)....</span><br><span class="line">[Press &lt;ENTER&gt; to  <span class="built_in">continue</span> ]</span><br><span class="line"><span class="comment"># 下面是第二部分，主要检测常见的rootkit程序，显示“Not found”表示系统未感染此rootkit</span></span><br><span class="line">Checking  <span class="keyword">for</span>  rootkits...</span><br><span class="line">   Performing check of known rootkit files and directories</span><br><span class="line">     55808 Trojan - Variant A                                 [ Not found ]</span><br><span class="line">     ADM Worm                                           [ Not found ]</span><br><span class="line">     AjaKit Rootkit                                         [ Not found ]</span><br><span class="line">     Adore Rootkit                                          [ Not found ]</span><br><span class="line">aPa Kit                                               [ Not found ]</span><br><span class="line">     Apache Worm                                          [ Not found ]</span><br><span class="line">     Ambient (ark) Rootkit                                    [ Not found ]</span><br><span class="line">     Balaur Rootkit           [ Not found ]</span><br><span class="line">     BeastKit Rootkit                                         [ Not found ]</span><br><span class="line">beX2 Rootkit                                             [ Not found ]</span><br><span class="line">     BOBKit Rootkit                    [ Not found ]</span><br><span class="line">....(略)....</span><br><span class="line">[Press &lt;ENTER&gt; to  <span class="built_in">continue</span> ]</span><br><span class="line"><span class="comment"># 下面是第三部分，主要是一些特殊或附加的检测，例如对rootkit文件或目录检测、对恶意软件检测以及对指定的内核模块检测</span></span><br><span class="line">   Performing additional rootkit checks</span><br><span class="line">     Suckit Rookit additional checks                          [ OK ]</span><br><span class="line">     Checking  <span class="keyword">for</span>  possible rootkit files and directories      [ None found ]</span><br><span class="line">     Checking  <span class="keyword">for</span>  possible rootkit strings                    [ None found ]</span><br><span class="line">   Performing malware checks</span><br><span class="line">     Checking running processes  <span class="keyword">for</span>  suspicious files          [ None found ]</span><br><span class="line">     Checking  <span class="keyword">for</span>  login backdoors                          [ None found ]</span><br><span class="line">     Checking  <span class="keyword">for</span>  suspicious directories                     [ None found ]</span><br><span class="line">     Checking  <span class="keyword">for</span>  sniffer <span class="built_in">log</span> files                          [ None found ]</span><br><span class="line">   Performing Linux specific checks</span><br><span class="line">     Checking loaded kernel modules                     [ OK ]</span><br><span class="line">     Checking kernel module names                     [ OK ]</span><br><span class="line">[Press &lt;ENTER&gt; to  <span class="built_in">continue</span> ]</span><br><span class="line"><span class="comment"># 下面是第四部分，主要对网络、系统端口、系统启动文件、系统用户和组配置、SSH配置、文件系统等进行检测</span></span><br><span class="line">Checking the network...</span><br><span class="line">   Performing checks on the network ports</span><br><span class="line">     Checking  <span class="keyword">for</span>  backdoor ports                         [ None found ]</span><br><span class="line">   Performing checks on the network interfaces</span><br><span class="line">     Checking  <span class="keyword">for</span>  promiscuous interfaces                      [ None found ]</span><br><span class="line">Checking the  <span class="built_in">local</span>  host...</span><br><span class="line">   Performing system boot checks</span><br><span class="line">     Checking  <span class="keyword">for</span>  <span class="built_in">local</span>  host name                         [ Found ]</span><br><span class="line">     Checking  <span class="keyword">for</span>  system startup files                        [ Found ]</span><br><span class="line">     Checking system startup files  <span class="keyword">for</span>  malware                [ None found ]</span><br><span class="line">   Performing group and account checks</span><br><span class="line">     Checking  <span class="keyword">for</span>  passwd  file  [ Found ]</span><br><span class="line">     Checking  <span class="keyword">for</span>  root equivalent (UID 0) accounts            [ None found ]</span><br><span class="line">     Checking  <span class="keyword">for</span>  passwordless accounts                   [ None found ]</span><br><span class="line">....(略)....</span><br><span class="line">[Press &lt;ENTER&gt; to  <span class="built_in">continue</span> ]</span><br><span class="line"><span class="comment"># 下面是第五部分，主要是对应用程序版本进行检测</span></span><br><span class="line">Checking application versions...</span><br><span class="line">     Checking version of GnuPG[ OK ]</span><br><span class="line">     Checking version of OpenSSL                        [ Warning ]</span><br><span class="line">     Checking version of OpenSSH                        [ OK ]</span><br><span class="line"><span class="comment"># 下面是最后一部分，这个部分其实是上面输出的一个总结，通过这个总结，可以大概了解服务器目录的安全状态。</span></span><br><span class="line">System checks summary</span><br><span class="line">=====================</span><br><span class="line">File properties checks...</span><br><span class="line">     Required commands check failed</span><br><span class="line">     Files checked: 137</span><br><span class="line">     Suspect files: 4</span><br><span class="line">Rootkit checks...</span><br><span class="line">     Rootkits checked : 311</span><br><span class="line">     Possible rootkits: 0</span><br><span class="line">Applications checks...</span><br><span class="line">     Applications checked: 3</span><br><span class="line">     Suspect applications: 1</span><br><span class="line">The system checks took: 6 minutes and 41 seconds</span><br></pre></td></tr></table></figure>
+<p>在Linux终端使用rkhunter来检测，最大的好处在于每项的检测结果都有不同的颜色显示，如果是绿色的表示没有问题，如果是红色的，那就要引起关注了。另外，在上面执行检测的过程中，在每个部分检测完成后，需要以Enter键来继续。如果要让程序自动运行，可以执行如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@server ~]<span class="comment"># /usr/local/bin/rkhunter --check --skip-keypress </span></span><br></pre></td></tr></table></figure>
+
+<p>同时，如果想让检测程序每天定时运行，那么可以在/etc/crontab中加入如下内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">30 09 * * * root /usr/<span class="built_in">local</span>/bin/rkhunter --check --cronjob </span><br></pre></td></tr></table></figure>
+<p>这样，rkhunter检测程序就会在每天的9:30分运行一次。</p>
+<h4 id="第三种：防火墙软件"><a href="#第三种：防火墙软件" class="headerlink" title="第三种：防火墙软件"></a>第三种：防火墙软件</h4><h5 id="第一个-windows自带防火墙"><a href="#第一个-windows自带防火墙" class="headerlink" title="第一个,windows自带防火墙"></a>第一个,windows自带防火墙</h5><p>windows自带的防火墙<strong>windows Defender</strong>，在 <em><strong>控制面板\系统和安全\Windows <em>Defender 防火墙</em></strong></em> 中，开启即可。但是默认是开启的，反正检查一下看看有没有开启，有些软件可以关闭防火墙，检查一下就对了！</p>
+<h5 id="第二个-360家庭防火墙"><a href="#第二个-360家庭防火墙" class="headerlink" title="第二个:360家庭防火墙"></a>第二个:360家庭防火墙</h5><p>没错，又是360，个人认为360的防火墙还可以，下载独立版的就好了，连接一下云大脑，简直是浪的飞起，虽然并没有什么卵用，定时检查一下端口就好了，我这种前端开发的，看的就是端口，wifi的近期使用情况，谁在用wifi，什么手机，电脑在用，看的就是这个，所以这个防火墙很好的解决了我的问题，自然我就推荐了。主要是我们这些开发者使用，推荐一下。</p>
+<h5 id="第三个：GlassWire"><a href="#第三个：GlassWire" class="headerlink" title="第三个：GlassWire"></a>第三个：GlassWire</h5><p>&emsp;&emsp;GlassWire是windows下的一款软件，对windows的，界面很美观，很简洁就像这样 <img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9ydWFuZmEtcHJvZC5vc3MtY24tc2hhbmdoYWkuYWxpeXVuY3MuY29tL2ZhbnJ1YW4vaW1hZ2UvMjAyMC80LzI1LzYyYTY1MTljLTQ0OWEtNDZmNi04OGJjLTRjYzcxMWEyYzYwZS5wbmc?x-oss-process=image/format,png" class="lazyload" data-srcset="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9ydWFuZmEtcHJvZC5vc3MtY24tc2hhbmdoYWkuYWxpeXVuY3MuY29tL2ZhbnJ1YW4vaW1hZ2UvMjAyMC80LzI1LzYyYTY1MTljLTQ0OWEtNDZmNi04OGJjLTRjYzcxMWEyYzYwZS5wbmc?x-oss-process=image/format,png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image">这是切换中文的图片。你不会想到这是windows下的软件，它太简洁了！所以我强推这款软件，一个字”好！”</p>
+<h5 id="第四个：Firewall-App-Blocker"><a href="#第四个：Firewall-App-Blocker" class="headerlink" title="第四个：Firewall App Blocker"></a>第四个：Firewall App Blocker</h5><p>Firewall App Blocker 超级简单易用的bai限制软件访问网络的防火墙：</p>
+<p>&emsp;&emsp;对于大多数用户，Windows自带的防火墙虽然实用但并没有好好利用起来，主要是因为设置略显繁琐。使用 Firewall App Blocker (Fab) 来禁止应用联网变得超级简单方便。用户只需将需要限制的应用程序添加到软件的列表里即可，勾选状态下为禁止联网，取消勾选可以临时允许联网，就是这么简单。<br> <img src="https://iknow-pic.cdn.bcebos.com/f2deb48f8c5494ee99e71c2428f5e0fe98257ec1?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1" class="lazyload" data-srcset="https://iknow-pic.cdn.bcebos.com/f2deb48f8c5494ee99e71c2428f5e0fe98257ec1?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image"></p>
+<p> 这个软件很好用的，它最大的好处是解决了Windows自带防火墙的难用问题。也推荐。但是界面没有GlassWire那么好看。</p>
+<p> 也许你会说：“为什么只有windows的软件？MAC的去哪里了？”我的回答是，你也不自己去数落数落MAC的防御力，不说是木马了，来个顶级黑客攻进去也要费很多时间！至于Linux的，或许你已经看过了，就不用我来说了，如果你想秀技术，来个反黑客我没意见。如果你真的黑成功了，那你可以做什么呢？等着网警来找你？不要无罪变有罪了。“那么这么多软件，要怎么下载呢？”给出<a target="_blank" rel="noopener" href="https://wws.lanzous.com/b01no1xle">网址</a>你认为我会告诉你密码吗？想知道密码？很容易，发邮件到我的邮箱里<a href="mailto:&#x33;&#x32;&#x32;&#53;&#52;&#x35;&#52;&#x37;&#x34;&#x37;&#64;&#x71;&#113;&#46;&#99;&#x6f;&#109;">&#x33;&#x32;&#x32;&#53;&#52;&#x35;&#52;&#x37;&#x34;&#x37;&#64;&#x71;&#113;&#46;&#99;&#x6f;&#109;</a>关键字：密码是啥？或者陈殇好帅。都可以。</p>
+<h4 id="做后一种方法"><a href="#做后一种方法" class="headerlink" title="做后一种方法"></a>做后一种方法</h4><h5 id="前言-1"><a href="#前言-1" class="headerlink" title="前言"></a>前言</h5><p> 这个方法很绕，如果实在是听不下去就别听了（博主的衷心劝告），最后一种方法是反黑客后门软件，前言不多说，直接进入正题</p>
+<h5 id="正题"><a href="#正题" class="headerlink" title="正题"></a>正题</h5><p> 马上进入正题！</p>
+<h6 id="了解什么是后门程序"><a href="#了解什么是后门程序" class="headerlink" title="了解什么是后门程序"></a>了解什么是后门程序</h6><p> &emsp;&emsp;后门程序是指那些绕过安全性控制而获取对程序或系统访问权的程序方法。一般在软件开发时，程序员会在软件中创建后门程序，这样就可以修改程序设计中的缺陷。但是，如果这些后门被其他人知道，或是在发布软件之前没有删除后门程序，那么它就成了安全风险，容易被黑客当成漏洞进行攻击。通俗的讲，后门程序就是留在计算机系统中，供某位特殊使用者通过某种特殊方式控制计算机系统的途径。</p>
+<h6 id="一、远程控制的两个通性"><a href="#一、远程控制的两个通性" class="headerlink" title="一、远程控制的两个通性"></a>一、远程控制的两个通性</h6><p><b>（1）任何一款的远程控制技术都必须与目标（被控端）建立至少一个TCP或者UPD连接。如果黑客未上线，则会每隔30秒向黑客发起连接请求。</p>
+<p>（2）任何一款远控木马都会向系统写入至少一个随机启动项、服务启动项，或者劫持某个系统必备的正常启动项。并且会在某个目录中隐、释放木马。以方便随机启动。</p>
+<h6 id="二、基于远控通性反远程控制法——两条命令判断是否被控制"><a href="#二、基于远控通性反远程控制法——两条命令判断是否被控制" class="headerlink" title="二、基于远控通性反远程控制法——两条命令判断是否被控制"></a>二、基于远控通性反远程控制法——两条命令判断是否被控制</h6><ol>
+<li><p>最简单的方法就是通过两条命令，一条是“netstat “ 。另一条就是“tasklist “命令，这两条命令可真为是绝配的反黑客远控的方法啊。首先我们就在虚拟机中测试，在本机使用灰鸽子主控端生成一个木马放入到虚拟机中运行。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">netstat <span class="comment"># 在cmd,powershell,Git等终端中运行，直接监听端口</span></span><br><span class="line">tasklist <span class="comment"># 查看所有程序的占用端口</span></span><br></pre></td></tr></table></figure></li>
+<li><p>确认虚拟机已经中了我们的远控木马之后我们开始执行第一条命令，首先大家先在联网的情况，把所有联网的程序都关闭，包括杀毒软件、QQ、迅雷、等存在联网的程序关闭，保存最原始的进程。这样很方便我们识别。再次打开开始菜单——运行——输入“cmd”。进入到黑色的DOS窗口下，输入命令“netstat -ano“。这条命令的意思是查看当前网络的连接状态。输入之后我们查看中主要看”state”的状态，如果是“listenning”是端口的监听这个可以放心，如果是“ESTABLISHED”可要注意了，这个状态意思是正在连接！我们肯定会想，我们都没开任何程序在联网，何来正在与远程主机连接呢？下面是中了远程控制木马的虚拟机中网络连接状态。</p>
+</li>
+<li><p>此时捕捉到正在连接的状态的最后一行PID值为：3920，这就是我们说的远控至少与目标建立一个TCP或UDP连接，而这里建立了一个TCP连接，并且仔细看下，“Foregin Address”意思是外网地址，这个IP地址可以百度进行查询下就可以知道是哪个地区的人在控制我们的电脑，再仔细看下IP地址后面的端口为：8000，现在很多主流的远程软件都是8000或者80端口，这又更值得怀疑了。这样我们就可以查看进程，因为木马要想进行连接就必定会在内存中进行运行，否则就无法进行连接了，我们查看内存中可疑的进程，上面捕获的连接PID为：3920。我们输入命令“tasklist /svc“这条命令是查看当前进程与PID值和启动的服务。</p>
+</li>
+<li><p>通过上面的命令找到了网络连接对应的PID值进程3920，并且发现该进程名是一个IE的进程，很明显这就有问题，因为我们根本没打开浏览器，何来IE进程呢？果断的就知道它的一个远程控制木马伪装的进程。我们应该马上去进行一个查杀掉该进程，从内存中干掉它。我们输入命令“taskkill /f /pid 3920”  这条命令是强制结束PID值为3920的进程。当我们强制结束掉了木马之后发现主控端远程控制软件上的肉鸡马上就下线了。这样黑客就无法进行控制了。</p>
+</li>
+<li><p>在这里说明，我们只是暂时现在已经让黑客无法控制我们的电脑，结束了它的远程控制的连接程序。但是我们要知道远程控制的第二个通性，就是远程控制软件为了让对方能够重启系统后继续在黑客的远控软件上面上线，就必须会在被控者的电脑上写入一个随机启动项，这个随机启动项就是当系统启动的时候立马运行木马，运行了木马就可以再次上线。所以我们还需要检测我们的启动项。很多启动项都是写入注册表的，我们这里给大家列出一些木马可能写入的启动键值。</p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run</span><br><span class="line">HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run</span><br><span class="line">HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce</span><br><span class="line">HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnceEx</span><br><span class="line">HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon  下的shell键值</span><br><span class="line">HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\Windows  下的load键值</span><br></pre></td></tr></table></figure></li>
+<li><p>在CMD下切换到该目录下进程一个强制删除吧，切换到目录后输入命令“del  /ah /f svchot.exe “ 就可以强制删除隐藏的木马了。</p>
+</li>
+<li><p>此时我们把隐藏的以服务启动的木马干掉了，你可以去停止服务，或者通过sc delete <servicesname>去删除服务，这里就不多讲了，因为服务启动的木马已经被干掉了，即使服务存在也无法找到启动程序了。我们这里将虚拟机重启下，再查看下网络连接是否还会与黑客建立TCP远程控制连接呢？</p>
+</b></li>
+</ol>
+<h6 id="三、基于远控的通性反黑客远程控制法——两个软件判断是否存在后门"><a href="#三、基于远控的通性反黑客远程控制法——两个软件判断是否存在后门" class="headerlink" title="三、基于远控的通性反黑客远程控制法——两个软件判断是否存在后门"></a>三、基于远控的通性反黑客远程控制法——两个软件判断是否存在后门</h6><ol>
+<li>这两个工具分别是icesword（中文：冰刃）和SSM软件。第一个软件主要是应对一些DLL进程注入或者是存在Rootkit的木马，所谓的Rootkit就是隐藏的意思，这样的木马有隐藏网络连接状态、隐藏进程的功能。但是使用iceword查看就能查看到这种内核级隐藏的木马。例如下面就是GHOST木马的DLL注入，它是通过DLL注入到svchost.exe进程的，从icesword就可以找到可疑的dll模块。<br><br>并且大家都说”Svchost.exe“如果与外界的IP连接就肯定是被控制了，这是有道理的。因为现在的远控比如ghost、白金远控就是会有这种现象就是DLL注入到“svhochst.exe“进程进行控制的，所以会有连接，一般来说“svchost.exe“除了在微软更新的时候可能存在与美国IP的连接，但是其它时候都不会存在与外界进行IP连接的。通过360的网络连接就可以直接看的出来。<br><br>icesword里面的进程都是黑色显示的，如果出现有红色的进程，一般都是运用了内核级的rootkit技术的木马。这样的木马通过任务管理器或者tasklist /svc 一般都是查看不到进程的，但是用冰刃却可以很快的查看到。</li>
+<li>icesword的软件很强大这里就不多说了，上面已经举例说了。下面说下SSM工具的使用，首先我先在虚拟机里面安装下这个软件吧。并且开启这个软件，开启这个软件后只要我们运行任何一个程序都会报警说明软件执行了什么动作！这里我们将一个灰鸽子远控木马拷贝进到我们的虚拟机，当我们点击远控木马的时候SSM马上就报警了，提示程序启动，这个动作是正常的，因为该程序需要explorer图形化程序进程启动的。</li>
+<li>当我们运行之后会发现，这时候程序突然来了一个注册表修改的动作，懂注册表的都知道这个就是向HKLC\System\CurretcontrolSet\services里面写入服务。这个就不太正常了，不是安装什么程序，一个简单的程序居然写入服务，增加服务，可疑！</li>
+<li>当我们允许此次操作的时候，你会发现不停的会向注册表写入服务键值，这个肯定就是个可疑的动作，最后发现木马又释放了程序到系统目录。照理说一个执行程序不会随意释放程序到系统目录，可疑！</li>
+<li>此允许发现最后一步又有一个进程尝试注入到IE里面进行以IE后台启动木马，很明显就能分析出就是个可疑的木马程序，很可能就是后门木马，它有写入服务的这一通性！通过SSM的拦截程序动作就可以分析一个程序是不是绑有后门木马。<br>
+以上就是我分享的反黑客教程，希望可以帮助你😉</li>
+</ol>
+<Vssue  />
+
+  </div>
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=http://example.com/2021/09/10/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/>http://example.com/2021/09/10/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2021-09-10T23:54:43+08:00">
+  <a class='notlink' href="/" onclick="return false;" title="Click me!" >
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于: 2021年9月10日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/linux/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>linux</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>网络安全</p></a></div>
+  <span hidden itemprop="keywords">linux 网络安全</span>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://example.com/2021/09/10/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/&title=如何反黑客后门程序 - Weike&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="This is a picture without description" >
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://example.com/2021/09/10/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/&title=如何反黑客后门程序 - Weike&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="This is a picture without description" >
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://example.com/2021/09/10/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/&title=如何反黑客后门程序 - Weike&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="This is a picture without description" >
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+    <!-- Custom Files bottomMeta begin -->
+    
+    <!-- Custom Files bottomMeta end -->
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2022/01/16/hello-world/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Hello World</p>
+          <p class='content'>Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any ...</p>
+        </a>
+      
+      
+        <a class='next' href='/2021/09/10/%E5%8C%96%E5%AD%A6%E7%AC%94%E8%AE%B0%20-2/'>
+          <p class='title'>化学笔记②<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>蜡烛燃烧的实际探究点燃前
+
+
+实验探究的步骤
+现象
+结论
+
+
+
+制作材料
+蜡心: 线状  外壳: 圆柱形
+由石蜡和棉线制作
+
+
+颜色，状态，气味
+白色，固态，有轻微的气味
+无
+
+
+用刀切下一块放...</p>
+        </a>
+      
+    </div>
+  
+  <!-- Custom Files postEnd begin-->
+  
+  <!-- Custom Files postEnd end-->
+</article>
+
+
+  
+
+  
+  <article class="post white-box reveal shadow" id="comments">
+    <span hidden>
+      <meta itemprop="discussionUrl" content="/2021/09/10/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/index.html#comments">
+    </span>
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    
+    <div id="layoutHelper-comments"></div>
+
+  </article>
+  
+
+
+
+
+
+</div>
+<aside id='l_side' itemscope itemtype="http://schema.org/WPSideBar">
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile pjax" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E9%98%B2%E6%8A%A4%E8%BF%99%E7%A7%8D%E5%90%8E%E9%97%A8%EF%BC%8C%E6%9C%A8%E9%A9%AC%EF%BC%9F"><span class="toc-text">如何防护这种后门，木马？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95-360%EF%BC%8C%E8%85%BE%E8%AE%AF%E7%94%B5%E8%84%91%E7%AE%A1%E5%AE%B6%EF%BC%8C%E7%81%AB%E7%BB%92%EF%BC%8C%E5%8D%A1%E5%B7%B4%E6%96%AF%E5%9F%BA%E7%AD%89%E6%9D%80%E6%AF%92"><span class="toc-text">第一种方法:360，腾讯电脑管家，火绒，卡巴斯基等杀毒</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%A7%8D%E6%96%B9%E6%B3%95%EF%BC%9ALinux%E4%B8%8Bchkrootkit-RKHunter%E7%9B%B4%E6%8E%A5%E6%80%A7%E9%98%B2%E6%8A%A4"><span class="toc-text">第二种方法：Linux下chkrootkit+RKHunter直接性防护</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%A7%8D%EF%BC%9A%E9%98%B2%E7%81%AB%E5%A2%99%E8%BD%AF%E4%BB%B6"><span class="toc-text">第三种：防火墙软件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA-windows%E8%87%AA%E5%B8%A6%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-text">第一个,windows自带防火墙</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E4%B8%AA-360%E5%AE%B6%E5%BA%AD%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-text">第二个:360家庭防火墙</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E4%B8%AA%EF%BC%9AGlassWire"><span class="toc-text">第三个：GlassWire</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E4%B8%AA%EF%BC%9AFirewall-App-Blocker"><span class="toc-text">第四个：Firewall App Blocker</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%81%9A%E5%90%8E%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95"><span class="toc-text">做后一种方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%89%8D%E8%A8%80-1"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%AD%A3%E9%A2%98"><span class="toc-text">正题</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </section>
+
+  
+
+
+<!-- 没有 pjax 占位会报错 万恶的 pjax -->
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+
+  <!-- Custom Files side begin -->
+  
+  <!-- Custom Files side end -->
+</aside>
+
+
+
+          <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<pjax>
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="如何反黑客后门程序";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  pdata.commentConfig={};
+  //  see: /layout/_partial/scripts/_ctrl/coverCtrl.ejs
+  
+    // header
+    var l_header=document.getElementById("l_header");
+    
+    l_header.classList.add("show");
+    
+    
+      // cover
+      var cover_wrapper=document.querySelector('#l_cover .cover-wrapper');
+      var scroll_down=document.getElementById('scroll-down');
+      cover_wrapper.id="none";
+      cover_wrapper.style.display="none";
+      scroll_down.style.display="none";
+    
+  
+</script>
+</pjax>
+        </div>
+        
+  
+  <footer class="footer clearfix"  itemscope itemtype="http://schema.org/WPFooter">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper" itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          
+            
+          
+            
+          
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        
+          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 次</span> <span id="lc-uv">访客数为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 人</span></p>
+</div>
+        
+      
+    
+      
+        本站使用
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/dev" target="_blank" class="codename">Volantis</a>
+        作为主题
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="/">Copyright © 2017-2020 by ChenShang</a></p>
+
+        </div>
+      
+    
+    <!-- Custom Files footer begin-->
+    
+    <!-- Custom Files footer end-->
+    <script src="https://cdn.jsdelivr.net/npm/greensock@1.20.2/dist/TweenLite.js"></script>
+    <script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pixi.js@5.3.6/dist/pixi.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display@0.3.1/dist/cubism4.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/gh/journey-ad/blog-img@76ba2b3/live2d/lib/pio.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/gh/journey-ad/blog-img@76ba2b3/live2d/lib/pio.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/journey-ad/blog-img@76ba2b3/live2d/lib/pio_sdk4.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/journey-ad/blog-img@76ba2b3/live2d/lib/load.js"></script>
+      </footer>
+
+
+        <a id="s-top" class="fas fa-arrow-up fa-fw" href="/" onclick="return false;" title="top"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+  /******************** volantis.dom ********************************/
+  // 页面选择器 将dom对象缓存起来 see: /source/js/app.js etc.
+  volantis.dom.bodyAnchor = volantis.dom.$(document.getElementById("safearea")); // 页面主体
+  volantis.dom.topBtn = volantis.dom.$(document.getElementById('s-top')); // 向上
+  volantis.dom.wrapper = volantis.dom.$(document.getElementById('wrapper')); // 整个导航栏
+  volantis.dom.coverAnchor = volantis.dom.$(document.querySelector('#l_cover .cover-wrapper')); // 1个
+  volantis.dom.switcher = volantis.dom.$(document.querySelector('#l_header .switcher .s-search')); // 搜索按钮   移动端 1个
+  volantis.dom.header = volantis.dom.$(document.getElementById('l_header')); // 移动端导航栏
+  volantis.dom.search = volantis.dom.$(document.querySelector('#l_header .m_search')); // 搜索框 桌面端 移动端 1个
+  volantis.dom.mPhoneList = volantis.dom.$(document.querySelectorAll('#l_header .m-phone .list-v')); //  手机端 子菜单 多个
+</script>
+
+<script>
+  
+  volantis.css("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css");
+  
+  
+  
+</script>
+
+<!-- required -->
+
+
+<!-- internal -->
+
+
+  <script>
+  volantis.message = (title, message, option = {}, done = null) => {
+    if (typeof iziToast === "undefined") {
+      volantis.css('/css/message.css?time=1642412719852')
+      volantis.js('/js/thirdparty/message.js?time=1642412719852', () => {
+        tozashMessage(title, message, option, done);
+      });
+    } else {
+      tozashMessage(title, message, option, done);
+    }
+
+    function tozashMessage(title, message, option, done) {
+      const {
+        icon,
+        time,
+        position,
+        transitionIn,
+        transitionOut,
+        messageColor,
+        titleColor,
+        backgroundColor,
+        zindex,
+        displayMode
+      } = option;
+      iziToast.show({
+        layout: '2',
+        icon: 'Fontawesome',
+        closeOnEscape: 'true',
+        displayMode: displayMode || 'replace',
+        transitionIn: transitionIn || 'bounceInLeft',
+        transitionOut: transitionOut || 'fadeOutRight',
+        messageColor: messageColor || 'var(--color-text)',
+        titleColor: titleColor || 'var(--color-text)',
+        backgroundColor: backgroundColor || 'var(--color-card)',
+        zindex: zindex || '2147483647',
+        icon: icon || 'fas fa-info-circle light-blue',
+        timeout: time || '5000',
+        position: position || 'topRight',
+        title: title,
+        message: message,
+        onClosed: () => {
+          if(done) done();
+        },
+      });
+    }
+  };
+
+  volantis.question = (title, message, option = {}, success = null, cancel = null, done = null) => {
+    if (typeof iziToast === "undefined") {
+      volantis.css('/css/message.css?time=1642412719852')
+      volantis.js('/js/thirdparty/message.js?time=1642412719852', () => {
+        tozashQuestion(title, message, option, success, cancel, done);
+      });
+    } else {
+      tozashQuestion(title, message, option, success, cancel, done);
+    }
+
+    function tozashQuestion(title, message, option, success, cancel, done) {
+      const {
+        icon,
+        time,
+        position,
+        transitionIn,
+        transitionOut,
+        messageColor,
+        titleColor,
+        backgroundColor,
+        zindex
+      } = option;
+      iziToast.question({ 
+        id: 'question',
+        icon: 'Fontawesome',
+        close: false,
+        overlay: true,
+        displayMode: 'once',
+        position: 'center',
+        messageColor: messageColor || 'var(--color-text)',
+        titleColor: titleColor || 'var(--color-text)',
+        backgroundColor: backgroundColor || 'var(--color-card)',
+        zindex: zindex || '2147483647',
+        icon: icon || 'fas fa-question-circle light-blue',
+        timeout: time || '20000',
+        title: title,
+        message: message,
+        buttons: [
+          ['<button><b>是</b></button>', (instance, toast) => {
+            instance.hide({ transitionOut: transitionOut || 'fadeOut' }, toast, 'button');
+            if(success) success(instance, toast)
+          }],
+          ['<button><b>否</b></button>', (instance, toast) => {
+            instance.hide({ transitionOut: transitionOut || 'fadeOut' }, toast, 'button');
+            if(cancel) cancel(instance, toast)
+          }]
+        ],
+        onClosed: (instance, toast, closedBy) => {
+          if(done) done(instance, toast, closedBy);
+        }
+      });
+    }
+  }
+
+  volantis.hideMessage = (done = null) => {
+    const toast = document.querySelector('.iziToast');
+    if (!toast) {
+      if(done) done()
+      return;
+    }
+    
+    if (typeof iziToast === "undefined") {
+      volantis.css('/css/message.css?time=1642412719852')
+      volantis.js('/js/thirdparty/message.js?time=1642412719852', () => {
+        hideMessage(done);
+      });
+    } else {
+      hideMessage(done);
+    }
+
+    function hideMessage(done) {
+      iziToast.hide({}, toast);
+      if(done) done();
+    }
+  }
+
+  volantis.messageCopyright = {
+    enable: 'true' === 'true' ? true : false,
+    title: '知识共享许可协议',
+    message: '请遵守 CC BY-NC-SA 4.0 协议。',
+    icon: 'far fa-copyright light-blue'
+  }
+
+  volantis.messageRightMenu = {
+    enable: 'true' === 'true' ? true : false,
+  }
+
+  if(volantis.messageCopyright.enable) {
+    document.body.oncopy = function(){
+      volantis.message(volantis.messageCopyright.title, volantis.messageCopyright.message, {
+        icon: volantis.messageCopyright.icon
+      });
+    }; 
+  }
+</script>
+
+
+
+
+
+<!-- rightmenu要在darkmode之前（ToggleButton） darkmode要在comments之前（volantis.dark.push）-->
+
+
+
+<script>
+  function loadIssuesJS() {
+    
+      const sites_api = document.getElementById('sites-api');
+      if (sites_api != undefined && typeof SitesJS === 'undefined') {
+        volantis.js("/js/plugins/sites.js?time=1642412719852")
+      }
+    
+    
+      const friends_api = document.getElementById('friends-api');
+      if (friends_api != undefined && typeof FriendsJS === 'undefined') {
+        volantis.js("/js/plugins/friends.js?time=1642412719852")
+      }
+    
+    
+      const contributors_api = document.getElementById('contributors-api');
+      if (contributors_api != undefined && typeof ContributorsJS === 'undefined') {
+        volantis.js("/js/plugins/contributors.js?time=1642412719852")
+      }
+    
+  };
+  loadIssuesJS()
+  volantis.pjax.push(()=>{
+    loadIssuesJS();
+  })
+
+</script>
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: ["#"],
+	maxRPS: 6,
+	hoverDelay: 0
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+
+
+
+
+
+
+
+  <script>
+  volantis.layoutHelper("comments",`<div id="artalk_container"><i class="fas fa-cog fa-spin fa-fw fa-2x"></i></div>`);
+  function load_artalk() {
+    if(!document.querySelectorAll("#artalk_container")[0])return;
+    volantis.css("https://cdn.jsdelivr.net/npm/artalk@2.1.3/dist/Artalk.css");
+    volantis.js("https://cdn.jsdelivr.net/npm/artalk@2.1.3/dist/Artalk.js").then(pjax_artalk);
+  }
+
+  function pjax_artalk() {
+    if(!document.querySelectorAll("#artalk_container")[0])return;
+    let path = pdata.commentPath;
+    let placeholder = pdata.commentPlaceholder || "来啊，快活啊 ( ゜- ゜)" || "";
+    if (path.length == 0) {
+      path = '' || decodeURI(window.location.pathname);
+    }
+
+    volantis.artalk = new Artalk(Object.assign({"js":"https://cdn.jsdelivr.net/npm/artalk@2.1.3/dist/Artalk.js","css":"https://cdn.jsdelivr.net/npm/artalk@2.1.3/dist/Artalk.css","server":"http://127.0.0.1:8080/api","path":null,"placeholder":"来啊，快活啊 ( ゜- ゜)","noComment":"快来成为第一个评论的人吧~","pagination":{"readMore":true,"autoLoad":false,"pageSize":10}}, {
+      el: '#artalk_container',
+      pageKey: path,
+      pageTitle: document.title,
+      placeholder: placeholder,
+      site: 'Weike',
+      darkMode: volantis.dark.mode === "dark"
+    }));
+
+    volantis.artalk.on('comments-loaded', () => {
+      if (typeof VolantisFancyBox === "undefined"){
+        const checkFancyBox = setInterval(() => {
+          if(typeof VolantisFancyBox === "undefined") return;
+          clearInterval(checkFancyBox);
+          VolantisFancyBox.groupBind('.atk-content img:not([atk-emoticon])', 'Comments');
+        })
+      } else {
+        VolantisFancyBox.groupBind('.atk-content img:not([atk-emoticon])', 'Comments');
+      }
+    })
+  }
+
+  load_artalk();
+  volantis.pjax.push(()=>{
+    if (typeof Artalk === "undefined") {
+      load_artalk();
+    } else {
+      pjax_artalk();
+    }
+  },'artalk');
+
+  function dark_artalk() {
+    if(!document.querySelectorAll("#artalk_container")[0]) return;
+    volantis.artalk.setDarkMode(volantis.dark.mode === "dark")
+  }
+  volantis.dark.push(dark_artalk);
+</script>
+
+
+
+
+
+
+<script src="/js/app.js?time=1642412719852.js"></script>
+
+
+<!-- optional -->
+
+  <script>
+  const SearchServiceDataPathRoot = ("/" || "/").endsWith("/")
+    ? "/" || "/"
+    : "//" || "/";
+  const SearchServiceDataPath = SearchServiceDataPathRoot + "content.json";
+
+  function loadSearchScript() {
+    // see: layout/_partial/scripts/_ctrl/cdnCtrl.ejs
+    return volantis.js("/js/search/hexo.js?time=1642412719852");
+  }
+
+  function loadSearchService() {
+    loadSearchScript();
+    document.querySelectorAll(".input.u-search-input").forEach((e) => {
+      e.removeEventListener("focus", loadSearchService, false);
+    });
+  }
+
+  // 打开并搜索 字符串 s
+  function OpenSearch(s) {
+    loadSearchScript().then(() => {
+      SearchService.setQueryText(s);
+      SearchService.search();
+    });
+  }
+
+  // 访问含有 ?s=xxx  的链接时打开搜索 // 与搜索引擎 structured data 相关: /scripts/helpers/structured-data/lib/config.js
+  if (window.location.search && /^\?s=/g.test(window.location.search)) {
+    let queryText = decodeURI(window.location.search)
+      .replace(/\ /g, "-")
+      .replace(/^\?s=/g, "");
+    OpenSearch(queryText);
+  }
+
+  // 搜索输入框获取焦点时加载搜索
+  document.querySelectorAll(".input.u-search-input").forEach((e) => {
+    e.addEventListener("focus", loadSearchService, false);
+  });
+</script>
+
+
+
+
+
+
+
+
+  <script>
+
+
+
+  function pjax_highlightjs_copyCode(){
+    if (!(document.querySelector(".highlight .code pre") ||
+      document.querySelector(".article pre code"))) {
+      return;
+    }
+    VolantisApp.copyCode(".highlight .code pre, .article pre code")
+  }
+  volantis.requestAnimationFrame(pjax_highlightjs_copyCode)
+  volantis.pjax.push(pjax_highlightjs_copyCode)
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  <script>
+  function load_swiper() {
+    if (!document.querySelectorAll(".swiper-container")[0]) return;
+    volantis.css("https://unpkg.com/swiper@6/swiper-bundle.min.css");
+    volantis.js("https://unpkg.com/swiper@6/swiper-bundle.min.js").then(() => {
+      pjax_swiper();
+    });
+  }
+
+  load_swiper();
+
+  function pjax_swiper() {
+    volantis.swiper = new Swiper('.swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 8,
+      centeredSlides: true,
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  }
+
+  volantis.pjax.push(() => {
+    if (!document.querySelectorAll(".swiper-container")[0]) return;
+    if (typeof volantis.swiper === "undefined") {
+      load_swiper();
+    } else {
+      pjax_swiper();
+    }
+  });
+</script>
+
+
+<!-- pjax 标签必须存在于所有页面 否则 pjax error -->
+<pjax>
+
+</pjax>
+
+<script>
+  function listennSidebarTOC() {
+    const navItems = document.querySelectorAll(".toc li");
+    if (!navItems.length) return;
+    const sections = [...navItems].map((element) => {
+      const link = element.querySelector(".toc-link");
+      const target = document.getElementById(
+        decodeURI(link.getAttribute("href")).replace("#", "")
+      );
+      // 解除 a 标签 href 的 锚点定位, a 标签 href 的 锚点定位 会随机启用?? 产生错位???
+      link.setAttribute("onclick","return false;")
+      link.setAttribute("toc-action","toc-"+decodeURI(link.getAttribute("href")).replace("#", ""))
+      link.setAttribute("href","/")
+      // 配置 点击 触发新的锚点定位
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        // 这里的 addTop 是通过错位使得 toc 自动展开.
+        volantis.scroll.to(target,{addTop: 5, observer:false})
+        // Anchor id
+        history.pushState(null, document.title, "#" + target.id);
+      });
+      return target;
+    });
+
+    function activateNavByIndex(target) {
+      if (target.classList.contains("active-current")) return;
+
+      document.querySelectorAll(".toc .active").forEach((element) => {
+        element.classList.remove("active", "active-current");
+      });
+      target.classList.add("active", "active-current");
+      let parent = target.parentNode;
+      while (!parent.matches(".toc")) {
+        if (parent.matches("li")) parent.classList.add("active");
+        parent = parent.parentNode;
+      }
+    }
+
+    function findIndex(entries) {
+      let index = 0;
+      let entry = entries[index];
+      if (entry.boundingClientRect.top > 0) {
+        index = sections.indexOf(entry.target);
+        return index === 0 ? 0 : index - 1;
+      }
+      for (; index < entries.length; index++) {
+        if (entries[index].boundingClientRect.top <= 0) {
+          entry = entries[index];
+        } else {
+          return sections.indexOf(entry.target);
+        }
+      }
+      return sections.indexOf(entry.target);
+    }
+
+    function createIntersectionObserver(marginTop) {
+      marginTop = Math.floor(marginTop + 10000);
+      let intersectionObserver = new IntersectionObserver(
+        (entries, observe) => {
+          let scrollHeight = document.documentElement.scrollHeight;
+          if (scrollHeight > marginTop) {
+            observe.disconnect();
+            createIntersectionObserver(scrollHeight);
+            return;
+          }
+          let index = findIndex(entries);
+          activateNavByIndex(navItems[index]);
+        }, {
+          rootMargin: marginTop + "px 0px -100% 0px",
+          threshold: 0,
+        }
+      );
+      sections.forEach((element) => {
+        element && intersectionObserver.observe(element);
+      });
+    }
+
+    createIntersectionObserver(document.documentElement.scrollHeight);
+  }
+
+  document.addEventListener("DOMContentLoaded", ()=>{
+    volantis.requestAnimationFrame(listennSidebarTOC)
+  });
+  document.addEventListener("pjax:success", ()=>{
+    volantis.requestAnimationFrame(listennSidebarTOC)
+  });
+</script>
+
+<script>
+  // https://web.dev/content-visibility/
+  // https://www.caniuse.com/?search=content-visibility
+  // https://infrequently.org/2020/12/content-visibility-scroll-fix/
+  // https://infrequently.org/2020/12/resize-resilient-deferred-rendering/
+
+  // 备注 目前已知的问题:
+  // 动态修改导致的内容高度变化(例如评论框异步渲染的外部盒子高度变化) 无法提前获知, 进而导致的首次滚动条跳动无法去除 (wontfix) 事实上不使用 content-visibility 也会有跳动, 不过是比使用 content-visibility 跳动提前
+  // scrollreveal 插件潜在问题 目前尚不明确
+
+  let eqIsh = (a, b, fuzz = 2) => {
+    return Math.abs(a - b) <= fuzz;
+  };
+
+  let rectNotEQ = (a, b) => {
+    return !eqIsh(a.width, b.width) || !eqIsh(a.height, b.height);
+  };
+
+  // Keep a map of elements and the dimensions of
+  // their place-holders, re-setting the element's
+  // intrinsic size when we get updated measurements
+  // from observers.
+  let spaced = new WeakMap();
+
+  // Only call this when known cheap, post layout
+  let reserveSpace = (el, rect = el.getClientBoundingRect()) => {
+    let old = spaced.get(el);
+    // Set intrinsic size to prevent jumping on un-painting:
+    //    https://drafts.csswg.org/css-sizing-4/#intrinsic-size-override
+    if (!old || rectNotEQ(old, rect)) {
+      spaced.set(el, rect);
+      el.style["contain-intrinsic-size"] = `${rect.width}px ${rect.height}px`;
+    }
+  };
+
+  let iObs = new IntersectionObserver(
+    (entries, o) => {
+      entries.forEach((entry) => {
+        // We don't care if the element is intersecting or
+        // has been laid out as our page structure ensures
+        // they'll get the right width.
+        reserveSpace(entry.target, entry.boundingClientRect);
+      });
+    },
+    { rootMargin: "500px 0px 500px 0px" }
+  );
+
+  let rObs = new ResizeObserver((entries, o) => {
+    entries.forEach((entry) => {
+      reserveSpace(entry.target, entry.contentRect);
+    });
+  });
+
+  let resizeResilientDeferredRendering = (Selector) => {
+    let articles = document.querySelectorAll(Selector);
+
+    if (articles.length) {
+      articles.forEach((el) => {
+        iObs.observe(el);
+        rObs.observe(el);
+      });
+
+      // Workaround for Chrome bug, part 2.
+      //
+      // Re-enable browser management of rendering for the
+      // first article after the first paint. Double-rAF
+      // to ensure we get called after a layout.
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          articles[0].style["content-visibility"] = "auto";
+        });
+      });
+    }
+  };
+
+  let contentVisibilityScrollFix = () => {
+    if (!("content-visibility" in document.documentElement.style)) {
+      return;
+    }
+    resizeResilientDeferredRendering(".post-story");
+    resizeResilientDeferredRendering("article");
+    resizeResilientDeferredRendering(".post-wrapper");
+  };
+  contentVisibilityScrollFix();
+  volantis.pjax.push(contentVisibilityScrollFix);
+</script>
+
+
+
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"Weike","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"ChenShang","image":{"@type":"ImageObject","url":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","sameAs":["https://github.com/volantis-x"],"description":""},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://example.com/","name":"Weike"}},{"@type":"ListItem","position":3,"item":{"@id":"http://example.com/2021/09/10/网络安全/","name":"如何反黑客后门程序"}}]},{"@context":"http://schema.org","@type":"BlogPosting","headline":"如何反黑客后门程序","description":"","datePublished":"2021-09-10T15:54:42.000Z","dateModified":"2021-09-10T15:54:43.974Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2021/09/10/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"},"author":{"@type":"Person","name":"ChenShang","image":{"@type":"ImageObject","url":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/"},"publisher":{"@type":"Organization","name":"Weike","logo":{"@type":"ImageObject","url":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"http://example.com/2021/09/10/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/","wordCount":0,"keywords":"linux,网络安全","image":{"@type":"ImageObject","url":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+
+
+<!-- more -->
+
+
+
+      
+        <!-- 
+  pjax重载区域接口：
+  1.  <pjax></pjax> 标签 pjax 标签必须存在于所有页面 否则 pjax error
+  2.  script[data-pjax]
+  3.  .pjax-reload script
+  4.  .pjax
+-->
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox]):not([onclick="return false;"]):not([target="_blank"]):not([target="view_window"]):not([href$=".xml"])',
+        selectors: [
+          "head title",
+          
+          "#l_main",
+          "#pjax-header-nav-list",
+          ".pjax",
+          "pjax", // <pjax></pjax> 标签
+          "script[data-pjax], .pjax-reload script" // script标签添加data-pjax 或 script标签外层添加.pjax-reload 的script代码段重载
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
+      volantis.pjax.method.send.start();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      // 使用 volantis.pjax.push 方法传入重载函数 参见layout/_partial/scripts/global.ejs
+      volantis.pjax.method.complete.start();
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
+      volantis.pjax.method.error.start();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+
+      
+    </div>
+  <!-- Custom Files bodyEnd begin-->
+  
+  <!-- Custom Files bodyEnd end-->
+  <!-- hexo injector body_end start -->
+  <script data-pjax src="https://cdn.jsdelivr.net/gh/Zfour/hexo-github-calendar@1.21/hexo_githubcalendar.js"></script>
+  <script data-pjax>
+        function GithubCalendarConfig(){
+            var git_githubapiurl ="https://python-github-calendar-api.vercel.app/api?xixi-cmd";
+            var git_color =['#ebedf0', '#fdcdec', '#fc9bd9', '#fa6ac5', '#f838b2', '#f5089f', '#c4067e', '#92055e', '#540336', '#48022f', '#30021f'];
+            var git_user ="xixi-cmd";
+            var parent_div_git = document.getElementsByClassName('l_main')[0];
+            var git_div_html = '<div class="post post-v3 white-box reveal shadow" style="width:100%;height:auto;padding:10px;transform: none!important;"><div id="github_loading" style="width:10%;height:100%;margin:0 auto;display: block"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 50 50" style="enable-background:new 0 0 50 50" xml:space="preserve"><path fill="#d0d0d0" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z" transform="rotate(275.098 25 25)"><animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"></animateTransform></path></svg></div><div id="github_container"></div></div>';
+            if(parent_div_git && location.pathname =='/'){
+                console.log('已挂载github calendar')
+                // parent_div_git.innerHTML=git_div_html+parent_div_git.innerHTML // 无报错，但不影响使用(支持pjax跳转)
+                parent_div_git.insertAdjacentHTML("afterbegin",git_div_html) // 有报错，但不影响使用(支持pjax跳转)
+            };
+            GithubCalendar(git_githubapiurl,git_color,git_user)
+        }
+        if(document.getElementsByClassName('l_main')[0]){
+            GithubCalendarConfig()
+        }
+    </script>
+    <style>#github_container{min-height:280px}@media screen and (max-width:650px) {#github_container{background-image:;min-height:0px}}</style>
+    <style></style><!-- hexo injector body_end end --></body>
+</html>

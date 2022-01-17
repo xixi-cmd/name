@@ -1,0 +1,3791 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <script>
+    function music_on() {
+        var audio1 = document.getElementById('bg_music');
+        if (audio1.paused) {
+            audio1.play();
+        }else{
+            audio1.pause();
+            audio1.currentTime = 0;//音乐从头播放
+        }
+    }
+    function BackTOP() {
+        $("#btn").hide();
+        $(function () {
+            $(window).scroll(function () {
+                if ($(window).scrollTop() > 50) {
+                    $("#btn").fadeIn(200);
+                } else {
+                    $("#btn").fadeOut(200);
+                }
+            });
+            $("#btn").click(function () {
+                $('body,html').animate({
+                        scrollTop: 0
+                    },
+                    500);
+                return false;
+            });
+        });
+        $(function () {
+            $("#say").click(function () {
+                $('body,html').animate({
+                        scrollTop: $('html, body').get(0).scrollHeight
+                    },
+                    500);
+                return false;
+            });
+        })
+    }
+ 
+    $('#readmode').click(function () {
+            $('body').toggleClass('read-mode')
+        })
+        
+    function SiderMenu() {
+        $('#main-container').toggleClass('open');
+        $('.iconflat').css('width', '50px').css('height', '50px');
+        $('.openNav').css('height', '50px');
+        $('#main-container,#mo-nav,.openNav').toggleClass('open')
+    }
+ 
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($("body")), setTimeout(
+            function () {
+                var DarkMode = document.cookie.replace(/(?:(?:^|.*;\s*)DarkMode\s*\=\s*([^;]*).*$)|^.*$/, "$1") ||
+                    '0';
+                (volantis.dark.mode == "dark") 
+                ? 
+                ($("html").addClass("DarkMode"), 
+                document.cookie = "DarkMode=1;path=/", 
+                $('#modeicon').attr("xlink:href", "#icon-sun")) 
+                : 
+                ($("html").removeClass("DarkMode"), 
+                document.cookie = "DarkMode=0;path=/", 
+                $('#modeicon').attr("xlink:href", "#icon-_moon")), 
+                setTimeout(function () {
+                    $(".Cuteen_DarkSky").fadeOut(1e3, function () {
+                        $(this).remove()
+                    })
+                }, 2e3)
+            }), 50
+    }
+ 
+    function checkNightMode() {
+        if ($("html").hasClass("n-f")) {
+            $("html").removeClass("day");
+            $("html").addClass("DarkMode");
+            $('#modeicon').attr("xlink:href", "#icon-sun")
+            return;
+        }
+        if ($("html").hasClass("d-f")) {
+            $("html").removeClass("DarkMode");
+            $("html").addClass("day");
+            $('#modeicon').attr("xlink:href", "#icon-_moon")
+ 
+            return;
+        }
+        if (document.cookie.replace(/(?:(?:^|.*;\s*)DarkMode\s*\=\s*([^;]*).*$)|^.*$/, "$1") === '') {
+            if (volantis.dark.mode == "dark") {
+                $("html").addClass("DarkMode");
+                document.cookie = "DarkMode=1;path=/";
+                console.log('夜间模式开启');
+                $('#modeicon').attr("xlink:href", "#icon-sun")
+            } else {
+                $("html").removeClass("DarkMode");
+                document.cookie = "DarkMode=0;path=/";
+                console.log('夜间模式关闭');
+                $('#modeicon').attr("xlink:href", "#icon-_moon")
+            }
+        } else {
+            var DarkMode = document.cookie.replace(/(?:(?:^|.*;\s*)DarkMode\s*\=\s*([^;]*).*$)|^.*$/, "$1") || '0';
+            if (DarkMode == '0') {
+                $("html").removeClass("DarkMode");
+                $('#modeicon').attr("xlink:href", "#icon-_moon")
+            } else if (DarkMode == '1') {
+                $("html").addClass("DarkMode");
+                $('#modeicon').attr("xlink:href", "#icon-sun")
+            }
+        }
+    }
+    BackTOP();
+</script>
+ 
+<style>
+    #RightDownBtn {
+        position: fixed;
+        left: 1.875rem;
+        bottom: 1.875rem;
+        padding: 0.3125rem 0.625rem;
+        background: #fff;
+        border-radius: 0.1875rem;
+        transition: 0.3s ease all;
+        z-index: 1;
+        align-items: flex-end;
+        flex-direction: column;
+        display: -moz-flex;
+        display: flex;
+        float: right;
+    }
+ 
+    #RightDownBtn>a,
+    #RightDownBtn>label {
+        width: 1.5em;
+        height: 1.5em;
+        margin: 0.3125rem 0;
+        transition: .2s cubic-bezier(.25, .46, .45, .94);
+    }
+ 
+    /* font color */
+    .DarkMode #page,
+    .DarkMode #colophon,
+    .DarkMode #vcomments .vbtn,
+    .DarkMode .art-content #archives .al_mon_list .al_mon,
+    .DarkMode .art-content #archives .al_mon_list span,
+    .DarkMode body,
+    .DarkMode .art-content #archives .al_mon_list .al_mon,
+    .DarkMode .art-content #archives .al_mon_list span,
+    .DarkMode button,
+    .DarkMode .art .art-content #archives a,
+    .DarkMode textarea,
+    .DarkMode strong,
+    .DarkMode a,
+    .DarkMode p,
+    .DarkMode li,
+    .DarkMode .label {
+        color: rgba(255, 255, 255, .6);
+    }
+ 
+    
+    .DarkMode #page,
+    .DarkMode body,
+    .DarkMode #colophon,
+    .DarkMode #main-container,
+    .DarkMode #page .yya,
+    .DarkMode #content,
+    .DarkMode #contentss,
+    .DarkMode #footer {
+        background-color: #292a2d;
+    }
+    .DarkMode strong,
+    .DarkMode img {
+        filter: brightness(.7);
+    }
+ 
+    /* sun and noon */
+    .Cuteen_DarkSky,
+    .Cuteen_DarkSky:before {
+        content: "";
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 88888888
+    }
+ 
+    .Cuteen_DarkSky {
+        background: linear-gradient(#feb8b0, #fef9db)
+    }
+ 
+    .Cuteen_DarkSky:before {
+        transition: 2s ease all;
+        opacity: 0;
+        background: linear-gradient(#4c3f6d, #6c62bb, #93b1ed)
+    }
+ 
+    .DarkMode .Cuteen_DarkSky:before {
+        opacity: 1
+    }
+ 
+    .Cuteen_DarkPlanet {
+        z-index: 99999999;
+        position: fixed;
+        left: -50%;
+        top: -50%;
+        width: 200%;
+        height: 200%;
+        -webkit-animation: CuteenPlanetMove 2s cubic-bezier(.7, 0, 0, 1);
+        animation: CuteenPlanetMove 2s cubic-bezier(.7, 0, 0, 1);
+        transform-origin: center bottom
+    }
+ 
+    @-webkit-keyframes CuteenPlanetMove {
+        0% {
+            transform: rotate(0)
+        }
+ 
+        to {
+            transform: rotate(360deg)
+        }
+    }
+ 
+    @keyframes CuteenPlanetMove {
+        0% {
+            transform: rotate(0)
+        }
+ 
+        to {
+            transform: rotate(360deg)
+        }
+    }
+ 
+    .Cuteen_DarkPlanet:after {
+        position: absolute;
+        left: 35%;
+        top: 40%;
+        width: 9.375rem;
+        height: 9.375rem;
+        border-radius: 50%;
+        content: "";
+        background: linear-gradient(#fefefe, #fffbe8)
+    }
+</style>
+    <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/5.0.0-alpha.5'>
+  <meta name="generator" content="Hexo 6.0.0">
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+  <link rel="canonical" href="http://example.com/2020/11/28/二向箔/"/>
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  <meta content="Weike" name="application-name">
+  <meta content="Weike" name="apple-mobile-web-app-title">
+  <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+  <meta content="telephone=no" name="format-detection">
+  <link rel="preload" href="/css/style.css?time=1642412719986" as="style">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/volantis-x/cdn-fonts/VarelaRound/VarelaRound-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/gh/volantis-x/cdn-fonts/UbuntuMono/UbuntuMono-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <!-- 页面元数据 -->
+  <title>二向箔 - Weike</title>
+  <meta name="keywords" content="物理学,科幻历险记,null">
+  <meta name="description" content="建议放这首歌曲阅读   碎碎念为什么我会有写这个文章的念头？最近我看完了《三体》，你问我看懂没有，我不懂，但是里面基本的空间，物理学知识还可以看懂，就像是同一个分类里面的熵，你问我看懂没有了我也没看懂，呵~，这个《三体》的话，说简单点就是看视频吧。我把B站文曰大佬的      足足86分钟呢，嘿嘿嘿...  切入正题什么是降维打击？为什么我会把这个放在“二向箔”前面？因为我觉得这个是二向箔的命根子">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二向箔">
+<meta property="og:url" content="http://example.com/2020/11/28/%E4%BA%8C%E5%90%91%E7%AE%94/index.html">
+<meta property="og:site_name" content="Weike">
+<meta property="og:description" content="建议放这首歌曲阅读   碎碎念为什么我会有写这个文章的念头？最近我看完了《三体》，你问我看懂没有，我不懂，但是里面基本的空间，物理学知识还可以看懂，就像是同一个分类里面的熵，你问我看懂没有了我也没看懂，呵~，这个《三体》的话，说简单点就是看视频吧。我把B站文曰大佬的      足足86分钟呢，嘿嘿嘿...  切入正题什么是降维打击？为什么我会把这个放在“二向箔”前面？因为我觉得这个是二向箔的命根子">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/android-chrome-192x192.png">
+<meta property="article:published_time" content="2020-11-28T09:48:12.000Z">
+<meta property="article:modified_time" content="2021-08-20T11:05:06.472Z">
+<meta property="article:author" content="ChenShang">
+<meta property="article:tag" content="物理学">
+<meta property="article:tag" content="科幻历险记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/android-chrome-192x192.png">
+  <!-- feed -->
+    <link rel="alternate" href="/atom.xml" title="Weike" type="application/atom+xml">
+  <!-- import meta -->
+  <!-- link -->
+  <!-- import link -->
+      <link rel="stylesheet" href="/css/stylel.css">
+      <link rel="stylesheet" href="//at.alicdn.com/t/font_1951635_oio5nhndef.css">
+  <style>
+    /* 首屏样式 */
+    #safearea {
+  display: none;
+}
+/* 
+  * Workaround for Chrome bug, part 1
+  * Chunk rendering for all but the first article.
+  * /layout/_partial/scripts/content-visibility-scroll-fix.ejs
+*/
+.post-story + .post-story,
+article + article,
+.post-wrapper + .post-wrapper {
+  content-visibility: auto;
+  contain-intrinsic-size: 10px 500px;
+}
+:root {
+  --color-site-body: #f4f4f4;
+  --color-site-bg: #f4f4f4;
+  --color-site-inner: #fff;
+  --color-site-footer: #666;
+  --color-card: #fff;
+  --color-text: #444;
+  --color-block: #f6f6f6;
+  --color-inlinecode: #c74f00;
+  --color-codeblock: #fff7ea;
+  --color-h1: #3a3a3a;
+  --color-h2: #3a3a3a;
+  --color-h3: #333;
+  --color-h4: #444;
+  --color-h5: #555;
+  --color-h6: #666;
+  --color-p: #444;
+  --color-list: #666;
+  --color-list-hl: #388fcb;
+  --color-meta: #888;
+  --color-read-bkg: #e0d8c8;
+  --color-read-post: #f8f1e2;
+}
+* {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  margin: 0;
+  padding: 0;
+}
+html {
+  color: var(--color-text);
+  width: 100%;
+  height: 100%;
+  font-family: UbuntuMono, "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Menlo, Monaco, monospace, sans-serif;
+  font-size: 16px;
+}
+html >::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
+html >::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
+html >::-webkit-scrollbar-thumb {
+  background: #47b3fe;
+  cursor: pointer;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+}
+html >::-webkit-scrollbar-thumb:hover {
+  background: #ff5722;
+}
+body {
+  background-color: var(--color-site-body);
+  text-rendering: optimizelegibility;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+body.modal-active {
+  overflow: hidden;
+}
+@media screen and (max-width: 680px) {
+  body.modal-active {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+a {
+  color: #1b79c4;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+a:hover {
+  color: #ff5722;
+}
+a:active,
+a:hover {
+  outline: 0;
+}
+ul,
+ol {
+  padding-left: 0;
+}
+ul li,
+ol li {
+  list-style: none;
+}
+header {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+}
+img {
+  border: 0;
+  background: none;
+  max-width: 100%;
+}
+svg:not(:root) {
+  overflow: hidden;
+}
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  height: 0;
+  border: 0;
+  border-radius: 1px;
+  -webkit-border-radius: 1px;
+  border-bottom: 1px solid rgba(68,68,68,0.1);
+}
+button,
+input {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+button {
+  overflow: visible;
+  text-transform: none;
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+@supports (backdrop-filter: blur(20px)) {
+  .blur {
+    background: rgba(255,255,255,0.9) !important;
+    backdrop-filter: saturate(200%) blur(20px);
+  }
+}
+.shadow {
+  box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+}
+.shadow.floatable {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.shadow.floatable:hover {
+  box-shadow: 0 2px 4px 0px rgba(0,0,0,0.1), 0 4px 8px 0px rgba(0,0,0,0.1), 0 8px 16px 0px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0 2px 4px 0px rgba(0,0,0,0.1), 0 4px 8px 0px rgba(0,0,0,0.1), 0 8px 16px 0px rgba(0,0,0,0.1);
+}
+#l_cover {
+  min-height: 64px;
+}
+.cover-wrapper {
+  top: 0;
+  left: 0;
+  max-width: 100%;
+  height: 100vh;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+  -khtml-flex-wrap: nowrap;
+  -moz-flex-wrap: nowrap;
+  -o-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  align-content: center;
+  color: var(--color-site-inner);
+  padding: 0 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: -100px;
+}
+.cover-wrapper .cover-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+}
+.cover-wrapper .cover-bg.lazyload:not(.loaded) {
+  opacity: 0;
+  -webkit-opacity: 0;
+  -moz-opacity: 0;
+}
+.cover-wrapper .cover-bg.lazyload.loaded {
+  animation-delay: 0s;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+  animation-name: fadeIn;
+}
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -khtml-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -khtml-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-o-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -khtml-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -khtml-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+.cover-wrapper .cover-body {
+  z-index: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.cover-wrapper#full {
+  height: calc(100vh + 100px);
+  padding-bottom: 100px;
+}
+.cover-wrapper#half {
+  max-height: 640px;
+  min-height: 400px;
+  height: calc(36vh - 64px + 200px);
+}
+.cover-wrapper #scroll-down {
+  width: 100%;
+  height: 64px;
+  position: absolute;
+  bottom: 100px;
+  text-align: center;
+  cursor: pointer;
+}
+.cover-wrapper #scroll-down .scroll-down-effects {
+  color: #fff;
+  font-size: 24px;
+  line-height: 64px;
+  position: absolute;
+  width: 24px;
+  left: calc(50% - 12px);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  animation: scroll-down-effect 1.5s infinite;
+  -webkit-animation: scroll-down-effect 1.5s infinite;
+  -khtml-animation: scroll-down-effect 1.5s infinite;
+  -moz-animation: scroll-down-effect 1.5s infinite;
+  -o-animation: scroll-down-effect 1.5s infinite;
+  -ms-animation: scroll-down-effect 1.5s infinite;
+}
+@-moz-keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-webkit-keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-o-keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+.cover-wrapper .cover-body {
+  margin-top: 64px;
+  margin-bottom: 100px;
+}
+.cover-wrapper .cover-body,
+.cover-wrapper .cover-body .top,
+.cover-wrapper .cover-body .bottom {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -khtml-justify-content: center;
+  -moz-justify-content: center;
+  -o-justify-content: center;
+  -ms-justify-content: center;
+  max-width: 100%;
+}
+.cover-wrapper .cover-body .bottom {
+  margin-top: 32px;
+}
+.cover-wrapper .cover-body .title {
+  font-family: "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Helvetica, monospace;
+  font-size: 3.125rem;
+  line-height: 1.2;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+.cover-wrapper .cover-body .subtitle {
+  font-size: 20px;
+}
+.cover-wrapper .cover-body .logo {
+  max-height: 120px;
+  max-width: calc(100% - 4 * 16px);
+}
+@media screen and (min-height: 1024px) {
+  .cover-wrapper .cover-body .title {
+    font-size: 3rem;
+  }
+  .cover-wrapper .cover-body .subtitle {
+    font-size: 1.05rem;
+  }
+  .cover-wrapper .cover-body .logo {
+    max-height: 150px;
+  }
+}
+.cover-wrapper .cover-body .m_search {
+  position: relative;
+  max-width: calc(100% - 16px);
+  width: 320px;
+  vertical-align: middle;
+}
+.cover-wrapper .cover-body .m_search .form {
+  position: relative;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  width: 100%;
+}
+.cover-wrapper .cover-body .m_search .icon,
+.cover-wrapper .cover-body .m_search .input {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.cover-wrapper .cover-body .m_search .icon {
+  position: absolute;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  line-height: 2.5rem;
+  width: 32px;
+  top: 0;
+  left: 5px;
+  color: rgba(68,68,68,0.75);
+}
+.cover-wrapper .cover-body .m_search .input {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  height: 2.5rem;
+  width: 100%;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  font-size: 0.875rem;
+  -webkit-appearance: none;
+  padding-left: 36px;
+  border-radius: 1.4rem;
+  -webkit-border-radius: 1.4rem;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(10px);
+  border: none;
+  color: var(--color-text);
+}
+@media screen and (max-width: 500px) {
+  .cover-wrapper .cover-body .m_search .input {
+    padding-left: 36px;
+  }
+}
+.cover-wrapper .cover-body .m_search .input:hover {
+  background: rgba(255,255,255,0.8);
+}
+.cover-wrapper .cover-body .m_search .input:focus {
+  background: #fff;
+}
+.cover-wrapper .list-h {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -khtml-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -o-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  align-items: stretch;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.cover-wrapper .list-h a {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-flex: 1 0;
+  -ms-flex: 1 0;
+  flex: 1 0;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  font-weight: 600;
+}
+.cover-wrapper .list-h a img {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  margin: 4px;
+  min-width: 40px;
+  max-width: 44px;
+}
+@media screen and (max-width: 768px) {
+  .cover-wrapper .list-h a img {
+    min-width: 36px;
+    max-width: 40px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .cover-wrapper .list-h a img {
+    margin: 2px 4px;
+    min-width: 32px;
+    max-width: 36px;
+  }
+}
+@media screen and (max-width: 375px) {
+  .cover-wrapper .list-h a img {
+    min-width: 28px;
+    max-width: 32px;
+  }
+}
+.cover-wrapper {
+  max-width: 100%;
+}
+.cover-wrapper.search .bottom .menu {
+  margin-top: 16px;
+}
+.cover-wrapper.search .bottom .menu .list-h a {
+  white-space: nowrap;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  align-items: baseline;
+  padding: 2px;
+  margin: 4px;
+  color: var(--color-site-inner);
+  opacity: 0.75;
+  -webkit-opacity: 0.75;
+  -moz-opacity: 0.75;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  border-bottom: 2px solid transparent;
+}
+.cover-wrapper.search .bottom .menu .list-h a i {
+  margin-right: 4px;
+}
+.cover-wrapper.search .bottom .menu .list-h a p {
+  font-size: 0.9375rem;
+}
+.cover-wrapper.search .bottom .menu .list-h a:hover,
+.cover-wrapper.search .bottom .menu .list-h a.active,
+.cover-wrapper.search .bottom .menu .list-h a:active {
+  opacity: 1;
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+  border-bottom: 2px solid var(--color-site-inner);
+}
+@font-face {
+  font-family: 'UbuntuMono';
+  src: url("https://cdn.jsdelivr.net/gh/volantis-x/cdn-fonts/UbuntuMono/UbuntuMono-Regular.ttf");
+  font-weight: 'normal';
+  font-style: 'normal';
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Varela Round';
+  src: url("https://cdn.jsdelivr.net/gh/volantis-x/cdn-fonts/VarelaRound/VarelaRound-Regular.ttf");
+  font-weight: 'normal';
+  font-style: 'normal';
+  font-display: swap;
+}
+.l_header {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  width: 100%;
+  height: 64px;
+  background: var(--color-card);
+  box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+}
+.l_header.auto {
+  transition: opacity 0.4s ease;
+  -webkit-transition: opacity 0.4s ease;
+  -khtml-transition: opacity 0.4s ease;
+  -moz-transition: opacity 0.4s ease;
+  -o-transition: opacity 0.4s ease;
+  -ms-transition: opacity 0.4s ease;
+  visibility: hidden;
+}
+.l_header.auto.show {
+  opacity: 1 !important;
+  -webkit-opacity: 1 !important;
+  -moz-opacity: 1 !important;
+  visibility: visible;
+}
+.l_header .container {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+.l_header #wrapper {
+  height: 100%;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.l_header #wrapper .nav-main,
+.l_header #wrapper .nav-sub {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+  -khtml-flex-wrap: nowrap;
+  -moz-flex-wrap: nowrap;
+  -o-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+  -khtml-justify-content: space-between;
+  -moz-justify-content: space-between;
+  -o-justify-content: space-between;
+  -ms-justify-content: space-between;
+  align-items: center;
+}
+.l_header #wrapper .nav-main {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.l_header #wrapper.sub .nav-main {
+  transform: translateY(-64px);
+  -webkit-transform: translateY(-64px);
+  -khtml-transform: translateY(-64px);
+  -moz-transform: translateY(-64px);
+  -o-transform: translateY(-64px);
+  -ms-transform: translateY(-64px);
+}
+.l_header #wrapper .nav-sub {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  opacity: 0;
+  -webkit-opacity: 0;
+  -moz-opacity: 0;
+  height: 64px;
+  width: calc(100% - 2 * 16px);
+  position: absolute;
+}
+.l_header #wrapper .nav-sub ::-webkit-scrollbar {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+}
+@media screen and (min-width: 2048px) {
+  .l_header #wrapper .nav-sub {
+    max-width: 55vw;
+    margin: auto;
+  }
+}
+.l_header #wrapper.sub .nav-sub {
+  opacity: 1;
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+}
+.l_header #wrapper .title {
+  position: relative;
+  color: var(--color-text);
+  padding-left: 24px;
+  max-height: 64px;
+}
+.l_header #wrapper .nav-main .title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+  line-height: 64px;
+  padding: 0 24px;
+  font-size: 1.25rem;
+  font-family: "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Helvetica, monospace;
+}
+.l_header #wrapper .nav-main .title img {
+  height: 64px;
+}
+.l_header .nav-sub {
+  max-width: 1080px;
+  margin: auto;
+}
+.l_header .nav-sub .title {
+  font-weight: bold;
+  font-family: UbuntuMono, "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Menlo, Monaco, monospace, sans-serif;
+  line-height: 1.2;
+  max-height: 64px;
+  white-space: normal;
+  flex-shrink: 1;
+}
+.l_header .switcher {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  line-height: 64px;
+  align-items: center;
+}
+.l_header .switcher .s-toc {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .l_header .switcher .s-toc {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: -ms-flexbox /* TWEENER - IE 10 */;
+    display: -webkit-flex /* NEW - Chrome */;
+    display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+    display: flex;
+  }
+}
+.l_header .switcher >li {
+  height: 48px;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  margin: 2px;
+}
+@media screen and (max-width: 500px) {
+  .l_header .switcher >li {
+    margin: 0 1px;
+    height: 48px;
+  }
+}
+.l_header .switcher >li >a {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -khtml-justify-content: center;
+  -moz-justify-content: center;
+  -o-justify-content: center;
+  -ms-justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0.85em 1.1em;
+  border-radius: 100px;
+  -webkit-border-radius: 100px;
+  border: none;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  color: #47b3fe;
+}
+.l_header .switcher >li >a:hover {
+  border: none;
+}
+.l_header .switcher >li >a.active,
+.l_header .switcher >li >a:active {
+  border: none;
+  background: var(--color-site-bg);
+}
+@media screen and (max-width: 500px) {
+  .l_header .switcher >li >a {
+    width: 36px;
+    height: 48px;
+  }
+}
+.l_header .nav-sub .switcher {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+}
+.l_header .m_search {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  height: 64px;
+  width: 240px;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+@media screen and (max-width: 1024px) {
+  .l_header .m_search {
+    width: 44px;
+    min-width: 44px;
+  }
+  .l_header .m_search input::placeholder {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+  }
+  .l_header .m_search:hover {
+    width: 240px;
+  }
+  .l_header .m_search:hover input::placeholder {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@media screen and (min-width: 500px) {
+  .l_header .m_search:hover .input {
+    width: 100%;
+  }
+  .l_header .m_search:hover .input::placeholder {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@media screen and (max-width: 500px) {
+  .l_header .m_search {
+    min-width: 0;
+  }
+  .l_header .m_search input::placeholder {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+.l_header .m_search .form {
+  position: relative;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+.l_header .m_search .icon {
+  position: absolute;
+  width: 36px;
+  left: 5px;
+  color: var(--color-meta);
+}
+@media screen and (max-width: 500px) {
+  .l_header .m_search .icon {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: none;
+  }
+}
+.l_header .m_search .input {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  line-height: 1.3;
+  width: 100%;
+  color: var(--color-text);
+  background: #fafafa;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  padding-left: 40px;
+  font-size: 0.875rem;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border: none;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+@media screen and (min-width: 500px) {
+  .l_header .m_search .input:focus {
+    box-shadow: 0 4px 8px 0px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 0 4px 8px 0px rgba(0,0,0,0.1);
+  }
+}
+@media screen and (max-width: 500px) {
+  .l_header .m_search .input {
+    background: var(--color-block);
+    padding-left: 8px;
+    border: none;
+  }
+  .l_header .m_search .input:hover,
+  .l_header .m_search .input:focus {
+    border: none;
+  }
+}
+@media (max-width: 500px) {
+  .l_header .m_search {
+    left: 0;
+    width: 0;
+    overflow: hidden;
+    position: absolute;
+    background: #fff;
+    transition: all 0.28s ease;
+    -webkit-transition: all 0.28s ease;
+    -khtml-transition: all 0.28s ease;
+    -moz-transition: all 0.28s ease;
+    -o-transition: all 0.28s ease;
+    -ms-transition: all 0.28s ease;
+  }
+  .l_header .m_search .input {
+    border-radius: 32px;
+    -webkit-border-radius: 32px;
+    margin-left: 16px;
+    padding-left: 16px;
+  }
+  .l_header.z_search-open .m_search {
+    width: 100%;
+  }
+  .l_header.z_search-open .m_search .input {
+    width: calc(100% - 120px);
+  }
+}
+ul.m-pc >li>a {
+  color: inherit;
+  border-bottom: 2px solid transparent;
+}
+ul.m-pc >li>a:active,
+ul.m-pc >li>a.active {
+  border-bottom: 2px solid #47b3fe;
+}
+ul.m-pc li:hover >ul.list-v,
+ul.list-v li:hover >ul.list-v {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+}
+ul.nav-list-h {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  align-items: stretch;
+}
+ul.nav-list-h>li {
+  position: relative;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -khtml-justify-content: center;
+  -moz-justify-content: center;
+  -o-justify-content: center;
+  -ms-justify-content: center;
+  height: 100%;
+  line-height: 2.4;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+ul.nav-list-h>li >a {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 600;
+}
+ul.list-v {
+  z-index: 1;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  position: absolute;
+  background: var(--color-card);
+  box-shadow: 0 2px 4px 0px rgba(0,0,0,0.08), 0 4px 8px 0px rgba(0,0,0,0.08), 0 8px 16px 0px rgba(0,0,0,0.08);
+  -webkit-box-shadow: 0 2px 4px 0px rgba(0,0,0,0.08), 0 4px 8px 0px rgba(0,0,0,0.08), 0 8px 16px 0px rgba(0,0,0,0.08);
+  margin-top: -6px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  padding: 8px 0;
+}
+ul.list-v.show {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+}
+ul.list-v hr {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+ul.list-v >li {
+  white-space: nowrap;
+  word-break: keep-all;
+}
+ul.list-v >li.header {
+  font-size: 0.78125rem;
+  font-weight: bold;
+  line-height: 2em;
+  color: var(--color-meta);
+  margin: 8px 16px 4px;
+}
+ul.list-v >li.header i {
+  margin-right: 8px;
+}
+ul.list-v >li ul {
+  margin-left: 0;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  margin-top: -40px;
+}
+ul.list-v .aplayer-container {
+  min-height: 64px;
+  padding: 6px 16px;
+}
+ul.list-v >li>a {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  color: var(--color-list);
+  font-size: 0.875rem;
+  font-weight: bold;
+  line-height: 36px;
+  padding: 0 20px 0 16px;
+  text-overflow: ellipsis;
+  margin: 0 4px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+@media screen and (max-width: 1024px) {
+  ul.list-v >li>a {
+    line-height: 40px;
+  }
+}
+ul.list-v >li>a >i {
+  margin-right: 8px;
+}
+ul.list-v >li>a:active,
+ul.list-v >li>a.active {
+  color: var(--color-list-hl);
+}
+ul.list-v >li>a:hover {
+  color: var(--color-list-hl);
+  background: var(--color-site-bg);
+}
+.l_header .menu >ul>li>a {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  padding: 0 8px;
+}
+.l_header .menu >ul>li>a >i {
+  margin-right: 4px;
+}
+.l_header ul.nav-list-h>li {
+  color: var(--color-list);
+  line-height: 64px;
+}
+.l_header ul.nav-list-h>li >a {
+  max-height: 64px;
+  overflow: hidden;
+  color: inherit;
+}
+.l_header ul.nav-list-h>li >a:active,
+.l_header ul.nav-list-h>li >a.active {
+  color: #47b3fe;
+}
+.l_header ul.nav-list-h>li:hover>a {
+  color: var(--color-list-hl);
+}
+.l_header ul.nav-list-h>li i.music {
+  animation: rotate-effect 1.5s linear infinite;
+  -webkit-animation: rotate-effect 1.5s linear infinite;
+  -khtml-animation: rotate-effect 1.5s linear infinite;
+  -moz-animation: rotate-effect 1.5s linear infinite;
+  -o-animation: rotate-effect 1.5s linear infinite;
+  -ms-animation: rotate-effect 1.5s linear infinite;
+}
+@-moz-keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+@-o-keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+@keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+.menu-phone li ul.list-v {
+  right: calc(100% - 0.5 * 16px);
+}
+.menu-phone li ul.list-v ul {
+  right: calc(100% - 0.5 * 16px);
+}
+#wrapper {
+  max-width: 1080px;
+  margin: auto;
+}
+@media screen and (min-width: 2048px) {
+  #wrapper {
+    max-width: 55vw;
+  }
+}
+#wrapper .menu {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-flex: 1 1;
+  -ms-flex: 1 1;
+  flex: 1 1;
+  margin: 0 16px 0 0;
+}
+#wrapper .menu .list-v ul {
+  left: calc(100% - 0.5 * 16px);
+}
+.menu-phone {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  margin-top: 16px;
+  right: 8px;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.menu-phone ul {
+  right: calc(100% - 0.5 * 16px);
+}
+@media screen and (max-width: 500px) {
+  .menu-phone {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: block;
+  }
+}
+.l_header {
+  max-width: 65vw;
+  left: calc((100% - 65vw) * 0.5);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+@media screen and (max-width: 2048px) {
+  .l_header {
+    max-width: 1112px;
+    left: calc((100% - 1112px) * 0.5);
+  }
+}
+@media screen and (max-width: 1112px) {
+  .l_header {
+    left: 0;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    max-width: 100%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .l_header .container {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .l_header #wrapper .nav-main .title {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .l_header #wrapper .nav-sub {
+    width: 100%;
+  }
+  .l_header #wrapper .nav-sub .title {
+    overflow-y: scroll;
+    margin-top: 2px;
+    padding: 8px 16px;
+  }
+  .l_header #wrapper .switcher {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: -ms-flexbox /* TWEENER - IE 10 */;
+    display: -webkit-flex /* NEW - Chrome */;
+    display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+    display: flex;
+    margin-right: 8px;
+  }
+  .l_header .menu {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: none;
+  }
+}
+@media screen and (max-width: 500px) {
+  .list-v li {
+    max-width: 270px;
+  }
+}
+#u-search {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 60px 20px;
+  z-index: 1001;
+}
+@media screen and (max-width: 680px) {
+  #u-search {
+    padding: 0px;
+  }
+}
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css?time=1642412719986" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css?time=1642412719986"></noscript>
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+    '.kill-t{'+
+      'font-size: 2rem;'+
+    '}'+
+    '.kill-c{'+
+      'font-size: 1.2rem;'+
+    '}'+
+		'#l_header,#l_body{'+
+			'display: none;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        `<span class="kill-t"><b>抱歉，您的浏览器无法访问本站</b></span><br/>`+
+        `<span class="kill-c">微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</span><br/>`+
+        `<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support"><strong>了解详情 ></strong></a>`+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+    .kill-t{
+      font-size: 2rem;
+    }
+    .kill-c{
+      font-size: 1.2rem;
+    }
+		#l_header,#l_body{
+			display: none;
+		}
+	</style>
+    <div class="kill-noscript">
+        <span class="kill-t"><b>抱歉，您的浏览器无法访问本站</b></span><br/>
+        <span class="kill-c">本页面需要浏览器支持（启用）JavaScript</span><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
+
+  <script>
+  /************这个文件存放不需要重载的全局变量和全局函数*********/
+  window.volantis = {}; // volantis 全局变量
+  volantis.dom = {}; // 页面Dom see: /source/js/app.js etc.
+  /******************** volantis.EventListener ********************************/
+  // 事件监听器 see: /source/js/app.js
+  volantis.EventListener = {}
+  // 这里存放pjax切换页面时将被移除的事件监听器
+  volantis.EventListener.list = []
+  //构造方法
+  function volantisEventListener(type, f, ele) {
+    this.type = type
+    this.f = f
+    this.ele = ele
+  }
+  // 移除事件监听器
+  volantis.EventListener.remove = () => {
+    volantis.EventListener.list.forEach(function (i) {
+      i.ele.removeEventListener(i.type, i.f, false)
+    })
+    volantis.EventListener.list = []
+  }
+  /******************** volantis.dom.$ ********************************/
+  // 注：这里没有选择器，也没有forEach一次只处理一个dom，这里重新封装主题常用的dom方法，返回的是dom对象，对象包含了以下方法，同时保留dom的原生API
+  function volantisDom(ele) {
+    if (!ele) ele = document.createElement("div")
+    this.ele = ele;
+    // ==============================================================
+    this.ele.find = (c) => {
+      let q = this.ele.querySelector(c)
+      if (q)
+        return new volantisDom(q)
+    }
+    // ==============================================================
+    this.ele.hasClass = (c) => {
+      return this.ele.className.match(new RegExp('(\\s|^)' + c + '(\\s|$)'));
+    }
+    this.ele.addClass = (c) => {
+      this.ele.classList.add(c);
+      return this.ele
+    }
+    this.ele.removeClass = (c) => {
+      this.ele.classList.remove(c);
+      return this.ele
+    }
+    this.ele.toggleClass = (c) => {
+      if (this.ele.hasClass(c)) {
+        this.ele.removeClass(c)
+      } else {
+        this.ele.addClass(c)
+      }
+      return this.ele
+    }
+    // ==============================================================
+    // 参数 r 为 true 表示pjax切换页面时事件监听器将被移除，false不移除
+    this.ele.on = (c, f, r = 1) => {
+      this.ele.addEventListener(c, f, false)
+      if (r) {
+        volantis.EventListener.list.push(new volantisEventListener(c, f, this.ele))
+      }
+      return this.ele
+    }
+    this.ele.click = (f, r) => {
+      this.ele.on("click", f, r)
+      return this.ele
+    }
+    this.ele.scroll = (f, r) => {
+      this.ele.on("scroll", f, r)
+      return this.ele
+    }
+    // ==============================================================
+    this.ele.html = (c) => {
+      // if(c=== undefined){
+      //   return this.ele.innerHTML
+      // }else{
+      this.ele.innerHTML = c
+      return this.ele
+      // }
+    }
+    // ==============================================================
+    this.ele.hide = (c) => {
+      this.ele.style.display = "none"
+      return this.ele
+    }
+    this.ele.show = (c) => {
+      this.ele.style.display = "block"
+      return this.ele
+    }
+    // ==============================================================
+    return this.ele
+  }
+  volantis.dom.$ = (ele) => {
+    return !!ele ? new volantisDom(ele) : null;
+  }
+  /******************** RunItem ********************************/
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = ()=>{
+          volantis.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) =>{
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index,1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+  /******************** Pjax ********************************/
+  // /layout/_plugins/pjax/index.ejs
+  // volantis.pjax.send(callBack[,"callBackName"]) 传入pjax:send回调函数
+  // volantis.pjax.push(callBack[,"callBackName"]) 传入pjax:complete回调函数
+  // volantis.pjax.error(callBack[,"callBackName"]) 传入pjax:error回调函数
+  volantis.pjax = {};
+  volantis.pjax.method = {
+    complete: new RunItem(),
+    error: new RunItem(),
+    send: new RunItem(),
+  };
+  volantis.pjax = {
+    ...volantis.pjax,
+    push: volantis.pjax.method.complete.push,
+    error: volantis.pjax.method.error.push,
+    send: volantis.pjax.method.send.push,
+  };
+  /********************  Dark Mode  ********************************/
+  // /layout/_partial/scripts/darkmode.ejs
+  // volantis.dark.mode 当前模式 dark or light
+  // volantis.dark.toggle() 暗黑模式触发器
+  // volantis.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  volantis.dark = {};
+  volantis.dark.method = {
+    toggle: new RunItem(),
+  };
+  volantis.dark = {
+    ...volantis.dark,
+    push: volantis.dark.method.toggle.push,
+  };
+  /********************  Message  ********************************/
+  // /layout/_plugins/message/script.ejs
+  // volantis.message
+  /********************  isMobile  ********************************/
+  // /source/js/app.js
+  // volantis.isMobile
+  // volantis.isMobileOld
+  /********************脚本动态加载函数********************************/
+  // volantis.js(src, cb)  cb 可以传入onload回调函数 或者 JSON对象 例如: volantis.js("src", ()=>{}) 或 volantis.js("src", {defer:true,onload:()=>{}})
+  // volantis.css(src)
+
+  // 返回Promise对象，如下方法同步加载资源，这利于处理文件资源之间的依赖关系，例如：APlayer 需要在 MetingJS 之前加载
+  // (async () => {
+  //     await volantis.js("...theme.plugins.aplayer.js.aplayer...")
+  //     await volantis.js("...theme.plugins.aplayer.js.meting...")
+  // })();
+
+  // 已经加入了setTimeout
+  volantis.js = (src, cb) => {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var HEAD = document.getElementsByTagName("head")[0] || document.documentElement;
+        var script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        if (cb) {
+          if (JSON.stringify(cb)) {
+            for (let p in cb) {
+              if (p == "onload") {
+                script[p] = () => {
+                  cb[p]()
+                  resolve()
+                }
+              } else {
+                script[p] = cb[p]
+                script.onload = resolve
+              }
+            }
+          } else {
+            script.onload = () => {
+              cb()
+              resolve()
+            };
+          }
+        } else {
+          script.onload = resolve
+        }
+        script.setAttribute("src", src);
+        HEAD.appendChild(script);
+      });
+    });
+  }
+  volantis.css = (src) => {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.href = src;
+        link.onload = resolve;
+        document.getElementsByTagName("head")[0].appendChild(link);
+      });
+    });
+  }
+  /********************按需加载的插件********************************/
+  // volantis.import.jQuery().then(()=>{})
+  volantis.import = {
+    jQuery: () => {
+      if (typeof jQuery == "undefined") {
+        return volantis.js("https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js")
+      } else {
+        return new Promise(resolve => {
+          resolve()
+        });
+      }
+    }
+  }
+  /********************** requestAnimationFrame ********************************/
+  // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+  // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+  volantis.requestAnimationFrame = (fn)=>{
+    if (!window.requestAnimationFrame) {
+      window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+    }
+    window.requestAnimationFrame(fn)
+  }
+  /************************ layoutHelper *****************************************/
+  volantis.layoutHelper = (helper, html, opt)=>{
+    opt = Object.assign({clean:false, pjax:true}, opt)
+    function myhelper(helper, html, clean) {
+      volantis.tempDiv = document.createElement("div");
+      volantis.tempDiv.innerHTML = html;
+      let layoutHelper = document.querySelector("#layoutHelper-"+helper)
+      if (layoutHelper) {
+        if (clean) {
+          layoutHelper.innerHTML = ""
+        }
+        layoutHelper.append(volantis.tempDiv);
+      }
+    }
+    myhelper(helper, html, opt.clean)
+    if (opt.pjax) {
+      volantis.pjax.push(()=>{
+        myhelper(helper, html, opt.clean)
+      },"layoutHelper-"+helper)
+    }
+  }
+  /****************************** 滚动事件处理 ****************************************/
+  volantis.scroll = {
+    engine: new RunItem(),
+    unengine: new RunItem(),
+  };
+  volantis.scroll = {
+    ...volantis.scroll,
+    push: volantis.scroll.engine.push,
+  };
+  // 滚动条距离顶部的距离
+  volantis.scroll.getScrollTop = () =>{
+    let scrollPos;
+    if (window.pageYOffset) {
+      scrollPos = window.pageYOffset;
+    } else if (document.compatMode && document.compatMode != 'BackCompat') {
+      scrollPos = document.documentElement.scrollTop;
+    } else if (document.body) {
+      scrollPos = document.body.scrollTop;
+    }
+    return scrollPos;
+  }
+  // 使用 requestAnimationFrame 处理滚动事件
+  // `volantis.scroll.del` 中存储了一个数值, 该数值检测一定时间间隔内滚动条滚动的位移, 数值的检测频率是浏览器的刷新频率. 数值为正数时, 表示向下滚动. 数值为负数时, 表示向上滚动.
+  volantis.scroll.handleScrollEvents = () => {
+    volantis.scroll.lastScrollTop = volantis.scroll.getScrollTop()
+    function loop() {
+      const scrollTop = volantis.scroll.getScrollTop();
+      if (volantis.scroll.lastScrollTop !== scrollTop) {
+        volantis.scroll.del = scrollTop - volantis.scroll.lastScrollTop;
+        volantis.scroll.lastScrollTop = scrollTop;
+        // if (volantis.scroll.del > 0) {
+        //   console.log("向下滚动");
+        // } else {
+        //   console.log("向上滚动");
+        // }
+        volantis.scroll.engine.start();
+      }else{
+        volantis.scroll.unengine.start();
+      }
+      volantis.requestAnimationFrame(loop)
+    }
+    volantis.requestAnimationFrame(loop)
+  }
+  volantis.scroll.handleScrollEvents()
+  // 触发页面滚动至目标元素位置
+  volantis.scroll.to = (ele, option = {}) =>{
+    // 默认配置
+    opt = {
+      top: ele.getBoundingClientRect().top + document.documentElement.scrollTop,
+      behavior: "smooth"
+    }
+    // 定义配置
+    if ("top" in option) {
+      opt.top = option.top
+    }
+    if ("behavior" in option) {
+      opt.behavior = option.behavior
+    }
+    if ("addTop" in option) {
+      opt.top += option.addTop
+    }
+    if (!("observerDic" in option)) {
+      option.observerDic = 25
+    }
+    // 滚动
+    window.scrollTo(opt);
+    // 监视器
+    // 监视并矫正元素滚动到指定位置 
+    // 目前用于处理 toc 部分 lazyload 引起的 cls 导致的定位失败问题
+    if (option.observer) {
+      volantis.scroll.unengine.push(()=>{
+        let me = ele.getBoundingClientRect().top
+        if(!(me >= -option.observerDic && me <= option.observerDic)){
+          volantis.scroll.to(ele, option)
+        }else{
+          volantis.scroll.unengine.remove("unengineObserver")
+        }
+      },"unengineObserver")
+    }
+  }
+  /******************************************************************************/
+  /******************************************************************************/
+</script>
+  <!-- Custom Files head begin-->
+  
+  <!-- Custom Files head end-->
+</head>
+  <body itemscope itemtype="http://schema.org/WebPage">
+    <header itemscope itemtype="http://schema.org/WPHeader" id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self"  href="/" onclick="return false;" title="comment"></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self"  href="/" onclick="return false;" title="toc"></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+            <img no-lazy class='logo' src='https://s4.ax1x.com/2022/01/01/T5LJi9.png' alt="This is a picture without description" />
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                href="/" title="博客"
+                  
+                  
+                  
+                    active-action="action-home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                href="/categories/" title="分类"
+                  
+                  
+                  
+                    active-action="action-categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                href="/tags/" title="标签"
+                  
+                  
+                  
+                    active-action="action-tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                href="/archives/" title="归档"
+                  
+                  
+                  
+                    active-action="action-archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                href="/links/" title="友链"
+                  
+                  
+                  
+                    active-action="action-links"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                href="/about/" title="关于"
+                  
+                  
+                  
+                    active-action="action-about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+      
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+      
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href="/" onclick="return false;" title="search"></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href="/" onclick="return false;" title="menu"></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                href="/" title="博客"
+                  
+                  
+                  
+                    active-action="action-home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                href="/categories/" title="分类"
+                  
+                  
+                  
+                    active-action="action-categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                href="/tags/" title="标签"
+                  
+                  
+                  
+                    active-action="action-tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                href="/archives/" title="归档"
+                  
+                  
+                  
+                    active-action="action-archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                href="/links/" title="友链"
+                  
+                  
+                  
+                    active-action="action-links"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                href="/about/" title="关于"
+                  
+                  
+                  
+                    active-action="action-about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+
+      <!-- Custom Files header begin -->
+      
+      <!-- Custom Files header end -->
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+    
+      <!-- see: /layout/_partial/scripts/_ctrl/coverCtrl.ejs -->
+      <div id="none" class='cover-wrapper post search' style="display: none;">
+        
+  <div class='cover-bg lazyload placeholder' data-bg="https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture"></div>
+
+<div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">ChenShang的小站</p>
+    
+    
+  </div>
+  <div class='bottom'>
+    
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <input type="text" class="input u-search-input" placeholder="You can search balabala..." />
+          <i class="icon fas fa-search fa-fw"></i>
+        </form>
+      </div>
+    
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+          
+            <a target="_blank" rel="noopener" href="https://weikecc.top/"
+              
+              
+              active-action="action-https:weikecctop">
+              <p>主页</p>
+            </a>
+          
+            <a href="/links/"
+              
+              
+              active-action="action-links">
+              <p>朋友圈</p>
+            </a>
+          
+            <a href="/categories/"
+              
+              
+              active-action="action-categories">
+              <p>分类</p>
+            </a>
+          
+            <a href="/tags/"
+              
+              
+              active-action="action-tags">
+              <p>标签</p>
+            </a>
+          
+            <a href="/balabala/"
+              
+              
+              active-action="action-balabala">
+              <p>留言板</p>
+            </a>
+          
+            <a target="_blank" rel="noopener" href="https://github.com/volantis-x/hexo-theme-volantis/"
+              
+              
+              active-action="action-https:githubcomvolantis-xhexo-theme-volantis">
+              <p>主题</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+        <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+      </div>
+    
+  
+</div>
+
+      <div id="safearea">
+        <div class="body-wrapper">
+          
+<div id="l_main" class=''>
+  <article itemscope itemtype="http://schema.org/Article" class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/28/%E4%BA%8C%E5%90%91%E7%AE%94/">
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Weike">
+  </span>
+  
+
+
+  
+    <span hidden>
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/android-chrome-192x192.png">
+    </span>
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title" itemprop="name headline">
+        二向箔
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author' itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <a itemprop="url" class='author' href="/" rel="nofollow">
+    <img itemprop="image" src="https://thirdqq.qlogo.cn/g?b=sdk&nk=3225454747&s=140" class="lazyload" data-srcset="https://thirdqq.qlogo.cn/g?b=sdk&nk=3225454747&s=140" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="This is a picture without description" >
+    <p itemprop="name">ChenShang</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+    <a class="category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/">学习日记</a><span class="sep"></span><a class="category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/%E7%89%A9%E7%90%86%E5%AD%A6/">物理学</a><span class="sep"></span><a class="category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/%E7%89%A9%E7%90%86%E5%AD%A6/%E7%A7%91%E5%B9%BB%E5%8E%86%E9%99%A9%E8%AE%B0/">科幻历险记</a>
+    
+      <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
+        <a href="/categories/%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/" itemprop="url"><span itemprop="name">学习日记</span></a>
+      </span>
+    
+      <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
+        <a href="/categories/%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/%E7%89%A9%E7%90%86%E5%AD%A6/" itemprop="url"><span itemprop="name">物理学</span></a>
+      </span>
+    
+      <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
+        <a href="/categories/%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/%E7%89%A9%E7%90%86%E5%AD%A6/%E7%A7%91%E5%B9%BB%E5%8E%86%E9%99%A9%E8%AE%B0/" itemprop="url"><span itemprop="name">科幻历险记</span></a>
+      </span>
+    
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2020-11-28T17:48:12+08:00">
+  <a class='notlink' href="/" onclick="return false;" title="Click me!" >
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于: 2020年11月28日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+        <!-- Custom Files topMeta begin-->
+        
+        <!-- Custom Files topMeta end-->
+      </div>
+    
+  </div>
+
+
+  <div id="layoutHelper-page-plugins"></div>
+  <div id="post-body" itemprop="articleBody">
+    <p>建议放这首歌曲阅读</p>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1321290496&auto=1&height=66"></iframe>
+
+<h1 id="碎碎念"><a href="#碎碎念" class="headerlink" title="碎碎念"></a>碎碎念</h1><h2 id="为什么我会有写这个文章的念头？"><a href="#为什么我会有写这个文章的念头？" class="headerlink" title="为什么我会有写这个文章的念头？"></a>为什么我会有写这个文章的念头？</h2><div class="story post-story"><p>最近我看完了《三体》，你问我看懂没有，我不懂，但是里面基本的空间，物理学知识还可以看懂，就像是同一个分类里面的熵，你问我看懂没有了我也没看懂，呵~，这个《三体》的话，说简单点就是看视频吧。我把B站文曰大佬的</p>
+<div style="position:relative; padding-bottom:75%; width:100%; height:0">
+<iframe src="//player.bilibili.com/player.html?aid=8370807&bvid=BV11s41187QY&cid=13778135&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position:absolute; height: 100%; width: 100%;"></iframe>
+</div>
+
+
+<div class="snote red"><p>足足86分钟呢，嘿嘿嘿...</p></div>
+
+<h1 id="切入正题"><a href="#切入正题" class="headerlink" title="切入正题"></a>切入正题</h1></div><h2 id="什么是降维打击？"><a href="#什么是降维打击？" class="headerlink" title="什么是降维打击？"></a>什么是降维打击？</h2><div class="story post-story"><p>为什么我会把这个放在“二向箔”前面？因为我觉得这个是二向箔的命根子，现在切入书中…..</p>
+<h3 id="歌者"><a href="#歌者" class="headerlink" title="歌者"></a>歌者</h3><blockquote>
+<p>以下为《三体Ⅲ：死神永生》第五部片段</p>
+</blockquote>
+<p style="font-family: Airal; font-size: 14px;">
+    翻阅坐标数据是歌者的工作，判断坐标诚意是歌者的乐趣。<br>
+    歌者知道自己做的不是什么大事....歌者翻阅坐标时正在英唱这一首古歌谣：<br>
+</p>
+
+<div class="snote quote"><p class='p subtitle'>歌者的歌谣</p>
+
+
+<p>  <strong>我看到了我的爱恋</strong></p>
+<p>  <strong>我飞到她的身边</strong></p>
+<p>  <strong>我捧出给她的礼物</strong></p>
+<p>  <strong>那是一小块凝固的时间</strong></p>
+<p>  <strong>时间上有美丽的条纹</strong></p>
+<p>  <strong>摸起来像浅海的泥一样柔软</strong></p>
+<p>  <strong>她把时间涂满全身</strong></p>
+<p>  <strong>然后拉起我飞向存在的边缘</strong></p>
+<p>  <strong>这是灵态的飞行</strong></p>
+<p>  <strong>我们眼中的星星像幽灵</strong></p>
+<p>  <strong>星星眼中的我们也像幽灵</strong></p>
+<p>  <strong>……</strong></p>
+</div>
+
+<p style="font-family: Airal; font-size: 14px;">
+....<br>
+"我需要一块二向箔，清理用。"<br>
+"给"长老给了歌者一块二向箔.<br>
+二向箔悬浮在歌者的眼前，是封装状态，晶莹剔透。虽然周是普通的东西，但歌者喜欢它。它并不喜欢安贵的东西，太爆裂，他就喜欢二向箔体现的这种最硬的柔软，能把死亡唱成一首歌的唯美。<br>
+....
+</p>
+
+<h4 id="梗概"><a href="#梗概" class="headerlink" title="梗概"></a>梗概</h4><p>歌者是该文明中唯一一位被作者赋予名字的外星文明个体，因此也成为了该文明的代名词。实际上这并不是这一文明的真正名称，关于它们的绝大多数资料都是模糊和未知的。</p>
+<p>虽然证据有限，但是一种主流猜测认为歌者所在的文明是一个古老的硅基或碳基文明。而随着文明的进步，它们逐渐进化为依靠虚拟交互生存的虚拟信息化文明。但是歌者文明仍然保有一定比例的活性个体（如长老和歌者）来辅助运作一些虚拟生命无法完成的任务，其证据正是基于小说中两个个体之间的对话和对歌者自身的描述。</p>
+<p>相对于太阳系中的人类，歌者文明的强大毫无争议。</p>
+<p>但是歌者所在的文明自身也陷入到了生存危机，它们正与被称为“边缘世界”的敌人展开激烈的星际战争，而且随着战况的变迁，主动转为被动，战局越来越不利于歌者的“母世界”。于是“母世界”在意识到常规战争已经无力谋求最终胜利后，便开始着手准备“全面二维化”，也就是将自己能触及到的全部三维宇宙空间和自己一同送入二维宇宙从而一举消灭所有无法在二维宇宙生存的敌人。歌者的“母世界”是虚拟文明的现实决定了它们在经过改造后，有能力在进入二维宇宙后继续存活，而它们的敌人“边缘世界”就未必了。</p>
+<p>歌者文明的描述可能暗指了文明发展的另一个方向——基于数据体的虚拟文明。但是即使文明实现数据化，对资源的争夺仍然是首要的——姑且不提文明发展和扩展必然涉及的物质利用，仅仅从安全上的考量上看，数据体文明就需要大量的实体武器以免数据载体遭到毁坏。况且即使自身放弃资源掠夺，仍然无法肯定其他文明的“判断”，而其他文明也无法保证这个强大的数据体不会在某一天突然对自己发起攻击。这就是另一个意义上的猜疑链，即使强大如母世界也无法摆脱。</p>
+<div class="snote danger"><p>好了，接下来让我们进入解刨，啊，错了，剖析歌者这个神奇的文明</p></div>
+
+<h4 id="歌者的古老童瑶"><a href="#歌者的古老童瑶" class="headerlink" title="歌者的古老童瑶"></a>歌者的古老童瑶</h4><p>  <strong>我看到了我的爱恋</strong></p>
+<p>  <strong>我飞到她的身边</strong></p>
+<p>  <strong>我捧出给她的礼物</strong></p>
+<p>  <strong>那是一小块凝固的时间</strong></p>
+<p>  <strong>时间上有美丽的条纹</strong></p>
+<p>  <strong>摸起来像浅海的泥一样柔软</strong></p>
+<p>  <strong>她把时间涂满全身</strong></p>
+<p>  <strong>然后拉起我飞向存在的边缘</strong></p>
+<p>  <strong>这是灵态的飞行</strong></p>
+<p>  <strong>我们眼中的星星像幽灵</strong></p>
+<p>  <strong>星星眼中的我们也像幽灵</strong></p>
+<p>  <strong>……</strong></p>
+<h4 id="意义之塔"><a href="#意义之塔" class="headerlink" title="意义之塔"></a>意义之塔</h4><p>这是歌者文明追求的一切，就像法律书写在石塔上那样，“意义之塔”上记录一个文明的追求和价值观。在歌者文明的塔上，最高的是生存。</p>
+<p>我们已知的歌者文明的塔上的内容：生存，乐趣，在不断熵增的宇宙中保持和提高自己的低熵水平。其中乐趣是最不重要的。在开战之后，乐趣因为意义地位较低，很大程度上被遗忘了。</p>
+<p>在意义之塔的更高处，在歌者文明看不到的高处，还有更高的意义。但这不是这个层次的文明所能考虑和理解的事情。</p>
+<p>这个文明层次最大的矛盾和任务，是生存。为了生存，他们必须战争、隐藏和清理。</p>
+<h3 id="把海弄干的鱼"><a href="#把海弄干的鱼" class="headerlink" title="把海弄干的鱼"></a>把海弄干的鱼</h3><div class="snote idea yellow"><p>咳咳，不说了，切回正题</p></div>
+
+<p>记得在《三体》中魔戒说：“把海弄干的鱼先上了陆地，从一片黑暗森林奔向另一片黑暗森林。”</p>
+<p>我草率得理解了一下，大致是这样子。</p>
+<div class="snote paperclip"><p>
+"把海弄干的鱼先上了陆地"的意思大概就是高纬度的生物先把自己改造成了低纬度的生物，海指的是高纬度，这里的鱼指的是维度打击者。但是却有一个问题，不同的维度对资源的使用是不同的，就比如说我们三维生物用木头造门，是为了把别人低挡在外面。但是在四维（只是举个例子），没有门这个概念，四维没有遮挡，直接穿透...所以就可以知道这么个道理：只有同维度的物种间才存在黑暗森林威慑。不同维度的物种间利用资源的方式是不同的，不存在威胁，不存在黑暗森林。高维物种降维打击后进去低维度空间，所以说"从一片黑暗森林奔向另一片黑暗森林。"
+</p></div>
+
+
+<p>也就是说，发动降维打击者可能会先把自己改造成低纬度的生物，比如说魔戒；然后对自己之前或者更高的维度进行打击。它们就是把“海”弄干的“鱼”</p>
+</div><h2 id="二向箔"><a href="#二向箔" class="headerlink" title="二向箔"></a>二向箔</h2><div class="story post-story"><p>三维空间由长度、面积、体积三个维度构成。而二向箔与三维宇宙接触的瞬间，会使其中一个维度由宏观蜷缩到微观，迫使三维宇宙及其中的所有物质向二维宇宙坍塌，并在二维空间中“融化”为只存在长度和面积而失去了体积概念的绝对平面。</p>
+<p>歌者在2403年朝太阳系投掷了二向箔，同年太阳系和和绝大多数地球人被二维化而灭亡。但根据小说细节可知，毁灭太阳系的二向箔要先于歌者，表明地球坐标暴露后，太阳系实际上已经遭到大量外星文明的集火，灭亡只是时间问题。</p>
+<p>二向箔所造成的空间二维化永远不会停止，并且维度坍塌速度会逐渐达到光速。但倘若能借助曲率引擎等手段以光速先行逃离，那么摆脱二维化的命运依然是可能的。然而由于所有的宇宙规律都已被不择手段的星际文明们武器化并频繁使用，因此宇宙本身正在逐渐解体。</p>
+<p>超弦理论描述下的宇宙时空由十个空间维度和单个时间轴共同组成，而维度武器的存在，暗示了高维宇宙已经或正在走向毁灭，其中的幸存者通过改造自身逃入了维度更低的宇宙。如今部分强大的三维文明也开始主动转化为二维生命以求在二维宇宙这一平面世界中继续生存。</p>
+<h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>由于科技水平上的巨大差距，地球文明在毁灭前仅有的一些观察和研究直到最后也未能触及二向箔的本质，通常认为剧情中先行离开太阳系的银河系人类可能对二向箔一类的维度武器有更深刻的认知。二向箔的实质可能只是单纯的一小片二维空间，也可能是真空衰变的产物，亦或者是更加难以理解的存在。二向箔在封装状态下由特制力场束缚，可永久保存，呈现出晶莹剔透的透明纸片状，而待机状态下其封装力场逐渐消散时会发出柔和的白光，看起来就像是一张完全无害的二维薄膜，并以光速飞向目的地。当二向箔逼近目的地时，其速度会迅速降低至光速的千分之一，此时它会出现明显的引力波特征。根据地球人的检测，这种引力波极为强烈，通常只来自于大质量的天体，因此二向箔理论上应该有接近木卫二的质量。但是被力场束缚着的二向箔却只有一张卡纸这么大，暗示了其本身隐藏着难以想象的能量。而当二向箔抵达目标空间后，封装力场就会逐渐消散直至最终消失，最终此武器接触到三维空间并不可逆地发动，将三维空间中的一个维度由宏观蜷缩到微观，导致三维立体空间塌陷，变成二维平面空间并不断扩展。而二维化的进程如同一个巨大的气泡无休无止的膨胀。在这个“气泡”膨胀的同时，周遭的三维空间本身也会逐渐被拉入气泡之中，就如同一个正在急速向外扩张的瀑布口，周围的物体还没有跌入其中，就已经被湍急的水流拉了过去。而这个瀑布是360°全方位的，没有任何一个角度可以摆脱被吞没的厄运，想要逃出生天，就必须赶在被瀑布吞噬前达到逃逸速度，而这个速度正是光速。这就是为什么当第一批遇难者的飞船以反方向推动引擎至最大功率，直至达到光速的15%时，仍然震惊的发现自己依旧在缓缓的向二向箔产生的二维空间“跌落”，最后只得眼睁睁的看着自己卷入二维宇宙之中。被卷入其中的所有三维物质不可避免地变为二维，丧失大量物理特性并在失去厚度概念后崩解，留下没有光学特征（由于二维物体没有厚度，因此光线将直接穿透二维物体而不会产生任何反射，完成二维化的物体逐渐变的透明以至无法目睹到）但有质量的二维平面残骸。这些平面残骸绝不是简单的被压扁，而是在失去高度轴后逐渐“融化”为一张物体“平面设计图”。理论上被二维化的物体可以展现出这些物体本身的全部细节，并以一种没有任何重叠存在的平面展开状态呈现出来。</p>
+<p>三维物体被迫融化为二维物体后，期间大量无法直接转移到二维宇宙的物理特征丢失，并还原成纯粹的能量释放出来，正因如此，太阳系被二维化时，庞大的能量源源不断的覆盖在二维平面之上，以至于人类仅用肉眼就可以观察到那些被二维化的平面残骸。无论是那些被绝望所吞没且扭曲的平面人体，还是苦苦挣扎却还是被二维宇宙所支配的平面太阳，都清晰的映照在逃亡者的眼里。但是当二维化最终完成，这些平面残骸残存的能量耗尽后便会彻底湮灭在黑暗之中，成为没有厚度，不存在光学特征的二维物体，无法直接被观察到。而另一方面，伴随着三维宇宙的解体，二维化的坍塌速度却在不断增加，直至达到真空中的光速。在《三体》中，真空中的光速被设为宇宙内的最大速度，且没有对虫洞以及空间跳跃技术的描写（维度武器的存在实际上暗示了高维宇宙的毁灭，而虫洞等超光速科技需要四维甚至更多维度才能实现，因此在宏观世界开发基于更高维度空间的科技已经是不可能的了），所以此武器对不掌握光速航行技术的常规文明是绝对致命的巨大威胁。</p>
+<p>二向箔发动后无法停止，因此可能会导致使用者本身也会跌落到二维。使用该维度武器的文明被描述为掌握了把自身改造成二维生命而保持在二维空间继续生存的技术，因此不受宇宙二维化的威胁。此外由于二向箔的原理是使一个维度由宏观蜷缩到微观，原本的高维空间并不是消失了，而是进入了微观状态而已。所以理论上若是文明把自己改造成微观生命，就可以在处于微观状态下的高维宇宙中生存（就像《三体Ⅰ》中被读者称为魔眼文明的微观宇宙文明一样，对于它们来说，它们生活的质子就是一个九维的高维空间），也不必惧怕二维化。而维度武器实际上已经在整个宇宙被大量的星际文明频繁的使用，很可能正是因为这些先进的文明已经拥有了在低维宇宙或微观宇宙中生存的能力，因此便反过来导致了它们对这一类维度武器的滥用。即便对于打算毁灭太阳系的歌者而言，二向箔也仅仅是非常基础和经济的清理工具，在其之上必然存在着“更为暴烈”的武器。歌者本人甚至也只是这个文明群体中地位最卑微的一位“清洁工”。</p>
+<h3 id="外观"><a href="#外观" class="headerlink" title="外观"></a>外观</h3><p>长方形膜状物，长八点五厘米，宽五点二厘米，比一张信用卡略大一些，极薄，看不出任何厚度。封装状态下晶莹剔透、无色透明。待机模式下由于封装力场逐渐蒸发，会发出白光，使其表面呈纯白色，看上去就是一张纸条。</p>
+<p><img src="/img/5.jpg" class="lazyload" data-srcset="/img/5.jpg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="二向箔表情包"></p>
+<h3 id="二向箔的原理"><a href="#二向箔的原理" class="headerlink" title="二向箔的原理"></a>二向箔的原理</h3><p>其实从本质上说人类文明的劲敌-三体人的水滴（强相互作用力探测器）的科技还是经典物理学的利用，不过是将经典物理学运用到了极致。但是二向箔则是维度的变化，其利用宇宙规律作为武器，使对象从三维降到二维，导致大量的能量和物质信息丢失，最终泯灭于三维宇宙之中。</p>
+<p>空间二维化，本质上说是将原本的三维空间中的单个维度卷曲压缩，进而实现对空间的逐步吞噬和拆解，原来的三维空间多数部分将不复存在，变成了二维的了。其实这是一个无限缩小和拆解的过程，一个点和一根线段比起来，长度为零。一根线段与一个平面比起来，面积为零。同样，一个二向箔与任何一个有限的三维体比起来，体积为零。</p>
+<p>我们可以这样想象二向箔：在二向箔中，二维化的能量场极低。当我们像《三体》中想象的那样，用特制的力场将未被激活的二向箔包起来，它就不会危害我们的三维空间。</p>
+<p>可是，当二向箔一旦与三维空间赤裸裸地接触，它就变得像沸水中的气泡那样，开始膨胀起来，但由于它是二维的，只会增大面积，像气泡一样不断扩张体积的是它产生的二维化进程。它触发我们三维空间的能量场向能量更低的地方跳。在这个场跳的同时，二向箔却越长越大。</p>
+<p>也有部分读者认为二向箔的原理是真空衰变，也就是一块力场包裹的绝对真空</p>
+<h4 id="研发历史"><a href="#研发历史" class="headerlink" title="研发历史"></a>研发历史</h4><p>通过对基本粒子结构的拆分再重组，构造一个空间结构完全不同的区域。用力场隔离其和正常空间的接触。</p>
+<p>维度武器的存在，可能暗示了现存的三维宇宙本身就是高维宇宙遗留下来的废墟，并且战争还在延续，仅存的三维空间仍然在进一步解体。从另一个角度也说明，二向箔和它所属的维度武器有着人类无法想象的悠久历史。</p>
+<h3 id="攻击范围和影响"><a href="#攻击范围和影响" class="headerlink" title="攻击范围和影响"></a>攻击范围和影响</h3><p>未知，影响范围会迅速扩大，但三维跌落的速度止步于光速。至于对遥远宇宙的影响未知，根据小说描述，如果时间足够长，可能使宇宙全部跌落到二维。但是根据书中人物的经历时间，二向箔并没有使宇宙全部跌落，因此二向箔影响范围应该是星系级别的，由于三维宇宙自身的膨胀（四维宇宙向三维宇宙的跌落），单个二向箔或许永远无法染指全宇宙。</p>
+<p>单个维度武器的影响力注定有限，究其原因可能正是因为宇宙的膨胀，宇宙膨胀速度大于光速，因此被打击星系与距离其较远的星系相互离开的速度可能凌驾于光速之上，即大于三维空间跌落的速度。因此与打击星系之间距离为某段常数值的星系可能避免跌落至二维，又能使被打击星系中的文明能够到达此星系。</p>
+<p>使周围的三维空间向二维跌落，并且二维范围迅速扩大。根据小说描述其逃逸速度为光速，除非被攻击文明拥有可以达到光速的飞船，否则任何物体均无法幸免。此方法比使用质量点杀伤范围更彻底。根据实际情况，被攻击文明如有达到光速的飞船，是能够逃脱的。</p>
+<div class='tip warning'><p>大刘在书中借关一帆之口说了：“三维向二维的跌落永远也不可能休止！”<p></div>
+
+<h3 id="副作用"><a href="#副作用" class="headerlink" title="副作用"></a>副作用</h3><p>由于作用范围可能会扩大，<code>最终使用者本身也可能跌落至二维</code>，所以一般限制使用。但是向太阳系攻击的文明似乎开始改造自身以适应二维宇宙，以便消灭对手，同时避免自身灭亡。但这也可能导致最后整个宇宙全部跌落至二维的后果。</p>
+<h3 id="如何保存"><a href="#如何保存" class="headerlink" title="如何保存"></a>如何保存</h3><p>用特制的力场封装，以便与周围世界隔开，防止对己方产生危害。根据封装方式可知理论上二向箔可以隔离并防止扩散，但实际除了提到歌者文明进行了一些简单限制之外，未有文明防止二向箔扩散的描述。</p>
+<h3 id="情节"><a href="#情节" class="headerlink" title="情节"></a>情节</h3><p>在太阳系内行星带激活后约九天时间便将整个太阳系二维化。除了多年前已经逃离太阳系的“星舰地球”文明的人类和通过光速飞船逃脱的程心和艾AA逃脱了攻击以外，人类几乎全军覆没。另外，据长老和“歌者”（歌者文明的一名基层宇宙物质清理员，歌者文明即由其的名称命名，因为小说中并没有说明歌者所在的文明的名称）的对话可知二向箔已在其他很多战场被各种文明使用，已经造成三维宇宙的广泛崩解。</p>
+<p>注：歌者的飞船是在银河系猎户座旋臂，掩体纪元67年（以地球为参照系）对太阳系发射的二向箔。而人类观测到的对太阳系发动黑暗森林打击的飞船是在掩体纪元66年（以地球为参照系），位于太阳系奥尔特星云外围，距离太阳一点三光年的位置发射的二向箔。太阳系收到二向箔是在掩体纪元67年。虽然二向箔是以光速飞行，但也不会使时间倒流。所以歌者向太阳系发出二向箔时，已经有另一个二向箔要到达太阳系了。人类观测到的那艘发射二向箔的飞船不是歌者的飞船，毁灭太阳系的二向箔也不是歌者发射的那个。</p>
+<div class="tip socd font5 fas fa-bell"><p>在黑暗森林里，不止一个猎人对地球开了枪。这也正好印证了长老对歌者所说的话：“你再快也有比你快的。”</p><p></p></div>
+</div>
+  </div>
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=http://example.com/2020/11/28/%E4%BA%8C%E5%90%91%E7%AE%94/>http://example.com/2020/11/28/%E4%BA%8C%E5%90%91%E7%AE%94/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2021-08-20T19:05:06+08:00">
+  <a class='notlink' href="/" onclick="return false;" title="Click me!" >
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于: 2021年8月20日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E7%89%A9%E7%90%86%E5%AD%A6/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>物理学</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E7%A7%91%E5%B9%BB%E5%8E%86%E9%99%A9%E8%AE%B0/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>科幻历险记</p></a></div>
+  <span hidden itemprop="keywords">物理学 科幻历险记</span>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://example.com/2020/11/28/%E4%BA%8C%E5%90%91%E7%AE%94/&title=二向箔 - Weike&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="This is a picture without description" >
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://example.com/2020/11/28/%E4%BA%8C%E5%90%91%E7%AE%94/&title=二向箔 - Weike&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="This is a picture without description" >
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://example.com/2020/11/28/%E4%BA%8C%E5%90%91%E7%AE%94/&title=二向箔 - Weike&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="This is a picture without description" >
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+    <!-- Custom Files bottomMeta begin -->
+    
+    <!-- Custom Files bottomMeta end -->
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2020/12/12/%E5%8D%97%E4%BA%AC/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>世界公祭-南京大屠杀</p>
+          <p class='content'>前言写这篇文章只是为了回忆中国人民辛酸的往事，并且悼念南京大屠杀中死去的30万同胞....
+
+七七事变梗概七七事变，又称卢沟桥事变，发生于1937年7月7日
+1937年7月7日夜，卢沟桥的日本驻...</p>
+        </a>
+      
+      
+        <a class='next' href='/2020/11/15/Github%E7%9A%84%E4%BD%BF%E7%94%A8/'>
+          <p class='title'>Github的使用<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>web这里我简单介绍一个网页版的基本使用方法，如果大家使用网页版的话，我建议英语不好的人使用谷歌浏览器，谷歌浏览器的好处就在于可以一键翻译当前网页成中文。
+
+登陆到自己的主页之后，右侧就是自己的...</p>
+        </a>
+      
+    </div>
+  
+  <!-- Custom Files postEnd begin-->
+  
+  <!-- Custom Files postEnd end-->
+</article>
+
+
+  
+
+  
+  <article class="post white-box reveal shadow" id="comments">
+    <span hidden>
+      <meta itemprop="discussionUrl" content="/2020/11/28/%E4%BA%8C%E5%90%91%E7%AE%94/index.html#comments">
+    </span>
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    
+    <div id="layoutHelper-comments"></div>
+
+  </article>
+  
+
+
+
+
+
+</div>
+<aside id='l_side' itemscope itemtype="http://schema.org/WPSideBar">
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile pjax" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BC%9A%E6%9C%89%E5%86%99%E8%BF%99%E4%B8%AA%E6%96%87%E7%AB%A0%E7%9A%84%E5%BF%B5%E5%A4%B4%EF%BC%9F"><span class="toc-text">为什么我会有写这个文章的念头？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%99%8D%E7%BB%B4%E6%89%93%E5%87%BB%EF%BC%9F"><span class="toc-text">什么是降维打击？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%8C%E8%80%85"><span class="toc-text">歌者</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A2%97%E6%A6%82"><span class="toc-text">梗概</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%8C%E8%80%85%E7%9A%84%E5%8F%A4%E8%80%81%E7%AB%A5%E7%91%B6"><span class="toc-text">歌者的古老童瑶</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%84%8F%E4%B9%89%E4%B9%8B%E5%A1%94"><span class="toc-text">意义之塔</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%8A%E6%B5%B7%E5%BC%84%E5%B9%B2%E7%9A%84%E9%B1%BC"><span class="toc-text">把海弄干的鱼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E5%90%91%E7%AE%94"><span class="toc-text">二向箔</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%8F%E8%BF%B0"><span class="toc-text">描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E8%A7%82"><span class="toc-text">外观</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E5%90%91%E7%AE%94%E7%9A%84%E5%8E%9F%E7%90%86"><span class="toc-text">二向箔的原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A0%94%E5%8F%91%E5%8E%86%E5%8F%B2"><span class="toc-text">研发历史</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E8%8C%83%E5%9B%B4%E5%92%8C%E5%BD%B1%E5%93%8D"><span class="toc-text">攻击范围和影响</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%AF%E4%BD%9C%E7%94%A8"><span class="toc-text">副作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BF%9D%E5%AD%98"><span class="toc-text">如何保存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%83%85%E8%8A%82"><span class="toc-text">情节</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+  
+
+
+<!-- 没有 pjax 占位会报错 万恶的 pjax -->
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+
+  <!-- Custom Files side begin -->
+  
+  <!-- Custom Files side end -->
+</aside>
+
+
+
+          <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<pjax>
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="二向箔";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  pdata.commentConfig={};
+  //  see: /layout/_partial/scripts/_ctrl/coverCtrl.ejs
+  
+    // header
+    var l_header=document.getElementById("l_header");
+    
+    l_header.classList.add("show");
+    
+    
+      // cover
+      var cover_wrapper=document.querySelector('#l_cover .cover-wrapper');
+      var scroll_down=document.getElementById('scroll-down');
+      cover_wrapper.id="none";
+      cover_wrapper.style.display="none";
+      scroll_down.style.display="none";
+    
+  
+</script>
+</pjax>
+        </div>
+        
+  
+  <footer class="footer clearfix"  itemscope itemtype="http://schema.org/WPFooter">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper" itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          
+            
+          
+            
+          
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        
+          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 次</span> <span id="lc-uv">访客数为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 人</span></p>
+</div>
+        
+      
+    
+      
+        本站使用
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/dev" target="_blank" class="codename">Volantis</a>
+        作为主题
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="/">Copyright © 2017-2020 by ChenShang</a></p>
+
+        </div>
+      
+    
+    <!-- Custom Files footer begin-->
+    
+    <!-- Custom Files footer end-->
+    <script src="https://cdn.jsdelivr.net/npm/greensock@1.20.2/dist/TweenLite.js"></script>
+    <script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pixi.js@5.3.6/dist/pixi.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display@0.3.1/dist/cubism4.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/gh/journey-ad/blog-img@76ba2b3/live2d/lib/pio.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/gh/journey-ad/blog-img@76ba2b3/live2d/lib/pio.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/journey-ad/blog-img@76ba2b3/live2d/lib/pio_sdk4.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/journey-ad/blog-img@76ba2b3/live2d/lib/load.js"></script>
+      </footer>
+
+
+        <a id="s-top" class="fas fa-arrow-up fa-fw" href="/" onclick="return false;" title="top"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+  /******************** volantis.dom ********************************/
+  // 页面选择器 将dom对象缓存起来 see: /source/js/app.js etc.
+  volantis.dom.bodyAnchor = volantis.dom.$(document.getElementById("safearea")); // 页面主体
+  volantis.dom.topBtn = volantis.dom.$(document.getElementById('s-top')); // 向上
+  volantis.dom.wrapper = volantis.dom.$(document.getElementById('wrapper')); // 整个导航栏
+  volantis.dom.coverAnchor = volantis.dom.$(document.querySelector('#l_cover .cover-wrapper')); // 1个
+  volantis.dom.switcher = volantis.dom.$(document.querySelector('#l_header .switcher .s-search')); // 搜索按钮   移动端 1个
+  volantis.dom.header = volantis.dom.$(document.getElementById('l_header')); // 移动端导航栏
+  volantis.dom.search = volantis.dom.$(document.querySelector('#l_header .m_search')); // 搜索框 桌面端 移动端 1个
+  volantis.dom.mPhoneList = volantis.dom.$(document.querySelectorAll('#l_header .m-phone .list-v')); //  手机端 子菜单 多个
+</script>
+
+<script>
+  
+  volantis.css("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css");
+  
+  
+  
+</script>
+
+<!-- required -->
+
+
+<!-- internal -->
+
+
+  <script>
+  volantis.message = (title, message, option = {}, done = null) => {
+    if (typeof iziToast === "undefined") {
+      volantis.css('/css/message.css?time=1642412719986')
+      volantis.js('/js/thirdparty/message.js?time=1642412719986', () => {
+        tozashMessage(title, message, option, done);
+      });
+    } else {
+      tozashMessage(title, message, option, done);
+    }
+
+    function tozashMessage(title, message, option, done) {
+      const {
+        icon,
+        time,
+        position,
+        transitionIn,
+        transitionOut,
+        messageColor,
+        titleColor,
+        backgroundColor,
+        zindex,
+        displayMode
+      } = option;
+      iziToast.show({
+        layout: '2',
+        icon: 'Fontawesome',
+        closeOnEscape: 'true',
+        displayMode: displayMode || 'replace',
+        transitionIn: transitionIn || 'bounceInLeft',
+        transitionOut: transitionOut || 'fadeOutRight',
+        messageColor: messageColor || 'var(--color-text)',
+        titleColor: titleColor || 'var(--color-text)',
+        backgroundColor: backgroundColor || 'var(--color-card)',
+        zindex: zindex || '2147483647',
+        icon: icon || 'fas fa-info-circle light-blue',
+        timeout: time || '5000',
+        position: position || 'topRight',
+        title: title,
+        message: message,
+        onClosed: () => {
+          if(done) done();
+        },
+      });
+    }
+  };
+
+  volantis.question = (title, message, option = {}, success = null, cancel = null, done = null) => {
+    if (typeof iziToast === "undefined") {
+      volantis.css('/css/message.css?time=1642412719986')
+      volantis.js('/js/thirdparty/message.js?time=1642412719986', () => {
+        tozashQuestion(title, message, option, success, cancel, done);
+      });
+    } else {
+      tozashQuestion(title, message, option, success, cancel, done);
+    }
+
+    function tozashQuestion(title, message, option, success, cancel, done) {
+      const {
+        icon,
+        time,
+        position,
+        transitionIn,
+        transitionOut,
+        messageColor,
+        titleColor,
+        backgroundColor,
+        zindex
+      } = option;
+      iziToast.question({ 
+        id: 'question',
+        icon: 'Fontawesome',
+        close: false,
+        overlay: true,
+        displayMode: 'once',
+        position: 'center',
+        messageColor: messageColor || 'var(--color-text)',
+        titleColor: titleColor || 'var(--color-text)',
+        backgroundColor: backgroundColor || 'var(--color-card)',
+        zindex: zindex || '2147483647',
+        icon: icon || 'fas fa-question-circle light-blue',
+        timeout: time || '20000',
+        title: title,
+        message: message,
+        buttons: [
+          ['<button><b>是</b></button>', (instance, toast) => {
+            instance.hide({ transitionOut: transitionOut || 'fadeOut' }, toast, 'button');
+            if(success) success(instance, toast)
+          }],
+          ['<button><b>否</b></button>', (instance, toast) => {
+            instance.hide({ transitionOut: transitionOut || 'fadeOut' }, toast, 'button');
+            if(cancel) cancel(instance, toast)
+          }]
+        ],
+        onClosed: (instance, toast, closedBy) => {
+          if(done) done(instance, toast, closedBy);
+        }
+      });
+    }
+  }
+
+  volantis.hideMessage = (done = null) => {
+    const toast = document.querySelector('.iziToast');
+    if (!toast) {
+      if(done) done()
+      return;
+    }
+    
+    if (typeof iziToast === "undefined") {
+      volantis.css('/css/message.css?time=1642412719986')
+      volantis.js('/js/thirdparty/message.js?time=1642412719986', () => {
+        hideMessage(done);
+      });
+    } else {
+      hideMessage(done);
+    }
+
+    function hideMessage(done) {
+      iziToast.hide({}, toast);
+      if(done) done();
+    }
+  }
+
+  volantis.messageCopyright = {
+    enable: 'true' === 'true' ? true : false,
+    title: '知识共享许可协议',
+    message: '请遵守 CC BY-NC-SA 4.0 协议。',
+    icon: 'far fa-copyright light-blue'
+  }
+
+  volantis.messageRightMenu = {
+    enable: 'true' === 'true' ? true : false,
+  }
+
+  if(volantis.messageCopyright.enable) {
+    document.body.oncopy = function(){
+      volantis.message(volantis.messageCopyright.title, volantis.messageCopyright.message, {
+        icon: volantis.messageCopyright.icon
+      });
+    }; 
+  }
+</script>
+
+
+
+
+
+<!-- rightmenu要在darkmode之前（ToggleButton） darkmode要在comments之前（volantis.dark.push）-->
+
+
+
+<script>
+  function loadIssuesJS() {
+    
+      const sites_api = document.getElementById('sites-api');
+      if (sites_api != undefined && typeof SitesJS === 'undefined') {
+        volantis.js("/js/plugins/sites.js?time=1642412719986")
+      }
+    
+    
+      const friends_api = document.getElementById('friends-api');
+      if (friends_api != undefined && typeof FriendsJS === 'undefined') {
+        volantis.js("/js/plugins/friends.js?time=1642412719986")
+      }
+    
+    
+      const contributors_api = document.getElementById('contributors-api');
+      if (contributors_api != undefined && typeof ContributorsJS === 'undefined') {
+        volantis.js("/js/plugins/contributors.js?time=1642412719986")
+      }
+    
+  };
+  loadIssuesJS()
+  volantis.pjax.push(()=>{
+    loadIssuesJS();
+  })
+
+</script>
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: ["#"],
+	maxRPS: 6,
+	hoverDelay: 0
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+
+
+
+
+
+
+
+  <script>
+  volantis.layoutHelper("comments",`<div id="artalk_container"><i class="fas fa-cog fa-spin fa-fw fa-2x"></i></div>`);
+  function load_artalk() {
+    if(!document.querySelectorAll("#artalk_container")[0])return;
+    volantis.css("https://cdn.jsdelivr.net/npm/artalk@2.1.3/dist/Artalk.css");
+    volantis.js("https://cdn.jsdelivr.net/npm/artalk@2.1.3/dist/Artalk.js").then(pjax_artalk);
+  }
+
+  function pjax_artalk() {
+    if(!document.querySelectorAll("#artalk_container")[0])return;
+    let path = pdata.commentPath;
+    let placeholder = pdata.commentPlaceholder || "来啊，快活啊 ( ゜- ゜)" || "";
+    if (path.length == 0) {
+      path = '' || decodeURI(window.location.pathname);
+    }
+
+    volantis.artalk = new Artalk(Object.assign({"js":"https://cdn.jsdelivr.net/npm/artalk@2.1.3/dist/Artalk.js","css":"https://cdn.jsdelivr.net/npm/artalk@2.1.3/dist/Artalk.css","server":"http://127.0.0.1:8080/api","path":null,"placeholder":"来啊，快活啊 ( ゜- ゜)","noComment":"快来成为第一个评论的人吧~","pagination":{"readMore":true,"autoLoad":false,"pageSize":10}}, {
+      el: '#artalk_container',
+      pageKey: path,
+      pageTitle: document.title,
+      placeholder: placeholder,
+      site: 'Weike',
+      darkMode: volantis.dark.mode === "dark"
+    }));
+
+    volantis.artalk.on('comments-loaded', () => {
+      if (typeof VolantisFancyBox === "undefined"){
+        const checkFancyBox = setInterval(() => {
+          if(typeof VolantisFancyBox === "undefined") return;
+          clearInterval(checkFancyBox);
+          VolantisFancyBox.groupBind('.atk-content img:not([atk-emoticon])', 'Comments');
+        })
+      } else {
+        VolantisFancyBox.groupBind('.atk-content img:not([atk-emoticon])', 'Comments');
+      }
+    })
+  }
+
+  load_artalk();
+  volantis.pjax.push(()=>{
+    if (typeof Artalk === "undefined") {
+      load_artalk();
+    } else {
+      pjax_artalk();
+    }
+  },'artalk');
+
+  function dark_artalk() {
+    if(!document.querySelectorAll("#artalk_container")[0]) return;
+    volantis.artalk.setDarkMode(volantis.dark.mode === "dark")
+  }
+  volantis.dark.push(dark_artalk);
+</script>
+
+
+
+
+
+
+<script src="/js/app.js?time=1642412719986.js"></script>
+
+
+<!-- optional -->
+
+  <script>
+  const SearchServiceDataPathRoot = ("/" || "/").endsWith("/")
+    ? "/" || "/"
+    : "//" || "/";
+  const SearchServiceDataPath = SearchServiceDataPathRoot + "content.json";
+
+  function loadSearchScript() {
+    // see: layout/_partial/scripts/_ctrl/cdnCtrl.ejs
+    return volantis.js("/js/search/hexo.js?time=1642412719986");
+  }
+
+  function loadSearchService() {
+    loadSearchScript();
+    document.querySelectorAll(".input.u-search-input").forEach((e) => {
+      e.removeEventListener("focus", loadSearchService, false);
+    });
+  }
+
+  // 打开并搜索 字符串 s
+  function OpenSearch(s) {
+    loadSearchScript().then(() => {
+      SearchService.setQueryText(s);
+      SearchService.search();
+    });
+  }
+
+  // 访问含有 ?s=xxx  的链接时打开搜索 // 与搜索引擎 structured data 相关: /scripts/helpers/structured-data/lib/config.js
+  if (window.location.search && /^\?s=/g.test(window.location.search)) {
+    let queryText = decodeURI(window.location.search)
+      .replace(/\ /g, "-")
+      .replace(/^\?s=/g, "");
+    OpenSearch(queryText);
+  }
+
+  // 搜索输入框获取焦点时加载搜索
+  document.querySelectorAll(".input.u-search-input").forEach((e) => {
+    e.addEventListener("focus", loadSearchService, false);
+  });
+</script>
+
+
+
+
+
+
+
+
+  <script>
+
+
+
+  function pjax_highlightjs_copyCode(){
+    if (!(document.querySelector(".highlight .code pre") ||
+      document.querySelector(".article pre code"))) {
+      return;
+    }
+    VolantisApp.copyCode(".highlight .code pre, .article pre code")
+  }
+  volantis.requestAnimationFrame(pjax_highlightjs_copyCode)
+  volantis.pjax.push(pjax_highlightjs_copyCode)
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  <script>
+  function load_swiper() {
+    if (!document.querySelectorAll(".swiper-container")[0]) return;
+    volantis.css("https://unpkg.com/swiper@6/swiper-bundle.min.css");
+    volantis.js("https://unpkg.com/swiper@6/swiper-bundle.min.js").then(() => {
+      pjax_swiper();
+    });
+  }
+
+  load_swiper();
+
+  function pjax_swiper() {
+    volantis.swiper = new Swiper('.swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 8,
+      centeredSlides: true,
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  }
+
+  volantis.pjax.push(() => {
+    if (!document.querySelectorAll(".swiper-container")[0]) return;
+    if (typeof volantis.swiper === "undefined") {
+      load_swiper();
+    } else {
+      pjax_swiper();
+    }
+  });
+</script>
+
+
+<!-- pjax 标签必须存在于所有页面 否则 pjax error -->
+<pjax>
+
+</pjax>
+
+<script>
+  function listennSidebarTOC() {
+    const navItems = document.querySelectorAll(".toc li");
+    if (!navItems.length) return;
+    const sections = [...navItems].map((element) => {
+      const link = element.querySelector(".toc-link");
+      const target = document.getElementById(
+        decodeURI(link.getAttribute("href")).replace("#", "")
+      );
+      // 解除 a 标签 href 的 锚点定位, a 标签 href 的 锚点定位 会随机启用?? 产生错位???
+      link.setAttribute("onclick","return false;")
+      link.setAttribute("toc-action","toc-"+decodeURI(link.getAttribute("href")).replace("#", ""))
+      link.setAttribute("href","/")
+      // 配置 点击 触发新的锚点定位
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        // 这里的 addTop 是通过错位使得 toc 自动展开.
+        volantis.scroll.to(target,{addTop: 5, observer:false})
+        // Anchor id
+        history.pushState(null, document.title, "#" + target.id);
+      });
+      return target;
+    });
+
+    function activateNavByIndex(target) {
+      if (target.classList.contains("active-current")) return;
+
+      document.querySelectorAll(".toc .active").forEach((element) => {
+        element.classList.remove("active", "active-current");
+      });
+      target.classList.add("active", "active-current");
+      let parent = target.parentNode;
+      while (!parent.matches(".toc")) {
+        if (parent.matches("li")) parent.classList.add("active");
+        parent = parent.parentNode;
+      }
+    }
+
+    function findIndex(entries) {
+      let index = 0;
+      let entry = entries[index];
+      if (entry.boundingClientRect.top > 0) {
+        index = sections.indexOf(entry.target);
+        return index === 0 ? 0 : index - 1;
+      }
+      for (; index < entries.length; index++) {
+        if (entries[index].boundingClientRect.top <= 0) {
+          entry = entries[index];
+        } else {
+          return sections.indexOf(entry.target);
+        }
+      }
+      return sections.indexOf(entry.target);
+    }
+
+    function createIntersectionObserver(marginTop) {
+      marginTop = Math.floor(marginTop + 10000);
+      let intersectionObserver = new IntersectionObserver(
+        (entries, observe) => {
+          let scrollHeight = document.documentElement.scrollHeight;
+          if (scrollHeight > marginTop) {
+            observe.disconnect();
+            createIntersectionObserver(scrollHeight);
+            return;
+          }
+          let index = findIndex(entries);
+          activateNavByIndex(navItems[index]);
+        }, {
+          rootMargin: marginTop + "px 0px -100% 0px",
+          threshold: 0,
+        }
+      );
+      sections.forEach((element) => {
+        element && intersectionObserver.observe(element);
+      });
+    }
+
+    createIntersectionObserver(document.documentElement.scrollHeight);
+  }
+
+  document.addEventListener("DOMContentLoaded", ()=>{
+    volantis.requestAnimationFrame(listennSidebarTOC)
+  });
+  document.addEventListener("pjax:success", ()=>{
+    volantis.requestAnimationFrame(listennSidebarTOC)
+  });
+</script>
+
+<script>
+  // https://web.dev/content-visibility/
+  // https://www.caniuse.com/?search=content-visibility
+  // https://infrequently.org/2020/12/content-visibility-scroll-fix/
+  // https://infrequently.org/2020/12/resize-resilient-deferred-rendering/
+
+  // 备注 目前已知的问题:
+  // 动态修改导致的内容高度变化(例如评论框异步渲染的外部盒子高度变化) 无法提前获知, 进而导致的首次滚动条跳动无法去除 (wontfix) 事实上不使用 content-visibility 也会有跳动, 不过是比使用 content-visibility 跳动提前
+  // scrollreveal 插件潜在问题 目前尚不明确
+
+  let eqIsh = (a, b, fuzz = 2) => {
+    return Math.abs(a - b) <= fuzz;
+  };
+
+  let rectNotEQ = (a, b) => {
+    return !eqIsh(a.width, b.width) || !eqIsh(a.height, b.height);
+  };
+
+  // Keep a map of elements and the dimensions of
+  // their place-holders, re-setting the element's
+  // intrinsic size when we get updated measurements
+  // from observers.
+  let spaced = new WeakMap();
+
+  // Only call this when known cheap, post layout
+  let reserveSpace = (el, rect = el.getClientBoundingRect()) => {
+    let old = spaced.get(el);
+    // Set intrinsic size to prevent jumping on un-painting:
+    //    https://drafts.csswg.org/css-sizing-4/#intrinsic-size-override
+    if (!old || rectNotEQ(old, rect)) {
+      spaced.set(el, rect);
+      el.style["contain-intrinsic-size"] = `${rect.width}px ${rect.height}px`;
+    }
+  };
+
+  let iObs = new IntersectionObserver(
+    (entries, o) => {
+      entries.forEach((entry) => {
+        // We don't care if the element is intersecting or
+        // has been laid out as our page structure ensures
+        // they'll get the right width.
+        reserveSpace(entry.target, entry.boundingClientRect);
+      });
+    },
+    { rootMargin: "500px 0px 500px 0px" }
+  );
+
+  let rObs = new ResizeObserver((entries, o) => {
+    entries.forEach((entry) => {
+      reserveSpace(entry.target, entry.contentRect);
+    });
+  });
+
+  let resizeResilientDeferredRendering = (Selector) => {
+    let articles = document.querySelectorAll(Selector);
+
+    if (articles.length) {
+      articles.forEach((el) => {
+        iObs.observe(el);
+        rObs.observe(el);
+      });
+
+      // Workaround for Chrome bug, part 2.
+      //
+      // Re-enable browser management of rendering for the
+      // first article after the first paint. Double-rAF
+      // to ensure we get called after a layout.
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          articles[0].style["content-visibility"] = "auto";
+        });
+      });
+    }
+  };
+
+  let contentVisibilityScrollFix = () => {
+    if (!("content-visibility" in document.documentElement.style)) {
+      return;
+    }
+    resizeResilientDeferredRendering(".post-story");
+    resizeResilientDeferredRendering("article");
+    resizeResilientDeferredRendering(".post-wrapper");
+  };
+  contentVisibilityScrollFix();
+  volantis.pjax.push(contentVisibilityScrollFix);
+</script>
+
+
+
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"Weike","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"ChenShang","image":{"@type":"ImageObject","url":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","sameAs":["https://github.com/volantis-x"],"description":""},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://example.com/","name":"Weike"}},{"@type":"ListItem","position":2,"item":{"@id":"http://example.com/categories/学习日记/","name":"学习日记"}},{"@type":"ListItem","position":2,"item":{"@id":"http://example.com/categories/学习日记/物理学/","name":"物理学"}},{"@type":"ListItem","position":2,"item":{"@id":"http://example.com/categories/学习日记/物理学/科幻历险记/","name":"科幻历险记"}},{"@type":"ListItem","position":3,"item":{"@id":"http://example.com/2020/11/28/二向箔/","name":"二向箔"}}]},{"@context":"http://schema.org","@type":"BlogPosting","headline":"二向箔","description":"","datePublished":"2020-11-28T09:48:12.000Z","dateModified":"2021-08-20T11:05:06.472Z","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2020/11/28/%E4%BA%8C%E5%90%91%E7%AE%94/"},"author":{"@type":"Person","name":"ChenShang","image":{"@type":"ImageObject","url":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/"},"publisher":{"@type":"Organization","name":"Weike","logo":{"@type":"ImageObject","url":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"http://example.com/2020/11/28/%E4%BA%8C%E5%90%91%E7%AE%94/","wordCount":0,"articleSection":"学习日记","keywords":"物理学,科幻历险记","image":{"@type":"ImageObject","url":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+
+
+<!-- more -->
+
+
+
+      
+        <!-- 
+  pjax重载区域接口：
+  1.  <pjax></pjax> 标签 pjax 标签必须存在于所有页面 否则 pjax error
+  2.  script[data-pjax]
+  3.  .pjax-reload script
+  4.  .pjax
+-->
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox]):not([onclick="return false;"]):not([target="_blank"]):not([target="view_window"]):not([href$=".xml"])',
+        selectors: [
+          "head title",
+          
+          "#l_main",
+          "#pjax-header-nav-list",
+          ".pjax",
+          "pjax", // <pjax></pjax> 标签
+          "script[data-pjax], .pjax-reload script" // script标签添加data-pjax 或 script标签外层添加.pjax-reload 的script代码段重载
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
+      volantis.pjax.method.send.start();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      // 使用 volantis.pjax.push 方法传入重载函数 参见layout/_partial/scripts/global.ejs
+      volantis.pjax.method.complete.start();
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
+      volantis.pjax.method.error.start();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+
+      
+    </div>
+  <!-- Custom Files bodyEnd begin-->
+  
+  <!-- Custom Files bodyEnd end-->
+  <!-- hexo injector body_end start -->
+  <script data-pjax src="https://cdn.jsdelivr.net/gh/Zfour/hexo-github-calendar@1.21/hexo_githubcalendar.js"></script>
+  <script data-pjax>
+        function GithubCalendarConfig(){
+            var git_githubapiurl ="https://python-github-calendar-api.vercel.app/api?xixi-cmd";
+            var git_color =['#ebedf0', '#fdcdec', '#fc9bd9', '#fa6ac5', '#f838b2', '#f5089f', '#c4067e', '#92055e', '#540336', '#48022f', '#30021f'];
+            var git_user ="xixi-cmd";
+            var parent_div_git = document.getElementsByClassName('l_main')[0];
+            var git_div_html = '<div class="post post-v3 white-box reveal shadow" style="width:100%;height:auto;padding:10px;transform: none!important;"><div id="github_loading" style="width:10%;height:100%;margin:0 auto;display: block"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 50 50" style="enable-background:new 0 0 50 50" xml:space="preserve"><path fill="#d0d0d0" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z" transform="rotate(275.098 25 25)"><animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"></animateTransform></path></svg></div><div id="github_container"></div></div>';
+            if(parent_div_git && location.pathname =='/'){
+                console.log('已挂载github calendar')
+                // parent_div_git.innerHTML=git_div_html+parent_div_git.innerHTML // 无报错，但不影响使用(支持pjax跳转)
+                parent_div_git.insertAdjacentHTML("afterbegin",git_div_html) // 有报错，但不影响使用(支持pjax跳转)
+            };
+            GithubCalendar(git_githubapiurl,git_color,git_user)
+        }
+        if(document.getElementsByClassName('l_main')[0]){
+            GithubCalendarConfig()
+        }
+    </script>
+    <style>#github_container{min-height:280px}@media screen and (max-width:650px) {#github_container{background-image:;min-height:0px}}</style>
+    <style></style><!-- hexo injector body_end end --></body>
+</html>

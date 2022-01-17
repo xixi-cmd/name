@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Weike</title>
+  <icon>http://example.com/icon.png</icon>
+  
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2022-01-16T07:13:25.014Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>ChenShang</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://example.com/2022/01/16/hello-world/"/>
+    <id>http://example.com/2022/01/16/hello-world/</id>
+    <published>2022-01-16T07:13:25.014Z</published>
+    <updated>2022-01-16T07:13:25.014Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>如何反黑客后门程序</title>
+    <link href="http://example.com/2021/09/10/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
+    <id>http://example.com/2021/09/10/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/</id>
+    <published>2021-09-10T15:54:42.000Z</published>
+    <updated>2021-09-10T15:54:43.974Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="linux" scheme="http://example.com/tags/linux/"/>
+    
+    <category term="网络安全" scheme="http://example.com/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>化学笔记②</title>
+    <link href="http://example.com/2021/09/10/%E5%8C%96%E5%AD%A6%E7%AC%94%E8%AE%B0%20-2/"/>
+    <id>http://example.com/2021/09/10/%E5%8C%96%E5%AD%A6%E7%AC%94%E8%AE%B0%20-2/</id>
+    <published>2021-09-10T15:54:36.000Z</published>
+    <updated>2021-09-10T15:54:39.374Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;蜡烛燃烧的实际探究&quot;&gt;&lt;a href=&quot;#蜡烛燃烧的实际探究&quot; class=&quot;headerlink&quot; title=&quot;蜡烛燃烧的实际探究&quot;&gt;&lt;/a&gt;蜡烛燃烧的实际探究&lt;/h1&gt;&lt;h2 id=&quot;点燃前&quot;&gt;&lt;a href=&quot;#点燃前&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>从Linux内核理解JAVA的NIO</title>
+    <link href="http://example.com/2021/09/10/%E4%BB%8ELinux%E5%86%85%E6%A0%B8%E7%90%86%E8%A7%A3JAVA%E7%9A%84NIO/"/>
+    <id>http://example.com/2021/09/10/%E4%BB%8ELinux%E5%86%85%E6%A0%B8%E7%90%86%E8%A7%A3JAVA%E7%9A%84NIO/</id>
+    <published>2021-09-10T15:52:05.000Z</published>
+    <updated>2021-09-10T16:05:08.855Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;IO 可以简单分为&lt;code&gt;磁盘 IO&lt;/code&gt; 和 &lt;code&gt;网络 IO&lt;/code&gt; ,&lt;code&gt;磁盘 IO&lt;/code&gt;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="JAVA" scheme="http://example.com/tags/JAVA/"/>
+    
+    <category term="JVM" scheme="http://example.com/tags/JVM/"/>
+    
+    <category term="linux" scheme="http://example.com/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>intro to serverless functions</title>
+    <link href="http://example.com/2021/09/10/of/"/>
+    <id>http://example.com/2021/09/10/of/</id>
+    <published>2021-09-10T15:51:57.000Z</published>
+    <updated>2021-09-10T15:51:58.790Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;最近喵了下 &lt;a href=&quot;https://frontendmasters.com/courses/serverless-functions/&quot;&gt;Introduction to Serverless Functions&lt;/a&gt; 视频感觉还不错。下面主要根据视频作者&lt;code&gt;Jason Lengstorf&lt;/code&gt; 的&lt;code&gt;ppt&lt;/code&gt; 简单做下笔记，最底下会列出相关链接。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/jianchengwang/todo-web/raw/master/serverless/frontendmasters-serverless&quot;&gt;示例代码&lt;/a&gt; &lt;a href=&quot;https://demo-frontentedmaster-serverless-functions.netlify.app/&quot;&gt;示例网站&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="serverless" scheme="http://example.com/tags/serverless/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Gradle</title>
+    <link href="http://example.com/2021/09/10/gradle/"/>
+    <id>http://example.com/2021/09/10/gradle/</id>
+    <published>2021-09-10T15:51:38.000Z</published>
+    <updated>2021-09-10T15:51:39.405Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;软件行业的蓬勃发展，新旧交替，版本构建工具从 &lt;strong&gt;ant -&amp;gt; maven -&amp;gt; gradle&lt;/strong&gt; 进行演变，个人不喜欢 maven 的 xml 的配置文件，基于  &lt;strong&gt;Groovy&lt;/strong&gt; 语言作为构建脚本语言，相对于 JAVA 开发人员来说比较容易上手，动态语言也比 xml 配置文件更灵活，构建速度也更加的快速，所以入了 gradle 的坑。当然，目前，很多公司还是使用 maven 作为构建工具，所以建议maven 还是要懂点的。&lt;/p&gt;
+&lt;p&gt;本文仅供自己学习 gradle 的记录笔记，如果你想深入的学习，请戳 &lt;a href=&quot;https://docs.gradle.org/current/userguide/userguide.html&quot;&gt;&lt;strong&gt;官方文档&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;个人觉得，官方文档是最好的学习文档，我简单过了一遍，感觉官方文档的例子都很精炼，总结得很到位，底下很多代码实例也是来自官方文档。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="JAVA" scheme="http://example.com/tags/JAVA/"/>
+    
+    <category term="gradle" scheme="http://example.com/tags/gradle/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>机械键盘ikbc</title>
+    <link href="http://example.com/2021/09/10/eventually-chooses-ikbc-f87/"/>
+    <id>http://example.com/2021/09/10/eventually-chooses-ikbc-f87/</id>
+    <published>2021-09-10T15:51:35.000Z</published>
+    <updated>2021-09-10T15:51:36.238Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;ikbc-f-rgb&lt;/p&gt;
+&lt;p&gt;@YouMeek主推的机械键盘ikbc f 时光机系列（欢迎给广告费）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://img.youmeek.com/2016/ikbc-f-rgb.jpg&quot; class=&quot;lazyload&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>docker</title>
+    <link href="http://example.com/2021/09/10/docker/"/>
+    <id>http://example.com/2021/09/10/docker/</id>
+    <published>2021-09-10T15:51:31.000Z</published>
+    <updated>2021-09-10T15:51:32.582Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;Docker是一个开源的&lt;strong&gt;容器引擎&lt;/strong&gt;，它可以帮助我们更快地交付应用。Docker可将应用程序和基础设施层隔离，并且能将基础设施当作程序一样进行管理。使用Docker，可更快地打包、测试以及部署应用程序，并可&lt;strong&gt;减少从编写到部署运行代码的周期&lt;/strong&gt;。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="linux" scheme="http://example.com/tags/linux/"/>
+    
+    <category term="docker" scheme="http://example.com/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>物种起源（全英文）</title>
+    <link href="http://example.com/2021/09/10/acid/"/>
+    <id>http://example.com/2021/09/10/acid/</id>
+    <published>2021-09-10T15:51:29.000Z</published>
+    <updated>2021-09-10T15:51:30.047Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Primitive-earth&quot;&gt;&lt;a href=&quot;#Primitive-earth&quot; class=&quot;headerlink&quot; title=&quot;Primitive earth&quot;&gt;&lt;/a&gt;Primitive earth&lt;/h1&gt;&lt;p&gt;You would think,</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Biological" scheme="http://example.com/tags/Biological/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>git</title>
+    <link href="http://example.com/2021/09/10/git/"/>
+    <id>http://example.com/2021/09/10/git/</id>
+    <published>2021-09-10T15:51:25.000Z</published>
+    <updated>2021-09-10T15:51:26.952Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;[&lt;strong&gt;Git&lt;/strong&gt;][&lt;a href=&quot;https://en.wikipedia.org/wiki/Git]&quot;&gt;https://en.wikipedia.org/wiki/Git]&lt;/a&gt; 是一个分布式的管理系统，作者 &lt;a href=&quot;https://en.wikipedia.org/wiki/Linus_Torvalds&quot;&gt;Linus Torvalds&lt;/a&gt;  2005 创建它，主要是维护linux内核，现在很多人用它作为大型项目的版本控制软件，来管理源代码，或是一些纯文本的笔记或者文档。本篇文字，很多的文本描述，或者图片资源来自互联网，我只是互联网的搬运工，本文仅作为个人学习的一个记录跟总结。我将在最下方列出部分链接，感兴趣的朋友可以去看看。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="git" scheme="http://example.com/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>F-link</title>
+    <link href="http://example.com/2021/09/10/flink/"/>
+    <id>http://example.com/2021/09/10/flink/</id>
+    <published>2021-09-10T15:51:21.000Z</published>
+    <updated>2021-09-10T15:51:22.567Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;strong&gt;Apache Flink&lt;/strong&gt; 是一个在无界和有界数据流上进行状态计算的框架和分布式处理引擎.Flink 已经可以在所有常见的集群环境中运行,并以 in-memory 的速度和任意的规模进行计算.&lt;/p&gt;
+&lt;p&gt;可以类比 &lt;strong&gt;spring batch&lt;/strong&gt; 或者&lt;strong&gt;spark&lt;/strong&gt;进行学习,基本流程就是&lt;strong&gt;source-&amp;gt;computer/transformation-&amp;gt;sink&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;本文章的大部分文字都来源于互联网,最底下会附上链接.&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="JAVA" scheme="http://example.com/tags/JAVA/"/>
+    
+    <category term="Flink" scheme="http://example.com/tags/Flink/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>YouMeek开展捐赠陪聊服务</title>
+    <link href="http://example.com/2021/09/10/donate/"/>
+    <id>http://example.com/2021/09/10/donate/</id>
+    <published>2021-09-10T15:51:17.000Z</published>
+    <updated>2021-09-10T15:51:18.766Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;@YouMeek开展捐赠陪聊服务（希望对 IntelliJ IDEA 新人有所帮助）&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://img.youmeek.com/2016/i-love-google-and-idea.jpg&quot;&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Python中的flask-todolist</title>
+    <link href="http://example.com/2021/09/10/Python1/"/>
+    <id>http://example.com/2021/09/10/Python1/</id>
+    <published>2021-09-10T15:51:09.000Z</published>
+    <updated>2021-09-10T15:51:10.312Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;code&gt;Flask&lt;/code&gt; 是一个使用 Python 语言编写的 Web 框架，它可以让你高效的编写 Web 程序。我最近用&lt;code&gt;flask+vue&lt;/code&gt;搭建一个简单的&lt;code&gt;todolist&lt;/code&gt; 项目示例来学习，主要是参考&lt;a href=&quot;https://github.com/greyli/flask-tutorial&quot;&gt;flask-tutorial&lt;/a&gt;，感兴趣的可以看看，&lt;a href=&quot;https://github.com/jianchengwang/todo-python/raw/master/flask/todo-list&quot;&gt;示例代码&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="flask" scheme="http://example.com/tags/flask/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python中的Pandas</title>
+    <link href="http://example.com/2021/09/10/Python2/"/>
+    <id>http://example.com/2021/09/10/Python2/</id>
+    <published>2021-09-10T15:50:44.000Z</published>
+    <updated>2021-09-10T15:50:48.838Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt; &lt;a href=&quot;http://pandas.pydata.org/&quot;&gt;&lt;em&gt;pandas&lt;/em&gt;&lt;/a&gt; 是一种列存数据分析 API。它是用于处理和分析输入数据的强大工具，很多机器学习框架都支持将 &lt;em&gt;pandas&lt;/em&gt; 数据结构作为输入。 虽然全方位介绍 &lt;em&gt;pandas&lt;/em&gt; API 会占据很长篇幅，但它的核心概念非常简单，我们会在下文中进行说明。有关更完整的参考，请访问 &lt;a href=&quot;http://pandas.pydata.org/pandas-docs/stable/index.html&quot;&gt;&lt;em&gt;pandas&lt;/em&gt; 文档网站&lt;/a&gt;，其中包含丰富的文档和教程资源。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="data analysis" scheme="http://example.com/tags/data-analysis/"/>
+    
+    <category term="pandas" scheme="http://example.com/tags/pandas/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>我们来聊聊JAVA8</title>
+    <link href="http://example.com/2021/09/10/JAVA8/"/>
+    <id>http://example.com/2021/09/10/JAVA8/</id>
+    <published>2021-09-10T15:50:23.000Z</published>
+    <updated>2021-09-10T15:50:31.576Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;strong&gt;Java8&lt;/strong&gt; 从2014年发行到现在已经有六个年头了，之前公司的项目都还是基于Java7，所以对 &lt;strong&gt;Java8&lt;/strong&gt; 不甚了解。于是乎，花一两个礼拜学习下，做个记录，以下部分文字复制于其他文章，最底下会列出相关链接，感兴趣的可以去了解下。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="JAVA" scheme="http://example.com/tags/JAVA/"/>
+    
+    <category term="JVM" scheme="http://example.com/tags/JVM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>live2d-web</title>
+    <link href="http://example.com/2021/09/10/2/"/>
+    <id>http://example.com/2021/09/10/2/</id>
+    <published>2021-09-10T15:30:15.000Z</published>
+    <updated>2021-09-10T15:30:20.328Z</updated>
+    
+    
+    <summary type="html">&lt;div class=&quot;snote quote&quot;&gt;&lt;p class=&#39;p subtitle&#39;&gt;转载于&lt;/p&gt;
+  隔壁Yun主题的猫九。
+&lt;/div&gt;
+萌萌哒的看板娘，以下资源来源于互联网，最底下会给出相关链接，[github示例](https://github.com/jianchengwang/live2d_models)</summary>
+    
+    
+    
+    
+    <category term="live2d" scheme="http://example.com/tags/live2d/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>化学笔记①</title>
+    <link href="http://example.com/2021/08/27/huaxue-1/"/>
+    <id>http://example.com/2021/08/27/huaxue-1/</id>
+    <published>2021-08-27T03:47:39.000Z</published>
+    <updated>2021-08-27T05:44:59.483Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;四个实验&quot;&gt;&lt;a href=&quot;#四个实验&quot; class=&quot;headerlink&quot; title=&quot;四个实验&quot;&gt;&lt;/a&gt;四个实验&lt;/h1&gt;&lt;h2 id=&quot;实验一&quot;&gt;&lt;a href=&quot;#实验一&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="随笔" scheme="http://example.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    <category term="笔记" scheme="http://example.com/categories/%E9%9A%8F%E7%AC%94/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="化学" scheme="http://example.com/tags/%E5%8C%96%E5%AD%A6/"/>
+    
+    <category term="笔记" scheme="http://example.com/tags/%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python笔记-1</title>
+    <link href="http://example.com/2021/08/16/%E7%AC%94%E8%AE%B0-1/"/>
+    <id>http://example.com/2021/08/16/%E7%AC%94%E8%AE%B0-1/</id>
+    <published>2021-08-16T14:30:17.000Z</published>
+    <updated>2021-08-23T10:31:14.922Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;阿巴阿巴&quot;&gt;&lt;a href=&quot;#阿巴阿巴&quot; class=&quot;headerlink&quot; title=&quot;阿巴阿巴&quot;&gt;&lt;/a&gt;阿巴阿巴&lt;/h1&gt;&lt;p&gt;之前有学过Python的我，现在早就已经忘得一干二净。&lt;/p&gt;
+&lt;h1</summary>
+        
+      
+    
+    
+    
+    <category term="随笔" scheme="http://example.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    <category term="笔记" scheme="http://example.com/categories/%E9%9A%8F%E7%AC%94/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="Python" scheme="http://example.com/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于windows11的0x800f0950语言包安装失败</title>
+    <link href="http://example.com/2021/07/10/windows11/"/>
+    <id>http://example.com/2021/07/10/windows11/</id>
+    <published>2021-07-10T14:28:36.000Z</published>
+    <updated>2021-08-20T11:09:56.892Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近windows11的风头很热，作为爱折腾的人，当然要去搞一搞啦。搞好了以后我发现中文语言的拓展包是无法安装的，于是我找到了3个办法，当然如果想100%成功的话我建议直接跳到第三个，如果你不嫌累，指望1和2可以成功的话，那么你可以试试，万一就成功了呢。[狗头]&lt;/p&gt;
+&lt;</summary>
+        
+      
+    
+    
+    
+    <category term="系统" scheme="http://example.com/categories/%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+    <category term="windows11" scheme="http://example.com/tags/windows11/"/>
+    
+    <category term="bug" scheme="http://example.com/tags/bug/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Vue.JS基础的详讲( 组件 )</title>
+    <link href="http://example.com/2021/04/27/vue-2/"/>
+    <id>http://example.com/2021/04/27/vue-2/</id>
+    <published>2021-04-27T13:08:17.000Z</published>
+    <updated>2022-01-16T01:16:55.387Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;组件&quot;&gt;&lt;a href=&quot;#组件&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Vue.JS" scheme="http://example.com/categories/Vue-JS/"/>
+    
+    
+    <category term="Vue.js" scheme="http://example.com/tags/Vue-js/"/>
+    
+    <category term="Web" scheme="http://example.com/tags/Web/"/>
+    
+  </entry>
+  
+</feed>

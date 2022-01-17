@@ -1,0 +1,74 @@
+/* font-family */
+@font-face {
+  font-family: shouxieti;
+  src: url(https://cdn.jsdelivr.net/gh/tszhong0411/blog/font/LXGWWenKai-Medium.ttf);
+}
+
+p,
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+code,
+pre,
+span,
+div,
+figure.highlight pre .comment,
+#article-container figure.highlight .code pre .line {
+  font-family: shouxieti, sans-serif;
+  font-weight: 1000;
+}
+
+.avatar {
+  margin-right: 8px;
+  padding: 1px;
+  -webkit-transition: 0.4s;
+  -webkit-transition: -webkit-transform 0.4s ease-out;
+  transition: transform 0.4s ease-out;
+  /*变化时间设置为0.4秒(变化动作即为下面的图像旋转360度）*/
+  -moz-transition: -moz-transform 0.4s ease-out;
+}
+
+.avatar:hover {
+  /*设置鼠标悬浮在头像时的CSS样式*/
+  box-shadow: 0 0 10px #fff;
+  rgba(255, 255, 255, .6),
+  inset 0 0 20px rgba(255, 255, 255, 1);
+  -webkit-box-shadow: 0 0 10px #fff;
+  rgba(255, 255, 255, .6),
+  inset 0 0 20px rgba(255, 255, 255, 1);
+  transform: rotateZ(360deg);
+  /*图像旋转360度*/
+  -webkit-transform: rotateZ(360deg);
+  -moz-transform: rotateZ(360deg);
+}
+
+.cover-wrapper .cover-body .m_search .input {
+  background: rgba(0,0,0,0,0.9);
+}
+
+.l_header #wrapper .nav-main .title {
+  background-color: #47b3fe;
+  background: 
+  linear-gradient(45deg, transparent 15px, #47b3fe 0) bottom left;
+  background-repeat: no-repeat;
+}
+
+#pio {
+  width: auto !important;
+  height: 240px !important;
+}
+
+.pio-action .pio-night {
+  display: none !important;
+}
+#l_body {
+   background-image: linear-gradient(to bottom, #4facfe 0%, #00f2fe 100%);
+}
+
+.widget.blogger .content .social-wrapper a.social::before {
+  font-size: 20px;
+}
