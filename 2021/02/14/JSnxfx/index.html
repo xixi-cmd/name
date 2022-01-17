@@ -262,7 +262,7 @@
   <meta content="Weike" name="apple-mobile-web-app-title">
   <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
   <meta content="telephone=no" name="format-detection">
-  <link rel="preload" href="/css/style.css?time=1642412719934" as="style">
+  <link rel="preload" href="/css/style.css?time=1642412776189" as="style">
   <link rel="preload" href="https://cdn.jsdelivr.net/gh/volantis-x/cdn-fonts/VarelaRound/VarelaRound-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 <link rel="preload" href="https://cdn.jsdelivr.net/gh/volantis-x/cdn-fonts/UbuntuMono/UbuntuMono-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
@@ -1789,8 +1789,8 @@ ul.list-v >li>a:hover {
 }
 
   </style>
-  <link rel="stylesheet" href="/css/style.css?time=1642412719934" media="print" onload="this.media='all';this.onload=null">
-  <noscript><link rel="stylesheet" href="/css/style.css?time=1642412719934"></noscript>
+  <link rel="stylesheet" href="/css/style.css?time=1642412776189" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css?time=1642412776189"></noscript>
   
 <script>
 if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
@@ -2533,13 +2533,6 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
               <p>标签</p>
             </a>
           
-            <a href="/balabala/"
-              
-              
-              active-action="action-balabala">
-              <p>留言板</p>
-            </a>
-          
             <a target="_blank" rel="noopener" href="https://github.com/volantis-x/hexo-theme-volantis/"
               
               
@@ -2647,7 +2640,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <p>基于requests\hashlib模块实现md5加密方式的有道翻译接口破解<br>第一步打开控制台查询任意一个单词进行抓包,获取请求方式和查看所需的查询参数(salt,ts,sign)<br>第二部,根据所需查询参数在控制台中搜索参数所在的 js文件的位置,打断点调试,查看各个参数在js文件中对应函数的实现过程；经调试发现ts是一个时间戳，salt是0-9和时间戳拼接成的一个字符串，sign是所查询单词和salt以及两个固定字符串的一个拼接.<br>第三步，用python实现Form Data中查询参数的动态生成.<br>第四步，发请求，传入第三步实现的参数，获取相应结果</p>
 <p>源码如下 ： 看不懂的同学，b站搜 一只会唱歌的程序狗，里面有一期讲述了整个分析过程，每一步打印非常详细。</p>
 <p>import requests<br>import time<br>import random<br>from hashlib import md5</p>
-<p>class YdSpider():<br>def init(self):<br>self.url = “<a target="_blank" rel="noopener" href="http://fanyi.youdao.com/translate?smartresult=dict&amp;smartresult=rule%E2%80%9D">http://fanyi.youdao.com/translate?smartresult=dict&amp;smartresult=rule”</a><br>self.headers = {<br>“Accept”: “application/json, text/javascript, /; q=0.01”,<br>“Accept-Encoding”: “gzip, deflate”,<br>“Accept-Language”: “zh-CN,zh;q=0.9,en;q=0.8”,<br>“Cache-Control”: “no-cache”,<br>“Connection”: “keep-alive”,<br>“Content-Length”: “239”,<br>“Content-Type”: “application/x-www-form-urlencoded; charset=UTF-8”,<br>“Cookie”: “OUTFOX_SEARCH_USER_ID=<a href="mailto:&#49;&#51;&#50;&#x34;&#50;&#57;&#x36;&#56;&#49;&#57;&#x40;&#49;&#x32;&#51;&#x2e;&#x31;&#54;&#48;&#x2e;&#50;&#x32;&#x35;&#x2e;&#x31;&#x38;&#x31;">&#49;&#51;&#50;&#x34;&#50;&#57;&#x36;&#56;&#49;&#57;&#x40;&#49;&#x32;&#51;&#x2e;&#x31;&#54;&#48;&#x2e;&#50;&#x32;&#x35;&#x2e;&#x31;&#x38;&#x31;</a>; OUTFOX_SEARCH_USER_ID_NCOO=146889837.6278171; _ga=GA1.2.828762415.1557487039; P_INFO=18203678715|1557487117|1|youdaonote|00&amp;99|null&amp;null&amp;null#hen&amp;410100#10#0|&amp;0||18203678715; _ntes_nnid=66628fdd0933b91b9f3b3f4e77e6ace3,1557741619397; UM_distinctid=16c2c70da34500-02a227a759081c-15231708-1fa400-16c2c70da35658; JSESSIONID=aaaXbo2PVTqwr6xtLBiYw; ___rl__test__cookies=1565689925539”,<br>“Host”: “fanyi.youdao.com”,<br>“Origin”: “<a target="_blank" rel="noopener" href="http://fanyi.youdao.com”/">http://fanyi.youdao.com”</a>,<br>“Pragma”: “no-cache”,<br>“Referer”: “<a target="_blank" rel="noopener" href="http://fanyi.youdao.com/%E2%80%9D">http://fanyi.youdao.com/”</a>,<br>“User-Agent”: “Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36”,<br>“X-Requested-With”: “XMLHttpRequest”<br>}</p>
+<p>class YdSpider():<br>def init(self):<br>self.url = “<a target="_blank" rel="noopener" href="http://fanyi.youdao.com/translate?smartresult=dict&amp;smartresult=rule%E2%80%9D">http://fanyi.youdao.com/translate?smartresult=dict&amp;smartresult=rule”</a><br>self.headers = {<br>“Accept”: “application/json, text/javascript, /; q=0.01”,<br>“Accept-Encoding”: “gzip, deflate”,<br>“Accept-Language”: “zh-CN,zh;q=0.9,en;q=0.8”,<br>“Cache-Control”: “no-cache”,<br>“Connection”: “keep-alive”,<br>“Content-Length”: “239”,<br>“Content-Type”: “application/x-www-form-urlencoded; charset=UTF-8”,<br>“Cookie”: “OUTFOX_SEARCH_USER_ID=<a href="mailto:&#49;&#51;&#50;&#x34;&#x32;&#57;&#x36;&#56;&#49;&#57;&#64;&#x31;&#x32;&#51;&#x2e;&#x31;&#x36;&#48;&#x2e;&#50;&#x32;&#53;&#46;&#49;&#56;&#x31;">&#49;&#51;&#50;&#x34;&#x32;&#57;&#x36;&#56;&#49;&#57;&#64;&#x31;&#x32;&#51;&#x2e;&#x31;&#x36;&#48;&#x2e;&#50;&#x32;&#53;&#46;&#49;&#56;&#x31;</a>; OUTFOX_SEARCH_USER_ID_NCOO=146889837.6278171; _ga=GA1.2.828762415.1557487039; P_INFO=18203678715|1557487117|1|youdaonote|00&amp;99|null&amp;null&amp;null#hen&amp;410100#10#0|&amp;0||18203678715; _ntes_nnid=66628fdd0933b91b9f3b3f4e77e6ace3,1557741619397; UM_distinctid=16c2c70da34500-02a227a759081c-15231708-1fa400-16c2c70da35658; JSESSIONID=aaaXbo2PVTqwr6xtLBiYw; ___rl__test__cookies=1565689925539”,<br>“Host”: “fanyi.youdao.com”,<br>“Origin”: “<a target="_blank" rel="noopener" href="http://fanyi.youdao.com”/">http://fanyi.youdao.com”</a>,<br>“Pragma”: “no-cache”,<br>“Referer”: “<a target="_blank" rel="noopener" href="http://fanyi.youdao.com/%E2%80%9D">http://fanyi.youdao.com/”</a>,<br>“User-Agent”: “Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36”,<br>“X-Requested-With”: “XMLHttpRequest”<br>}</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">def get_salt_sign_ts(self,word):</span><br><span class="line">    # ts</span><br><span class="line">    ts = str(int(time.time() * <span class="number">1000</span>))</span><br><span class="line">    # salt</span><br><span class="line">    salt = ts + str(random.randint(<span class="number">0</span>, <span class="number">9</span>))</span><br><span class="line">    # sign</span><br><span class="line">    string = <span class="string">&quot;fanyideskweb&quot;</span> + word + salt + <span class="string">&quot;n%A-rKaT5fb[Gy?;N5@Tj&quot;</span></span><br><span class="line">    s = md5()</span><br><span class="line">    s.update(string.encode())</span><br><span class="line">    sign = s.hexdigest()</span><br><span class="line">    <span class="keyword">return</span> salt, sign, ts</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def attack_yd(self,word):</span><br><span class="line">    #<span class="number">1.</span>先拿到salt,sign,ts</span><br><span class="line">    salt, sign, ts = self.get_salt_sign_ts(word)</span><br><span class="line">    #<span class="number">2.</span>定义form表单数据为字典:data=&#123;&#125;</span><br><span class="line">    data = &#123;</span><br><span class="line">        <span class="string">&#x27;i&#x27;</span>: word,</span><br><span class="line">        <span class="string">&#x27;from&#x27;</span>: <span class="string">&#x27;AUTO&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;to&#x27;</span>: <span class="string">&#x27;AUTO&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;smartresult&#x27;</span>: <span class="string">&#x27;dict&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;client&#x27;</span>: <span class="string">&#x27;fanyideskweb&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;salt&#x27;</span>: salt,</span><br><span class="line">        <span class="string">&#x27;sign&#x27;</span>: sign,</span><br><span class="line">        <span class="string">&#x27;ts&#x27;</span>: ts,</span><br><span class="line">        <span class="string">&#x27;bv&#x27;</span>: <span class="string">&#x27;cf156b581152bd0b259b90070b1120e6&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;doctype&#x27;</span>: <span class="string">&#x27;json&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;version&#x27;</span>: <span class="string">&#x27;2.1&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;keyfrom&#x27;</span>: <span class="string">&#x27;fanyi.web&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;action&#x27;</span>: <span class="string">&#x27;FY_BY_REALTlME&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    #<span class="number">3.</span>直接发送请求:request.post(url,data=data,headers=headers)</span><br><span class="line">    res = requests.post(url=self.url,data=data,headers=self.headers)</span><br><span class="line">    html = res.json()</span><br><span class="line">    result = html[<span class="string">&quot;translateResult&quot;</span>][<span class="number">0</span>][<span class="number">0</span>][<span class="string">&quot;tgt&quot;</span>]</span><br><span class="line">    #<span class="number">4.</span>获取相应内容</span><br><span class="line">    print(result)</span><br><span class="line"></span><br><span class="line">def main(self):</span><br><span class="line">    #输入翻译单词</span><br><span class="line">    word = input(<span class="string">&quot;input your word:&quot;</span>)</span><br><span class="line">    self.attack_yd(word)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
@@ -2993,8 +2986,8 @@ shell脚本？在说什么是shell脚本之前，先说说什么是shell。shell
   <script>
   volantis.message = (title, message, option = {}, done = null) => {
     if (typeof iziToast === "undefined") {
-      volantis.css('/css/message.css?time=1642412719934')
-      volantis.js('/js/thirdparty/message.js?time=1642412719934', () => {
+      volantis.css('/css/message.css?time=1642412776189')
+      volantis.js('/js/thirdparty/message.js?time=1642412776189', () => {
         tozashMessage(title, message, option, done);
       });
     } else {
@@ -3039,8 +3032,8 @@ shell脚本？在说什么是shell脚本之前，先说说什么是shell。shell
 
   volantis.question = (title, message, option = {}, success = null, cancel = null, done = null) => {
     if (typeof iziToast === "undefined") {
-      volantis.css('/css/message.css?time=1642412719934')
-      volantis.js('/js/thirdparty/message.js?time=1642412719934', () => {
+      volantis.css('/css/message.css?time=1642412776189')
+      volantis.js('/js/thirdparty/message.js?time=1642412776189', () => {
         tozashQuestion(title, message, option, success, cancel, done);
       });
     } else {
@@ -3099,8 +3092,8 @@ shell脚本？在说什么是shell脚本之前，先说说什么是shell。shell
     }
     
     if (typeof iziToast === "undefined") {
-      volantis.css('/css/message.css?time=1642412719934')
-      volantis.js('/js/thirdparty/message.js?time=1642412719934', () => {
+      volantis.css('/css/message.css?time=1642412776189')
+      volantis.js('/js/thirdparty/message.js?time=1642412776189', () => {
         hideMessage(done);
       });
     } else {
@@ -3146,19 +3139,19 @@ shell脚本？在说什么是shell脚本之前，先说说什么是shell。shell
     
       const sites_api = document.getElementById('sites-api');
       if (sites_api != undefined && typeof SitesJS === 'undefined') {
-        volantis.js("/js/plugins/sites.js?time=1642412719934")
+        volantis.js("/js/plugins/sites.js?time=1642412776189")
       }
     
     
       const friends_api = document.getElementById('friends-api');
       if (friends_api != undefined && typeof FriendsJS === 'undefined') {
-        volantis.js("/js/plugins/friends.js?time=1642412719934")
+        volantis.js("/js/plugins/friends.js?time=1642412776189")
       }
     
     
       const contributors_api = document.getElementById('contributors-api');
       if (contributors_api != undefined && typeof ContributorsJS === 'undefined') {
-        volantis.js("/js/plugins/contributors.js?time=1642412719934")
+        volantis.js("/js/plugins/contributors.js?time=1642412776189")
       }
     
   };
@@ -3280,7 +3273,7 @@ shell脚本？在说什么是shell脚本之前，先说说什么是shell。shell
 
 
 
-<script src="/js/app.js?time=1642412719934.js"></script>
+<script src="/js/app.js?time=1642412776189.js"></script>
 
 
 <!-- optional -->
@@ -3293,7 +3286,7 @@ shell脚本？在说什么是shell脚本之前，先说说什么是shell。shell
 
   function loadSearchScript() {
     // see: layout/_partial/scripts/_ctrl/cdnCtrl.ejs
-    return volantis.js("/js/search/hexo.js?time=1642412719934");
+    return volantis.js("/js/search/hexo.js?time=1642412776189");
   }
 
   function loadSearchService() {
