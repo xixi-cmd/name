@@ -72,3 +72,7 @@ figure.highlight pre .comment,
 .widget.blogger .content .social-wrapper a.social::before {
   font-size: 20px;
 }
+
+.tk-input[data-v-619b4c52] .el-textarea__inner {
+  height: 200px !important;
+}

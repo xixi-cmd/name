@@ -262,7 +262,7 @@
   <meta content="Weike" name="apple-mobile-web-app-title">
   <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
   <meta content="telephone=no" name="format-detection">
-  <link rel="preload" href="/css/style.css?time=1642412776660" as="style">
+  <link rel="preload" href="/css/style.css?time=1642475641210" as="style">
   <link rel="preload" href="https://cdn.jsdelivr.net/gh/volantis-x/cdn-fonts/VarelaRound/VarelaRound-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 <link rel="preload" href="https://cdn.jsdelivr.net/gh/volantis-x/cdn-fonts/UbuntuMono/UbuntuMono-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
@@ -1783,8 +1783,8 @@ ul.list-v >li>a:hover {
 }
 
   </style>
-  <link rel="stylesheet" href="/css/style.css?time=1642412776660" media="print" onload="this.media='all';this.onload=null">
-  <noscript><link rel="stylesheet" href="/css/style.css?time=1642412776660"></noscript>
+  <link rel="stylesheet" href="/css/style.css?time=1642475641210" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css?time=1642475641210"></noscript>
   
 <script>
 if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
@@ -3164,8 +3164,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <script>
   volantis.message = (title, message, option = {}, done = null) => {
     if (typeof iziToast === "undefined") {
-      volantis.css('/css/message.css?time=1642412776660')
-      volantis.js('/js/thirdparty/message.js?time=1642412776660', () => {
+      volantis.css('/css/message.css?time=1642475641210')
+      volantis.js('/js/thirdparty/message.js?time=1642475641210', () => {
         tozashMessage(title, message, option, done);
       });
     } else {
@@ -3210,8 +3210,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   volantis.question = (title, message, option = {}, success = null, cancel = null, done = null) => {
     if (typeof iziToast === "undefined") {
-      volantis.css('/css/message.css?time=1642412776660')
-      volantis.js('/js/thirdparty/message.js?time=1642412776660', () => {
+      volantis.css('/css/message.css?time=1642475641210')
+      volantis.js('/js/thirdparty/message.js?time=1642475641210', () => {
         tozashQuestion(title, message, option, success, cancel, done);
       });
     } else {
@@ -3270,8 +3270,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     }
     
     if (typeof iziToast === "undefined") {
-      volantis.css('/css/message.css?time=1642412776660')
-      volantis.js('/js/thirdparty/message.js?time=1642412776660', () => {
+      volantis.css('/css/message.css?time=1642475641210')
+      volantis.js('/js/thirdparty/message.js?time=1642475641210', () => {
         hideMessage(done);
       });
     } else {
@@ -3317,19 +3317,19 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
       const sites_api = document.getElementById('sites-api');
       if (sites_api != undefined && typeof SitesJS === 'undefined') {
-        volantis.js("/js/plugins/sites.js?time=1642412776660")
+        volantis.js("/js/plugins/sites.js?time=1642475641210")
       }
     
     
       const friends_api = document.getElementById('friends-api');
       if (friends_api != undefined && typeof FriendsJS === 'undefined') {
-        volantis.js("/js/plugins/friends.js?time=1642412776660")
+        volantis.js("/js/plugins/friends.js?time=1642475641210")
       }
     
     
       const contributors_api = document.getElementById('contributors-api');
       if (contributors_api != undefined && typeof ContributorsJS === 'undefined') {
-        volantis.js("/js/plugins/contributors.js?time=1642412776660")
+        volantis.js("/js/plugins/contributors.js?time=1642475641210")
       }
     
   };
@@ -3393,57 +3393,44 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
   <script>
-  volantis.layoutHelper("comments",`<div id="artalk_container"><i class="fas fa-cog fa-spin fa-fw fa-2x"></i></div>`);
-  function load_artalk() {
-    if(!document.querySelectorAll("#artalk_container")[0])return;
-    volantis.css("https://cdn.jsdelivr.net/npm/artalk@2.1.3/dist/Artalk.css");
-    volantis.js("https://cdn.jsdelivr.net/npm/artalk@2.1.3/dist/Artalk.js").then(pjax_artalk);
+  volantis.layoutHelper("comments",`<div id="twikoo_container"><i class="fas fa-cog fa-spin fa-fw fa-2x"></i></div>`)
+  function load_twikoo() {
+    if(!document.querySelectorAll("#twikoo_container")[0])return;
+    volantis.js("https://cdn.jsdelivr.net/npm/twikoo@latest", pjax_twikoo)
   }
-
-  function pjax_artalk() {
-    if(!document.querySelectorAll("#artalk_container")[0])return;
+  function pjax_twikoo() {
+    if(!document.querySelectorAll("#twikoo_container")[0])return;
     let path = pdata.commentPath;
-    let placeholder = pdata.commentPlaceholder || "来啊，快活啊 ( ゜- ゜)" || "";
+    let placeholder = pdata.commentPlaceholder || "" || "";
     if (path.length == 0) {
-      path = '' || decodeURI(window.location.pathname);
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname); //神奇的pathname
     }
-
-    volantis.artalk = new Artalk(Object.assign({"js":"https://cdn.jsdelivr.net/npm/artalk@2.1.3/dist/Artalk.js","css":"https://cdn.jsdelivr.net/npm/artalk@2.1.3/dist/Artalk.css","server":"http://127.0.0.1:8080/api","path":null,"placeholder":"来啊，快活啊 ( ゜- ゜)","noComment":"快来成为第一个评论的人吧~","pagination":{"readMore":true,"autoLoad":false,"pageSize":10}}, {
-      el: '#artalk_container',
-      pageKey: path,
-      pageTitle: document.title,
+    twikoo.init(Object.assign(Object.assign({"js":"https://cdn.jsdelivr.net/npm/twikoo@latest","path":null,"envId":"https://twikoo-xiqn-zagmzyu8u-xixi-cmd.vercel.app","placeholder":null}, {
+      el: '#twikoo_container',
+      path: path,
       placeholder: placeholder,
-      site: 'Weike',
-      darkMode: volantis.dark.mode === "dark"
-    }));
-
-    volantis.artalk.on('comments-loaded', () => {
-      if (typeof VolantisFancyBox === "undefined"){
-        const checkFancyBox = setInterval(() => {
-          if(typeof VolantisFancyBox === "undefined") return;
-          clearInterval(checkFancyBox);
-          VolantisFancyBox.groupBind('.atk-content img:not([atk-emoticon])', 'Comments');
-        })
-      } else {
-        VolantisFancyBox.groupBind('.atk-content img:not([atk-emoticon])', 'Comments');
+      onCommentLoaded: function() {
+        if(typeof VolantisFancyBox === "undefined") {
+          const checkFancyBox = setInterval(() => {
+            if(typeof VolantisFancyBox === "undefined") return;
+            clearInterval(checkFancyBox);
+            VolantisFancyBox.groupBind('.tk-content img:not([class*="emo"])', 'Comments');
+          })
+        } else {
+          VolantisFancyBox.groupBind('.tk-content img:not([class*="emo"])', 'Comments');
+        }
       }
-    })
+    }),pdata.commentConfig))
   }
-
-  load_artalk();
+  load_twikoo();
   volantis.pjax.push(()=>{
-    if (typeof Artalk === "undefined") {
-      load_artalk();
+    if (typeof twikoo == "undefined") {
+      load_twikoo();
     } else {
-      pjax_artalk();
+      pjax_twikoo();
     }
-  },'artalk');
-
-  function dark_artalk() {
-    if(!document.querySelectorAll("#artalk_container")[0]) return;
-    volantis.artalk.setDarkMode(volantis.dark.mode === "dark")
-  }
-  volantis.dark.push(dark_artalk);
+  },'twikoo');
 </script>
 
 
@@ -3451,7 +3438,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
 
-<script src="/js/app.js?time=1642412776660.js"></script>
+<script src="/js/app.js?time=1642475641210.js"></script>
 
 
 <!-- optional -->
@@ -3464,7 +3451,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   function loadSearchScript() {
     // see: layout/_partial/scripts/_ctrl/cdnCtrl.ejs
-    return volantis.js("/js/search/hexo.js?time=1642412776660");
+    return volantis.js("/js/search/hexo.js?time=1642475641210");
   }
 
   function loadSearchService() {

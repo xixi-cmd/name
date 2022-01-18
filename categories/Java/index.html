@@ -262,7 +262,7 @@
   <meta content="Weike" name="apple-mobile-web-app-title">
   <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
   <meta content="telephone=no" name="format-detection">
-  <link rel="preload" href="/css/style.css?time=1642412776573" as="style">
+  <link rel="preload" href="/css/style.css?time=1642475641144" as="style">
   <link rel="preload" href="https://cdn.jsdelivr.net/gh/volantis-x/cdn-fonts/VarelaRound/VarelaRound-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 <link rel="preload" href="https://cdn.jsdelivr.net/gh/volantis-x/cdn-fonts/UbuntuMono/UbuntuMono-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
@@ -1783,8 +1783,8 @@ ul.list-v >li>a:hover {
 }
 
   </style>
-  <link rel="stylesheet" href="/css/style.css?time=1642412776573" media="print" onload="this.media='all';this.onload=null">
-  <noscript><link rel="stylesheet" href="/css/style.css?time=1642412776573"></noscript>
+  <link rel="stylesheet" href="/css/style.css?time=1642475641144" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css?time=1642475641144"></noscript>
   
 <script>
 if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
@@ -3160,8 +3160,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <script>
   volantis.message = (title, message, option = {}, done = null) => {
     if (typeof iziToast === "undefined") {
-      volantis.css('/css/message.css?time=1642412776573')
-      volantis.js('/js/thirdparty/message.js?time=1642412776573', () => {
+      volantis.css('/css/message.css?time=1642475641144')
+      volantis.js('/js/thirdparty/message.js?time=1642475641144', () => {
         tozashMessage(title, message, option, done);
       });
     } else {
@@ -3206,8 +3206,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   volantis.question = (title, message, option = {}, success = null, cancel = null, done = null) => {
     if (typeof iziToast === "undefined") {
-      volantis.css('/css/message.css?time=1642412776573')
-      volantis.js('/js/thirdparty/message.js?time=1642412776573', () => {
+      volantis.css('/css/message.css?time=1642475641144')
+      volantis.js('/js/thirdparty/message.js?time=1642475641144', () => {
         tozashQuestion(title, message, option, success, cancel, done);
       });
     } else {
@@ -3266,8 +3266,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     }
     
     if (typeof iziToast === "undefined") {
-      volantis.css('/css/message.css?time=1642412776573')
-      volantis.js('/js/thirdparty/message.js?time=1642412776573', () => {
+      volantis.css('/css/message.css?time=1642475641144')
+      volantis.js('/js/thirdparty/message.js?time=1642475641144', () => {
         hideMessage(done);
       });
     } else {
@@ -3313,19 +3313,19 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
       const sites_api = document.getElementById('sites-api');
       if (sites_api != undefined && typeof SitesJS === 'undefined') {
-        volantis.js("/js/plugins/sites.js?time=1642412776573")
+        volantis.js("/js/plugins/sites.js?time=1642475641144")
       }
     
     
       const friends_api = document.getElementById('friends-api');
       if (friends_api != undefined && typeof FriendsJS === 'undefined') {
-        volantis.js("/js/plugins/friends.js?time=1642412776573")
+        volantis.js("/js/plugins/friends.js?time=1642475641144")
       }
     
     
       const contributors_api = document.getElementById('contributors-api');
       if (contributors_api != undefined && typeof ContributorsJS === 'undefined') {
-        volantis.js("/js/plugins/contributors.js?time=1642412776573")
+        volantis.js("/js/plugins/contributors.js?time=1642475641144")
       }
     
   };
@@ -3389,57 +3389,44 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
   <script>
-  volantis.layoutHelper("comments",`<div id="artalk_container"><i class="fas fa-cog fa-spin fa-fw fa-2x"></i></div>`);
-  function load_artalk() {
-    if(!document.querySelectorAll("#artalk_container")[0])return;
-    volantis.css("https://cdn.jsdelivr.net/npm/artalk@2.1.3/dist/Artalk.css");
-    volantis.js("https://cdn.jsdelivr.net/npm/artalk@2.1.3/dist/Artalk.js").then(pjax_artalk);
+  volantis.layoutHelper("comments",`<div id="twikoo_container"><i class="fas fa-cog fa-spin fa-fw fa-2x"></i></div>`)
+  function load_twikoo() {
+    if(!document.querySelectorAll("#twikoo_container")[0])return;
+    volantis.js("https://cdn.jsdelivr.net/npm/twikoo@latest", pjax_twikoo)
   }
-
-  function pjax_artalk() {
-    if(!document.querySelectorAll("#artalk_container")[0])return;
+  function pjax_twikoo() {
+    if(!document.querySelectorAll("#twikoo_container")[0])return;
     let path = pdata.commentPath;
-    let placeholder = pdata.commentPlaceholder || "来啊，快活啊 ( ゜- ゜)" || "";
+    let placeholder = pdata.commentPlaceholder || "" || "";
     if (path.length == 0) {
-      path = '' || decodeURI(window.location.pathname);
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname); //神奇的pathname
     }
-
-    volantis.artalk = new Artalk(Object.assign({"js":"https://cdn.jsdelivr.net/npm/artalk@2.1.3/dist/Artalk.js","css":"https://cdn.jsdelivr.net/npm/artalk@2.1.3/dist/Artalk.css","server":"http://127.0.0.1:8080/api","path":null,"placeholder":"来啊，快活啊 ( ゜- ゜)","noComment":"快来成为第一个评论的人吧~","pagination":{"readMore":true,"autoLoad":false,"pageSize":10}}, {
-      el: '#artalk_container',
-      pageKey: path,
-      pageTitle: document.title,
+    twikoo.init(Object.assign(Object.assign({"js":"https://cdn.jsdelivr.net/npm/twikoo@latest","path":null,"envId":"https://twikoo-xiqn-zagmzyu8u-xixi-cmd.vercel.app","placeholder":null}, {
+      el: '#twikoo_container',
+      path: path,
       placeholder: placeholder,
-      site: 'Weike',
-      darkMode: volantis.dark.mode === "dark"
-    }));
-
-    volantis.artalk.on('comments-loaded', () => {
-      if (typeof VolantisFancyBox === "undefined"){
-        const checkFancyBox = setInterval(() => {
-          if(typeof VolantisFancyBox === "undefined") return;
-          clearInterval(checkFancyBox);
-          VolantisFancyBox.groupBind('.atk-content img:not([atk-emoticon])', 'Comments');
-        })
-      } else {
-        VolantisFancyBox.groupBind('.atk-content img:not([atk-emoticon])', 'Comments');
+      onCommentLoaded: function() {
+        if(typeof VolantisFancyBox === "undefined") {
+          const checkFancyBox = setInterval(() => {
+            if(typeof VolantisFancyBox === "undefined") return;
+            clearInterval(checkFancyBox);
+            VolantisFancyBox.groupBind('.tk-content img:not([class*="emo"])', 'Comments');
+          })
+        } else {
+          VolantisFancyBox.groupBind('.tk-content img:not([class*="emo"])', 'Comments');
+        }
       }
-    })
+    }),pdata.commentConfig))
   }
-
-  load_artalk();
+  load_twikoo();
   volantis.pjax.push(()=>{
-    if (typeof Artalk === "undefined") {
-      load_artalk();
+    if (typeof twikoo == "undefined") {
+      load_twikoo();
     } else {
-      pjax_artalk();
+      pjax_twikoo();
     }
-  },'artalk');
-
-  function dark_artalk() {
-    if(!document.querySelectorAll("#artalk_container")[0]) return;
-    volantis.artalk.setDarkMode(volantis.dark.mode === "dark")
-  }
-  volantis.dark.push(dark_artalk);
+  },'twikoo');
 </script>
 
 
@@ -3447,7 +3434,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
 
-<script src="/js/app.js?time=1642412776573.js"></script>
+<script src="/js/app.js?time=1642475641144.js"></script>
 
 
 <!-- optional -->
@@ -3460,7 +3447,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   function loadSearchScript() {
     // see: layout/_partial/scripts/_ctrl/cdnCtrl.ejs
-    return volantis.js("/js/search/hexo.js?time=1642412776573");
+    return volantis.js("/js/search/hexo.js?time=1642475641144");
   }
 
   function loadSearchService() {
@@ -3829,6 +3816,25 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <script data-pjax>
         function GithubCalendarConfig(){
             var git_githubapiurl ="https://python-github-calendar-api.vercel.app/api?xixi-cmd";
+            var git_color =['#ebedf0', '#fdcdec', '#fc9bd9', '#fa6ac5', '#f838b2', '#f5089f', '#c4067e', '#92055e', '#540336', '#48022f', '#30021f'];
+            var git_user ="xixi-cmd";
+            var parent_div_git = document.getElementsByClassName('l_main')[0];
+            var git_div_html = '<div class="post post-v3 white-box reveal shadow" style="width:100%;height:auto;padding:10px;transform: none!important;"><div id="github_loading" style="width:10%;height:100%;margin:0 auto;display: block"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 50 50" style="enable-background:new 0 0 50 50" xml:space="preserve"><path fill="#d0d0d0" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z" transform="rotate(275.098 25 25)"><animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"></animateTransform></path></svg></div><div id="github_container"></div></div>';
+            if(parent_div_git && location.pathname =='/'){
+                console.log('已挂载github calendar')
+                // parent_div_git.innerHTML=git_div_html+parent_div_git.innerHTML // 无报错，但不影响使用(支持pjax跳转)
+                parent_div_git.insertAdjacentHTML("afterbegin",git_div_html) // 有报错，但不影响使用(支持pjax跳转)
+            };
+            GithubCalendar(git_githubapiurl,git_color,git_user)
+        }
+        if(document.getElementsByClassName('l_main')[0]){
+            GithubCalendarConfig()
+        }
+    </script>
+    <style>#github_container{min-height:280px}@media screen and (max-width:650px) {#github_container{background-image:;min-height:0px}}</style>
+    <style></style><!-- hexo injector body_end end --></body>
+</html>
+el.app/api?xixi-cmd";
             var git_color =['#ebedf0', '#fdcdec', '#fc9bd9', '#fa6ac5', '#f838b2', '#f5089f', '#c4067e', '#92055e', '#540336', '#48022f', '#30021f'];
             var git_user ="xixi-cmd";
             var parent_div_git = document.getElementsByClassName('l_main')[0];
